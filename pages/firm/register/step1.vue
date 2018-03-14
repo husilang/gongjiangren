@@ -1,33 +1,33 @@
 <template>
-	<div class="regBox">
+  <div class="regBox">
     <steps :active="current" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form1" v-if="current == 0">
-			<el-form-item prop="loginName">
+    <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form1" v-if="current == 0">
+      <el-form-item prop="loginName">
         <el-input placeholder="输入企业账户名" v-model="form.loginName">
           <template slot="prepend">
             <i class="icon icon1"></i>
           </template>
         </el-input>
-			</el-form-item>
-			<el-form-item prop="password">
+      </el-form-item>
+      <el-form-item prop="password">
         <el-input placeholder="输入企业登录密码" v-model="form.password" type="password">
           <template slot="prepend">
             <i class="icon icon2"></i>
           </template>
         </el-input>
-			</el-form-item>
-			<el-form-item prop="rePassword">
+      </el-form-item>
+      <el-form-item prop="rePassword">
         <el-input placeholder="再次确认管理员密码" v-model="form.rePassword" type="password">
           <template slot="prepend">
             <i class="icon icon3"></i>
           </template>
         </el-input>
-			</el-form-item>
-			<el-form-item class="btn-mt">
-				<el-button type="primary" @click="submitRegist1" :loading="reg1" class="block-btn">下一步</el-button>
-			</el-form-item>
+      </el-form-item>
+      <el-form-item class="btn-mt">
+        <el-button type="primary" @click="submitRegist1" :loading="reg1" class="block-btn">下一步</el-button>
+      </el-form-item>
       <p class="text-center goLogin"><i class="icon icon4"></i>已有账户，去&nbsp;<span @click="goPath('/firm/login')">登录</span>&nbsp;!</p>
-		</el-form>
+    </el-form>
     <el-form :model="form2" ref="form" :rules="rules2" label-position="left" label-width="0px" class="form form2" v-if="current == 1">
       <el-form-item prop="loginName">
         <el-input placeholder="输入企业名称" v-model="form2.loginName">
@@ -106,7 +106,7 @@
         <el-button type="default" class="block-btn">抢先体验，跳过</el-button>
       </el-form-item>
     </el-form>
-	</div>
+  </div>
 </template>
 <style>
   .el-input-group__append, .el-input-group__prepend {
@@ -115,19 +115,19 @@
   }
 </style>
 <style>
-	.regBox {
+  .regBox {
     width: 1180px;
     padding-bottom: 120px;
     margin: 0 auto;
     background: #fff;
     box-shadow: 1px 1px 1px #dee2e9;
     border-radius: 6px;
-	}
-	.regBox .form {
+  }
+  .regBox .form {
     width: 524px;
     margin: 0 auto;
-		margin-top: 38px;
-	}
+    margin-top: 38px;
+  }
   .block-btn{
     width: 100%;
   }
@@ -219,60 +219,60 @@
   }
 </style>
 <script type="text/ecmascript-6">
-  import Steps from '~/components/steps/step.vue';
-	export default {
-	  layout: 'register',
+  import Steps from '../../../components/steps/step.vue';
+  export default {
+    layout: 'register',
     components: {
-	    Steps
+      Steps
     },
-		data() {
-			return {
-			  stepsArr: ["账号信息","企业信息","企业实名认证","密码提示问题","项目管理","企业服务订购"],
-				current: 0,
-				reg1: false,
-				form: {
-					captcha: 8888
-				},
-				rules: {
-					loginName: [
-						{required: true, message: '请输入用户名', trigger: 'blur'}
-					],
-					password: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					],
-					rePassword: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					]
-				},
+    data() {
+      return {
+        stepsArr: ["账号信息","企业信息","企业实名认证","密码提示问题","项目管理","企业服务订购"],
+        current: 0,
+        reg1: false,
+        form: {
+          captcha: 8888
+        },
+        rules: {
+          loginName: [
+            {required: true, message: '请输入用户名', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'}
+          ],
+          rePassword: [
+            {required: true, message: '请输入密码', trigger: 'blur'}
+          ]
+        },
         form2: {},
         rules2: {}
-			}
-		},
-		created() {
-			this.current = Number(this.$route.params.step);
-		},
-		methods: {
-	    goPath(path){
-	      this.$router.push(`${path}`);
+      }
+    },
+    created() {
+      this.current = Number(this.$route.params.step);
+    },
+    methods: {
+      goPath(path){
+        this.$router.push(`${path}`);
       },
-			submitRegist1() {
-				this.reg1 = true;
-				this.$refs.form.validate((valid) => {
-					try {
-						if (valid) {
-							this.$fetch.post('/companyUser/register', this.form).then(res => {
-								console.log(res);
-							});
-						}
-					} catch (e) {
-						this.$Message.error(e.message);
-					} finally {
-						this.reg1 = false;
-					}
+      submitRegist1() {
+        this.reg1 = true;
+        this.$refs.form.validate((valid) => {
+          try {
+            if (valid) {
+              this.$fetch.post('/companyUser/register', this.form).then(res => {
+                console.log(res);
+              });
+            }
+          } catch (e) {
+            this.$Message.error(e.message);
+          } finally {
+            this.reg1 = false;
+          }
 
-				});
+        });
 
-			}
-		}
-	}
+      }
+    }
+  }
 </script>
