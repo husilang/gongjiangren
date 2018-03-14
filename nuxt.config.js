@@ -40,7 +40,7 @@ module.exports = {
       secret: 'gjr',
       resave: false,
       saveUninitialized: false,
-      cookie: {maxAge: 60000}
+      cookie: {maxAge: 2*24*60*60*1000}
     }),
     '~/api'
   ]

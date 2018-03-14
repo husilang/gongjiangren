@@ -1,7 +1,5 @@
-export default function ({store, error}) {
+export default function ({store, redirect,error}) {
   if (!store.state.firmUser) {
-    error({
-      statusCode: 403
-    })
+    return redirect('/firm/login');
   }
 }

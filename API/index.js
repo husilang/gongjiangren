@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
     req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
     return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
   }
-  res.status(405).json({ message: '405 Bad credentials' })
+  res.status(401).json({ message: '401 Bad credentials' })
 })
 
 // Add POST - /api/logout

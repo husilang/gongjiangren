@@ -22,6 +22,7 @@
 </template>
 <script type="text/ecmascript-6">
   export default {
+    middleware: 'firmloginauth',
     data() {
       return {
         logging: false,
