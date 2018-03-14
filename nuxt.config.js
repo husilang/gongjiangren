@@ -1,3 +1,5 @@
+const bodyParser = require('body-parser')
+const session = require('express-session')
 module.exports = {
   /*
   ** Headers of the page
@@ -13,26 +15,33 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  css: ['element-ui/lib/theme-chalk/index.css', './static/common.css'],
   /*
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  plugins: [
+    {src: '~/plugins/element-ui', ssr: true},
+    '~/plugins/fetch'
+  ],
   /*
   ** Build configuration
   */
   build: {
+
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
-  }
+    vendor: ['axios', 'element-ui']
+  },
+  serverMiddleware: [
+    bodyParser.json(),
+    session({
+      secret: 'gjr',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {maxAge: 60000}
+    }),
+    '~/api'
+  ]
 }
