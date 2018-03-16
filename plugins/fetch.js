@@ -6,7 +6,7 @@ import qs from 'qs';
 axios.defaults.timeout = 90000;
 axios.defaults.withCredentials = true;
 
-const fetch = {
+export const fetch = {
 	get: (url, data = {}) => {
 		return new Promise((resolve, reject) => {
 			axios.get(consts.API_URL+url, {params: data}).then(response => {

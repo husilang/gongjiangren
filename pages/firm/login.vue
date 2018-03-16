@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login" :loading="logging">登录</el-button>
-          <el-button type="primary" @click="goPath('/firm/register/0')">注册</el-button>
+          <el-button type="primary" @click="goPath('/firm/register/step1')">注册</el-button>
         </el-form-item>
       </el-form>
     </el-Card>
