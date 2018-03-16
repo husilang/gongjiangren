@@ -1,94 +1,81 @@
 <template>
 	<div class="regBox">
-		<steps :active="2" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="130px" class="form form2">
-			<el-form-item prop="uscc" label="企业统一信用代码">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
+		<steps :active="4" :stepsArr="stepsArr"></steps>
+		<el-form :model="form" ref="form" label-position="left" label-width="80px" class="form form2" :inline="true">
+			<el-form-item prop="uscc" label="项目名称">
+				<el-input placeholder="输入内容" v-model="form.uscc">
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="uscc" label="企业营业执照">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
-			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
-			</el-form-item>
-			<el-form-item prop="uscc" label="管理员身份证号">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
-			</el-form-item>
-			<el-form-item class="btn-mt" label-width="0">
-				<el-row :gutter="16">
-					<el-col :span="12">
-						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
-					</el-col>
-					<el-col :span="12">
-						<el-button class="block-btn" :loading="btnLoading" type="primary">下一步</el-button>
-					</el-col>
-				</el-row>
-			</el-form-item>
-			<el-form-item label-width="0">
-				<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+			<el-form-item>
+				<el-button type="primary">搜索</el-button>
 			</el-form-item>
 		</el-form>
+		<div class="table-content">
+			<el-table
+					:data="tableData"
+					border
+					style="width: 100%">
+				<el-table-column
+						prop="date"
+						label="项目名称"
+						align="center">
+				</el-table-column>
+				<el-table-column
+						prop="name"
+						label="项目类型"
+						align="center">
+				</el-table-column>
+				<el-table-column
+						prop="address"
+						align="center"
+						label="项目管理账号">
+				</el-table-column>
+				<el-table-column
+						prop="address"
+						align="center"
+						label="管理员密码">
+				</el-table-column>
+				<el-table-column
+						prop="address"
+						align="center"
+						label="联系方式">
+				</el-table-column>
+				<el-table-column
+						prop="address"
+						align="center"
+						label="操作">
+				</el-table-column>
+			</el-table>
+		</div>
+
+		<div class="btn-mt" style="width: 524px;margin: 0 auto;margin-bottom: 10px;">
+			<el-row :gutter="16">
+				<el-col :span="12">
+					<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
+				</el-col>
+				<el-col :span="12">
+					<el-button class="block-btn" :loading="btnLoading" type="primary">下一步</el-button>
+				</el-col>
+			</el-row>
+		</div>
+		<div style="width: 524px; margin: 0 auto;">
+			<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+		</div>
 	</div>
 </template>
 <style>
-	.avatar-uploader .el-upload {
-		border: 1px dashed #d9d9d9;
-		border-radius: 6px;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
-	.avatar-uploader .el-upload:hover {
-		border-color: #409EFF;
-	}
-	.avatar-uploader-icon {
-		font-size: 28px;
-		color: #8c939d;
-		width: 178px;
-		height: 178px;
-		line-height: 178px;
-		text-align: center;
-	}
-	.avatar {
-		width: 178px;
-		height: 178px;
-		display: block;
-	}
 	.el-input-group__append, .el-input-group__prepend {
 		padding: 0 12px;
 		background-color: #fff;
 	}
 </style>
 <style>
+	.table-content {
+		width: 724px;
+		margin: 0 auto;
+		margin-bottom: 40px;
+		margin-top: 30px;
+	}
 	.regBox {
 		width: 1180px;
 		padding-bottom: 120px;
@@ -219,7 +206,7 @@
 					]
 				},
 
-				imageUrl: ''
+				tableData: []
 			}
 		},
 		methods: {

@@ -155,7 +155,7 @@
         </el-input>
       </el-form-item>
       <el-form-item class="btn-mt">
-        <el-button type="primary" @click="submitRegist1" :loading="reg1" class="block-btn">下一步</el-button>
+        <el-button type="primary" @click="submitRegist1" :loading="btnLoading" class="block-btn">下一步</el-button>
       </el-form-item>
       <p class="text-center goLogin"><i class="icon icon4"></i>已有账户，去&nbsp;<span
               @click="goPath('/firm/login')">登录</span>&nbsp;!</p>
@@ -173,9 +173,8 @@
     },
     data() {
       return {
-        reg1: false,
+        btnLoading: false,
         form: {
-          captcha: 8888
         },
         rules: {
           loginName: [
@@ -187,25 +186,22 @@
           rePassword: [
             {required: true, message: '请输入密码', trigger: 'blur'}
           ]
-        },
-        form2: {},
-        rules2: {}
+        }
       }
     },
     methods: {
       submitRegist1() {
-        this.reg1 = true;
+        this.btnLoading = true;
         this.$refs.form.validate((valid) => {
           try {
             if (valid) {
               this.$fetch.post('/companyUser/register', this.form).then(res => {
-                console.log(res);
                 if (res.code == 0) {
                   this.$store.dispatch('firmLogin', res.data).then(() => {
                     this.$router.push('/firm/register/step2');
                   });
                 } else {
-                  this.reg1 = false;
+                  this.btnLoading = false;
                   this.$Message.error(res.msg);
                 }
               });
@@ -213,7 +209,7 @@
           } catch (e) {
             this.$Message.error(e.message);
           } finally {
-            this.reg1 = false;
+            this.btnLoading = false;
           }
 
         });

@@ -1,88 +1,82 @@
 <template>
 	<div class="regBox">
-		<steps :active="2" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="130px" class="form form2">
-			<el-form-item prop="uscc" label="企业统一信用代码">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
+		<steps :active="4" :stepsArr="stepsArr"></steps>
+		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form2">
+			<el-form-item prop="loginName">
+				<el-input placeholder="输入项目名称" v-model="form.name">
+					<template slot="prepend">
+						<i class="icon icon5"></i>
+					</template>
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="uscc" label="企业营业执照">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
+			<el-form-item prop="nature">
+				<el-select placeholder="选择项目类型" v-model="form.nature" type="password" style="display: block;width: 100%;">
+					<el-option v-for="item in companyNatures"
+					           :key="item.value"
+					           :label="item.label"
+					           :value="item.value">
+					</el-option>
+				</el-select>
 			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
-			</el-form-item>
-			<el-form-item prop="uscc" label="管理员身份证号">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
+			<el-form-item prop="areaId">
+				<el-input placeholder="项目管理员账号" v-model="form.areaId" type="password">
+					<template slot="prepend">
+						<i class="icon icon8"></i>
+					</template>
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
-				<el-upload
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-				</el-upload>
+			<el-form-item prop="address">
+				<el-input placeholder="项目管理员密码，建议填写固定电话" v-model="form.address" type="password">
+					<template slot="prepend">
+						<i class="icon icon9"></i>
+					</template>
+				</el-input>
 			</el-form-item>
-			<el-form-item class="btn-mt" label-width="0">
+			<el-form-item prop="contact">
+				<el-input placeholder="管理员手机号码，供找回密码和信息推送" v-model="form.contact" type="password">
+					<template slot="prepend">
+						<i class="icon icon10"></i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item prop="adminEmail">
+				<el-input placeholder="电子邮箱(供找回密码和信息)" v-model="form.adminEmail" type="password">
+					<template slot="prepend">
+						<i class="icon icon11"></i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item prop="adminName">
+				<el-input placeholder="管理员姓名(建议填写固定电话号码)" v-model="form.adminName" type="password">
+					<template slot="prepend">
+						<i class="icon icon12"></i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item prop="tel">
+				<el-input placeholder="手机号码(供找回密码和信息推送用途)" v-model="form.tel" type="password">
+					<template slot="prepend">
+						<i class="icon icon13"></i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item class="btn-mt">
 				<el-row :gutter="16">
 					<el-col :span="12">
 						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
 					</el-col>
 					<el-col :span="12">
-						<el-button class="block-btn" :loading="btnLoading" type="primary">下一步</el-button>
+						<el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
 					</el-col>
 				</el-row>
 			</el-form-item>
-			<el-form-item label-width="0">
-				<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+			<el-form-item>
+				<el-button type="default" class="block-btn" @click.native="goPath('/firm/center')">抢先体验，跳过</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
 </template>
 <style>
-	.avatar-uploader .el-upload {
-		border: 1px dashed #d9d9d9;
-		border-radius: 6px;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
-	.avatar-uploader .el-upload:hover {
-		border-color: #409EFF;
-	}
-	.avatar-uploader-icon {
-		font-size: 28px;
-		color: #8c939d;
-		width: 178px;
-		height: 178px;
-		line-height: 178px;
-		text-align: center;
-	}
-	.avatar {
-		width: 178px;
-		height: 178px;
-		display: block;
-	}
 	.el-input-group__append, .el-input-group__prepend {
 		padding: 0 12px;
 		background-color: #fff;
@@ -195,7 +189,16 @@
 <script type="text/ecmascript-6">
 	import Steps from '~/components/steps/step.vue';
 	import stepMixins from './step.mixin.js';
+	import {getGlobalDict} from '~/API/dict'
 	export default {
+		async asyncData({params, error}) {
+			let {data: natures} = await getGlobalDict('company_nature');
+			let {data: scales} = await getGlobalDict('company_scale');
+			return {
+				companyNatures: natures,
+				companyScales: scales
+			}
+		},
 		middleware: 'firmauth',
 		mixins: [stepMixins],
 		layout: 'register',
@@ -204,22 +207,16 @@
 		},
 		data() {
 			return {
+				companyNatures: [],
+				companyScales: [],
 				btnLoading: false,
 				form: {
 				},
 				rules: {
-					loginName: [
-						{required: true, message: '请输入用户名', trigger: 'blur'}
-					],
-					password: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					],
-					rePassword: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
+					name: [
+						{required: true, message: '请输入企业名称', trigger: 'blur'}
 					]
-				},
-
-				imageUrl: ''
+				}
 			}
 		},
 		methods: {
@@ -228,8 +225,8 @@
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.post('/companyUser/register', this.form).then(res => {
-								console.log(res);
+							this.$fetch.post('/companyUser/addInfo', this.form).then(res => {
+								this.$router.push('/firm/register/step3');
 							});
 						}
 					} catch (e) {
@@ -238,23 +235,6 @@
 						this.btnLoading = false;
 					}
 				});
-
-			},
-
-			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw);
-			},
-			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg';
-				const isLt2M = file.size / 1024 / 1024 < 2;
-
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
-				}
-				if (!isLt2M) {
-					this.$message.error('上传头像图片大小不能超过 2MB!');
-				}
-				return isJPG && isLt2M;
 			}
 		}
 	}

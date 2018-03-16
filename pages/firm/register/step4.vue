@@ -1,84 +1,31 @@
 <template>
 	<div class="regBox">
-		<steps :active="1" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form2">
-			<el-form-item prop="loginName">
-				<el-input placeholder="输入企业名称" v-model="form.name">
-					<template slot="prepend">
-						<i class="icon icon5"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="nature">
-				<!--<el-select placeholder="选择企业性质" v-model="form2.password" type="password" style="display: block;width: 100%;">
-					<template slot="prepend">
-						<i class="icon icon6"></i>
-					</template>
-				</el-select>-->
-				<el-select placeholder="选择企业性质" v-model="form.nature" type="password" style="display: block;width: 100%;">
-					<el-option v-for="item in companyNatures"
-					           :key="item.value"
-					           :label="item.label"
-					           :value="item.value">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="scale">
-				<!--<el-input placeholder="选择企业规模" v-model="form2.rePassword" type="password">
-					<template slot="prepend">
-						<i class="icon icon7"></i>
-					</template>
-				</el-input>-->
-				<el-select placeholder="选择企业规模" v-model="form.scale" type="password" style="display: block;width: 100%;">
-					<el-option v-for="item in companyScales"
-					           :key="item.value"
-					           :label="item.label"
-					           :value="item.value">
-					</el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="areaId">
-				<el-input placeholder="选择企业所在(省/市/县)地址" v-model="form.areaId" type="password">
-					<template slot="prepend">
-						<i class="icon icon8"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="address">
-				<el-input placeholder="输入详细地址" v-model="form.address" type="password">
-					<template slot="prepend">
-						<i class="icon icon9"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="contact">
-				<el-input placeholder="输入号码" v-model="form.contact" type="password">
-					<template slot="prepend">
-						<i class="icon icon10"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="adminEmail">
-				<el-input placeholder="电子邮箱(供找回密码和信息)" v-model="form.adminEmail" type="password">
-					<template slot="prepend">
-						<i class="icon icon11"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="adminName">
-				<el-input placeholder="管理员姓名(建议填写固定电话号码)" v-model="form.adminName" type="password">
-					<template slot="prepend">
-						<i class="icon icon12"></i>
-					</template>
-				</el-input>
-			</el-form-item>
-			<el-form-item prop="tel">
-				<el-input placeholder="手机号码(供找回密码和信息推送用途)" v-model="form.tel" type="password">
-					<template slot="prepend">
-						<i class="icon icon13"></i>
-					</template>
-				</el-input>
-			</el-form-item>
+		<steps :active="3" :stepsArr="stepsArr"></steps>
+		<el-form :model="form" ref="form" :rules="rules" label-position="top" label-width="0px" class="form form2">
+			<el-row :gutter="10">
+				<el-col :span="12">
+					<el-form-item label="问题1">
+						<el-select style="display: block;width: 100%;" size="small"></el-select>
+					</el-form-item>
+					<el-form-item label="问题2">
+						<el-select style="display: block;width: 100%;" size="small"></el-select>
+					</el-form-item>
+					<el-form-item label="问题3">
+						<el-select style="display: block;width: 100%;" size="small"></el-select>
+					</el-form-item>
+				</el-col>
+				<el-col :span="12">
+					<el-form-item label="答案1">
+						<el-input size="small"></el-input>
+					</el-form-item>
+					<el-form-item label="答案2">
+						<el-input size="small"></el-input>
+					</el-form-item>
+					<el-form-item label="答案3">
+						<el-input size="small"></el-input>
+					</el-form-item>
+				</el-col>
+			</el-row>
 			<el-form-item class="btn-mt">
 				<el-row :gutter="16">
 					<el-col :span="12">
@@ -96,6 +43,10 @@
 	</div>
 </template>
 <style>
+	.el-form--label-top .el-form-item__label{
+		line-height: 22px;
+		padding-bottom: 4px;
+	}
 	.el-input-group__append, .el-input-group__prepend {
 		padding: 0 12px;
 		background-color: #fff;
@@ -111,7 +62,7 @@
 		border-radius: 6px;
 	}
 	.regBox .form {
-		width: 524px;
+		width: 724px;
 		margin: 0 auto;
 		margin-top: 38px;
 	}
