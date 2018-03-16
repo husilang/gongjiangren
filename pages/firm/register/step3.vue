@@ -198,7 +198,7 @@
 	export default {
 		middleware: 'firmauth',
 		mixins: [stepMixins],
-		layout: 'register',
+		layout: 'firmregister',
 		components: {
 			Steps
 		},

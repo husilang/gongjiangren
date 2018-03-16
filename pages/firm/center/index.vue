@@ -1,9 +1,16 @@
 <template>
-  <div>企业中心</div>
+  <div>
+    <firm-info></firm-info>
+  </div>
 </template>
 <script>
+  import firmInfo from '~/components/firmInfo/firmInfo'
   export default  {
-    middleware: 'firmauth'
+    middleware: 'firmauth',
+    layout: 'firmcenter',
+    components: {
+      firmInfo
+    }
   }
 </script>
 

@@ -166,7 +166,7 @@
   import stepMixins from './step.mixin.js';
   import Steps from '~/components/steps/step.vue';
   export default {
-    layout: 'register',
+    layout: 'firmregister',
     mixins: [stepMixins],
     components: {
       Steps
