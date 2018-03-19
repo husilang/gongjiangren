@@ -61,7 +61,7 @@
   <div class="register-layout">
     <div class="header">
       <div class="logo fl">
-        <p @click="goPath('/')"></p>
+        <router-link tag="p" to="/"></router-link>
       </div>
       <div class="info fr">
         <ul>

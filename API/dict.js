@@ -7,3 +7,7 @@ export async function getDictArea(type, parentId) {
 	const data = await fetch.get('/dic/area', {type, parentId});
 	return data;
 }
+export async function getServices() {
+	const data = await fetch.get('/dic/servicePackageList');
+	return data;
+}

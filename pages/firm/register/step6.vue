@@ -1,56 +1,32 @@
 <template>
 	<div class="regBox">
-		<steps :active="4" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" label-position="left" label-width="80px" class="form form2" :inline="true">
-			<el-form-item prop="uscc" label="项目名称">
-				<el-input placeholder="输入内容" v-model="form.uscc">
-				</el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary">搜索</el-button>
-			</el-form-item>
-			<el-form-item>
-				<router-link class="el-button el-button--primary" to="/firm/register/item">
-					<span>新增项目</span>
-				</router-link>
-			</el-form-item>
-		</el-form>
+		<steps :active="5" :stepsArr="stepsArr"></steps>
+		<div class="text-center" style="margin-top: 48px;">
+			支付状态：<span>未付费</span>
+		</div>
 		<div class="table-content">
-			<el-table
-					:data="tableData"
-					border
-					style="width: 100%">
-				<el-table-column
-						prop="date"
-						label="项目名称"
-						align="center">
-				</el-table-column>
-				<el-table-column
-						prop="name"
-						label="项目类型"
-						align="center">
-				</el-table-column>
-				<el-table-column
-						prop="address"
-						align="center"
-						label="项目管理账号">
-				</el-table-column>
-				<el-table-column
-						prop="address"
-						align="center"
-						label="管理员密码">
-				</el-table-column>
-				<el-table-column
-						prop="address"
-						align="center"
-						label="联系方式">
-				</el-table-column>
-				<el-table-column
-						prop="address"
-						align="center"
-						label="操作">
-				</el-table-column>
-			</el-table>
+			<table>
+				<thead>
+				<tr>
+					<th><div>服务</div></th>
+					<th v-for="item in tableData"><div>{{item.name}}</div></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><div>账号数量</div></td>
+					<td v-for="item in tableData"><div>{{item.numOfAccounts}}</div></td>
+				</tr>
+				<tr>
+					<td><div>年费（元）</div></td>
+					<td v-for="item in tableData"><div>{{item.annualFee}}</div></td>
+				</tr>
+				<tr>
+					<td><div>操作</div></td>
+					<td v-for="item in tableData"><div></div></td>
+				</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="btn-mt" style="width: 524px;margin: 0 auto;margin-bottom: 10px;">
 			<el-row :gutter="16">
@@ -65,7 +41,7 @@
 			</el-row>
 		</div>
 		<div style="width: 524px; margin: 0 auto;">
-			<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+			<el-button type="default" class="block-btn">我要订购</el-button>
 		</div>
 	</div>
 </template>
@@ -188,6 +164,7 @@
 <script type="text/ecmascript-6">
 	import Steps from '~/components/steps/step.vue';
 	import stepMixins from './step.mixin.js';
+	import {getServices} from '~/API/dict'
 	export default {
 		middleware: 'firmauth',
 		mixins: [stepMixins],
@@ -195,23 +172,15 @@
 		components: {
 			Steps
 		},
+		async asyncData({params, error}) {
+			let {data:tableData} = await getServices();
+			return {
+				tableData: tableData
+			}
+		},
 		data() {
 			return {
 				btnLoading: false,
-				form: {
-				},
-				rules: {
-					loginName: [
-						{required: true, message: '请输入用户名', trigger: 'blur'}
-					],
-					password: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					],
-					rePassword: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					]
-				},
-
 				tableData: []
 			}
 		},
