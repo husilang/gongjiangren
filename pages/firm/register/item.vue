@@ -230,7 +230,7 @@
 							});
 						}
 					} catch (e) {
-						this.$Message.error(e.message);
+						this.$message.error(e.message);
 					} finally {
 						this.btnLoading = false;
 					}

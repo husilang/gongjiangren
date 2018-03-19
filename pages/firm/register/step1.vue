@@ -175,6 +175,7 @@
       return {
         btnLoading: false,
         form: {
+          captcha: '8888'
         },
         rules: {
           loginName: [
@@ -202,12 +203,12 @@
                   });
                 } else {
                   this.btnLoading = false;
-                  this.$Message.error(res.msg);
+                  this.$message.error(res.msg);
                 }
               });
             }
           } catch (e) {
-            this.$Message.error(e.message);
+            this.$message.error(e.message);
           } finally {
             this.btnLoading = false;
           }

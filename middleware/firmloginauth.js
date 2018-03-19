@@ -1,5 +1,6 @@
 export default function ({store,redirect, error}) {
-  if (store.state.firmUser) {
+  console.log(store.getters.firmUser);
+  if (store.getters.firmUser) {
     return redirect('/firm/center');
   }
 }
