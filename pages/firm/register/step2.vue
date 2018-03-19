@@ -215,7 +215,6 @@
 	import areaSelect from '~/components/areaSelect/areaSelect.vue';
 	import stepMixins from './step.mixin.js';
 	import {getGlobalDict} from '~/API/dict';
-	import {mapGetters} from 'vuex';
 	export default {
 		async asyncData({params, error}) {
 			let {data: natures} = await getGlobalDict('company_nature');
@@ -232,7 +231,6 @@
 			Steps,
 			areaSelect
 		},
-		computed: mapGetters(['firmUser']),
 		data() {
 			return {
 				companyNatures: [],
@@ -277,7 +275,7 @@
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.postFirm('/companyUser/addInfo', this.form, this.firmUser.token).then(res => {
+							this.$fetch.postFirm('/companyUser/addInfo', this.form).then(res => {
 								if (res.code == "0") {
 									this.$router.push('/firm/register/step3');
 								} else {

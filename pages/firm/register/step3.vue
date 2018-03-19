@@ -200,7 +200,6 @@
 	import Steps from '~/components/steps/step.vue';
 	import stepMixins from './step.mixin.js';
 	import consts from '~/utils/consts';
-	import {mapGetters} from 'vuex';
 	export default {
 		middleware: 'firmauth',
 		mixins: [stepMixins],
@@ -211,8 +210,7 @@
 		computed: {
 			uploadUrl() {
 				return consts.API_URL+'/common/file/upload'
-			},
-			...mapGetters(['firmUser'])
+			}
 		},
 		data() {
 			return {
@@ -243,7 +241,7 @@
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.postFirm('/companyUser/addRealNameAuth', this.form, this.firmUser.token).then(res => {
+							this.$fetch.postFirm('/companyUser/addRealNameAuth', this.form).then(res => {
 								if (res.code == "0") {
 									this.$router.push('/firm/register/step4');
 								} else {

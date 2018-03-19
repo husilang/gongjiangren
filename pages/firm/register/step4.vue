@@ -5,13 +5,22 @@
 			<el-row :gutter="10">
 				<el-col :span="12">
 					<el-form-item label="问题1">
-						<el-select style="display: block;width: 100%;" size="small"></el-select>
+						<el-select style="display: block;width: 100%;" size="small" v-model="question">
+							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
+							</el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="问题2">
-						<el-select style="display: block;width: 100%;" size="small"></el-select>
+						<el-select style="display: block;width: 100%;" size="small" v-model="question">
+							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
+							</el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="问题3">
-						<el-select style="display: block;width: 100%;" size="small"></el-select>
+						<el-select style="display: block;width: 100%;" size="small" v-model="question">
+							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
+							</el-option>
+						</el-select>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
@@ -159,26 +168,24 @@
 <script type="text/ecmascript-6">
 	import Steps from '~/components/steps/step.vue';
 	import stepMixins from './step.mixin.js';
-	import {getGlobalDict} from '~/API/dict'
+	import {getGlobalDict} from '~/API/dict';
+	import {mapGetters} from 'vuex';
+	import {fetchdata} from '~/plugins/fetch'
 	export default {
-		async asyncData({params, error}) {
-			let {data: natures} = await getGlobalDict('company_nature');
-			let {data: scales} = await getGlobalDict('company_scale');
-			return {
-				companyNatures: natures,
-				companyScales: scales
-			}
-		},
 		middleware: 'firmauth',
 		mixins: [stepMixins],
 		layout: 'firmregister',
 		components: {
 			Steps
 		},
+		computed: mapGetters(['firmUser']),
+		created() {
+			this.getQuestions();
+		},
 		data() {
 			return {
-				companyNatures: [],
-				companyScales: [],
+				question:'',
+				questions: [],
 				btnLoading: false,
 				form: {
 				},
@@ -190,6 +197,11 @@
 			}
 		},
 		methods: {
+			async getQuestions() {
+				this.$fetch.getFirm('/companyUser/viewQuestionAndAnswer',{}, this.firmUser.token).then(res => {
+					this.questions = res.data.questions;
+				})
+			},
 			submitRegist() {
 				this.btnLoading = true;
 				this.$refs.form.validate((valid) => {
