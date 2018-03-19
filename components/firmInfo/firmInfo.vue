@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h4>上海花旗建筑劳务有限公司 <el-tag type="danger" size="mini">智能优选</el-tag></h4>
+    {{companyNatures}}
     <div class="clearfix info">
       <div class="fl">
         <p>企业综合评价指数：No.123(135) | 网站使用时间： 365天</p>
@@ -32,3 +33,33 @@
     font-size: 14px;
   }
 </style>
+<script type="text/ecmascript-6">
+  import {getGlobalDict} from '~/API/dict';
+  export default {
+    async fetch({store,params}) {
+      let {data: natures} = await getGlobalDict('company_nature');
+      let {data: scales} = await getGlobalDict('company_scale');
+      console.log(natures);
+      return {
+        companyNatures: natures,
+        companyScales: scales
+      }
+    },
+    data() {
+      return {
+        companyNatures:[],
+        info: {}
+      }
+    },
+    created() {
+      //this.getInfo();
+    },
+    methods: {
+      async getInfo() {
+        let {data} = await this.$fetch.getFirm('/companyUser/viewInfo');
+        console.log(data);
+        this.info = data;
+      }
+    }
+  }
+</script>

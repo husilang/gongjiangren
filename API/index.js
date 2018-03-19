@@ -31,6 +31,6 @@ router.post('/logout', (req, res) => {
 
 // Export the server middleware
 module.exports = {
-  path: '/api/local/',
+  path: '/api/',
   handler: router
 }
