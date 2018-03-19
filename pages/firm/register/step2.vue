@@ -274,11 +274,10 @@
 			},
 			submitRegist() {
 				this.btnLoading = true;
-				this.form.firmToken = this.firmUser.token;
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.postFirm('/companyUser/addInfo', this.form).then(res => {
+							this.$fetch.postFirm('/companyUser/addInfo', this.form, this.firmUser.token).then(res => {
 								if (res.code == "0") {
 									this.$router.push('/firm/register/step3');
 								} else {

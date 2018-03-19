@@ -19,28 +19,40 @@
 			</el-form-item>
 			<el-form-item prop="uscc" label="资质证书">
 				<el-upload
-						class="avatar-uploader"
 						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+						list-type="picture-card"
+						:on-preview="handlePictureCardPreview"
+						:on-remove="handleRemove">
+					<i class="el-icon-plus"></i>
 				</el-upload>
+				<el-dialog :visible.sync="dialogVisible">
+					<img width="100%" :src="dialogImageUrl" alt="">
+				</el-dialog>
 			</el-form-item>
 			<el-form-item prop="uscc" label="管理员身份证号">
 				<el-input placeholder="输入企业名称" v-model="form.uscc">
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
+			<el-form-item prop="uscc" label="身份证照片">
 				<el-upload
+						style="display: inline-block;width: 50%;"
 						class="avatar-uploader"
 						action="https://jsonplaceholder.typicode.com/posts/"
 						:show-file-list="false"
 						:on-success="handleAvatarSuccess"
 						:before-upload="beforeAvatarUpload">
 					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					<i v-else class="el-icon-plus avatar-uploader-icon">正面</i>
+				</el-upload>
+				<el-upload
+						style="display: inline-block"
+						class="avatar-uploader"
+						action="https://jsonplaceholder.typicode.com/posts/"
+						:show-file-list="false"
+						:on-success="handleAvatarSuccess"
+						:before-upload="beforeAvatarUpload">
+					<img v-if="imageUrl" :src="imageUrl" class="avatar">
+					<i v-else class="el-icon-plus avatar-uploader-icon">反面</i>
 				</el-upload>
 			</el-form-item>
 			<el-form-item class="btn-mt" label-width="0">

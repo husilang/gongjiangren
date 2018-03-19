@@ -51,10 +51,10 @@ export const fetch = {
 	},
 
 	// 企业权限请求
-	getFirm: (url, data = {}) => {
+	getFirm: (url, data = {}, firmToken) => {
 		return new Promise((resolve, reject) => {
 			axios.get(consts.API_URL+url, {params: data}, {
-				headers: {"authorization": data.firmToken}
+				headers: {"authorization": firmToken}
 			}).then(response => {
 				resolve(response.data);
 			}).catch(error => {
@@ -64,12 +64,12 @@ export const fetch = {
 			throw new Error(error);
 		})
 	},
-	postFirm: (url, data={}) => {
+	postFirm: (url, data={}, firmToken) => {
 		return new Promise((resolve, reject) => {
 			axios.post(consts.API_URL+url, data, {
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-					"authorization": data.firmToken
+					"authorization": firmToken
 				},
 				withCredentials: true,
 				transformRequest: [data => {
@@ -84,12 +84,12 @@ export const fetch = {
 			throw new Error(error);
 		});
 	},
-	postFirmJson: (url, data = {}) => {
+	postFirmJson: (url, data = {}, firmToken) => {
 		return new Promise((resolve, reject) => {
 			axios.post(consts.API_URL+url, data, {
 				headers: {
 					'Content-Type': 'application/json',
-					"authorization": data.firmToken
+					"authorization": firmToken
 				},
 				withCredentials: true
 			}).then(response => {
