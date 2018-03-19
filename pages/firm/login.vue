@@ -55,7 +55,7 @@
                   this.$router.push('/firm/center');
                 });
               } else {
-                this.$Message.error(res.msg);
+                this.$message.error(res.msg);
               }
             })
           } else {

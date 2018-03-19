@@ -1,37 +1,19 @@
 <template>
 	<div class="regBox">
 		<steps :active="3" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="top" label-width="0px" class="form form2">
-			<el-row :gutter="10">
+		<el-form :model="form" ref="form" label-position="top" label-width="0px" class="form form2">
+			<el-row :gutter="10" v-for="item in 3">
 				<el-col :span="12">
-					<el-form-item label="问题1">
-						<el-select style="display: block;width: 100%;" size="small" v-model="question">
-							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
-							</el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item label="问题2">
-						<el-select style="display: block;width: 100%;" size="small" v-model="question">
-							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
-							</el-option>
-						</el-select>
-					</el-form-item>
-					<el-form-item label="问题3">
-						<el-select style="display: block;width: 100%;" size="small" v-model="question">
+					<el-form-item :label="'问题'+ item">
+						<el-select style="display: block;width: 100%;" size="small" v-model="list[item-1].questionId">
 							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
 							</el-option>
 						</el-select>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
-					<el-form-item label="答案1">
-						<el-input size="small"></el-input>
-					</el-form-item>
-					<el-form-item label="答案2">
-						<el-input size="small"></el-input>
-					</el-form-item>
-					<el-form-item label="答案3">
-						<el-input size="small"></el-input>
+					<el-form-item :label="'答案' + item">
+						<el-input size="small" v-model="list[item-1].answer"></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
@@ -184,21 +166,15 @@
 		},
 		data() {
 			return {
-				question:'',
 				questions: [],
 				btnLoading: false,
-				form: {
-				},
-				rules: {
-					name: [
-						{required: true, message: '请输入企业名称', trigger: 'blur'}
-					]
-				}
+				form: {},
+				list: [{},{},{}]
 			}
 		},
 		methods: {
 			async getQuestions() {
-				this.$fetch.getFirm('/companyUser/viewQuestionAndAnswer',{}, this.firmUser.token).then(res => {
+				this.$fetch.getFirm('/companyUser/viewQuestionAndAnswer').then(res => {
 					this.questions = res.data.questions;
 				})
 			},
@@ -207,8 +183,13 @@
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.post('/companyUser/addInfo', this.form).then(res => {
-								this.$router.push('/firm/register/step3');
+							this.$fetch.postFirmJson('/companyUser/addQuestionAndAnswer', this.list).then(res => {
+								if (res.code == "0") {
+									this.$router.push('/firm/register/step5');
+								} else {
+									this.$message.error(res.msg);
+									this.btnLoading = false;
+								}
 							});
 						}
 					} catch (e) {
