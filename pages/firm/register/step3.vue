@@ -1,26 +1,27 @@
 <template>
 	<div class="regBox">
 		<steps :active="2" :stepsArr="stepsArr"></steps>
-		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="130px" class="form form2">
+		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="140px" class="form form2">
 			<el-form-item prop="uscc" label="企业统一信用代码">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
+				<el-input placeholder="输入企业统一信用代码" v-model="form.uscc">
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="uscc" label="企业营业执照">
+			<el-form-item label="企业营业执照">
 				<el-upload
 						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
+						:action="uploadUrl"
 						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
+						:on-success="licenceSuccess"
 						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
+					<img v-if="form.licenceImg" :src="form.licenceImg" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 				</el-upload>
 			</el-form-item>
-			<el-form-item prop="uscc" label="资质证书">
+			<el-form-item prop="certImgs" label="资质证书">
 				<el-upload
-						action="https://jsonplaceholder.typicode.com/posts/"
+						:action="uploadUrl"
 						list-type="picture-card"
+						:on-success="certImgSuccess"
 						:on-preview="handlePictureCardPreview"
 						:on-remove="handleRemove">
 					<i class="el-icon-plus"></i>
@@ -29,31 +30,22 @@
 					<img width="100%" :src="dialogImageUrl" alt="">
 				</el-dialog>
 			</el-form-item>
-			<el-form-item prop="uscc" label="管理员身份证号">
-				<el-input placeholder="输入企业名称" v-model="form.uscc">
+			<el-form-item prop="adminIdcard" label="管理员身份证号">
+				<el-input placeholder="输入企业名称" v-model="form.adminIdcard">
 				</el-input>
 			</el-form-item>
 			<el-form-item prop="uscc" label="身份证照片">
 				<el-upload
-						style="display: inline-block;width: 50%;"
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon">正面</i>
+						:action="uploadUrl"
+						list-type="picture-card"
+						:on-success="idCardSuccess"
+						:on-preview="handleIDCardPreview"
+						:on-remove="handleRemove">
+					<i class="el-icon-plus"></i>
 				</el-upload>
-				<el-upload
-						style="display: inline-block"
-						class="avatar-uploader"
-						action="https://jsonplaceholder.typicode.com/posts/"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-					<i v-else class="el-icon-plus avatar-uploader-icon">反面</i>
-				</el-upload>
+				<el-dialog :visible.sync="idDialogVisible">
+					<img width="100%" :src="idDialogImageUrl" alt="">
+				</el-dialog>
 			</el-form-item>
 			<el-form-item class="btn-mt" label-width="0">
 				<el-row :gutter="16">
@@ -61,7 +53,7 @@
 						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
 					</el-col>
 					<el-col :span="12">
-						<el-button class="block-btn" :loading="btnLoading" type="primary">下一步</el-button>
+						<el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
 					</el-col>
 				</el-row>
 			</el-form-item>
@@ -207,6 +199,8 @@
 <script type="text/ecmascript-6">
 	import Steps from '~/components/steps/step.vue';
 	import stepMixins from './step.mixin.js';
+	import consts from '~/utils/consts';
+	import {mapGetters} from 'vuex';
 	export default {
 		middleware: 'firmauth',
 		mixins: [stepMixins],
@@ -214,24 +208,33 @@
 		components: {
 			Steps
 		},
+		computed: {
+			uploadUrl() {
+				return consts.API_URL+'/common/file/upload'
+			},
+			...mapGetters(['firmUser'])
+		},
 		data() {
 			return {
 				btnLoading: false,
 				form: {
+					licenceImg: '',
+					certImgs: '',
+					adminIdcardImgs: ''
 				},
 				rules: {
-					loginName: [
-						{required: true, message: '请输入用户名', trigger: 'blur'}
+					uscc: [
+						{required: true, message: '请输入企业统一信用代码', trigger: 'blur'}
 					],
-					password: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
-					],
-					rePassword: [
-						{required: true, message: '请输入密码', trigger: 'blur'}
+					adminIdcard: [
+						{required: true, message: '请输入身份证号', trigger: 'blur'}
 					]
 				},
 
-				imageUrl: ''
+				dialogVisible: false,
+				dialogImageUrl:'',
+				idDialogVisible: false,
+				idDialogImageUrl: ''
 			}
 		},
 		methods: {
@@ -240,8 +243,13 @@
 				this.$refs.form.validate((valid) => {
 					try {
 						if (valid) {
-							this.$fetch.post('/companyUser/register', this.form).then(res => {
-								console.log(res);
+							this.$fetch.postFirm('/companyUser/addRealNameAuth', this.form, this.firmUser.token).then(res => {
+								if (res.code == "0") {
+									this.$router.push('/firm/register/step4');
+								} else {
+									this.$message.error(res.msg);
+									this.btnLoading = false;
+								}
 							});
 						}
 					} catch (e) {
@@ -252,9 +260,22 @@
 				});
 
 			},
-
-			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw);
+			licenceSuccess(res, file) {
+				this.form.licenceImg = res.data;
+			},
+			certImgSuccess(res, file) {
+				if (this.form.certImgs === '') {
+					this.form.certImgs = res.data;
+				} else {
+					this.form.certImgs = this.form.certImgs+','+res.data;
+				}
+			},
+			idCardSuccess(res, file) {
+				if (this.form.adminIdcardImgs === '') {
+					this.form.adminIdcardImgs = res.data;
+				} else {
+					this.form.adminIdcardImgs = this.form.adminIdcardImgs+','+res.data;
+				}
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
@@ -267,6 +288,17 @@
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
 				return isJPG && isLt2M;
+			},
+			handleRemove(file, fileList) {
+				console.log(file, fileList);
+			},
+			handlePictureCardPreview(file) {
+				this.dialogImageUrl = file.url;
+				this.dialogVisible = true;
+			},
+			handleIDCardPreview(file) {
+				this.idDialogImageUrl = file.url;
+				this.idDialogVisible = true;
 			}
 		}
 	}
