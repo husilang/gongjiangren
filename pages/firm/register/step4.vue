@@ -2,7 +2,7 @@
 	<div class="regBox">
 		<steps :active="3" :stepsArr="stepsArr"></steps>
 		<el-form :model="form" ref="form" label-position="top" label-width="0px" class="form form2">
-			<el-row :gutter="10" v-for="item in 3">
+			<el-row :gutter="10" v-for="item in 3" :key="item">
 				<el-col :span="12">
 					<el-form-item :label="'问题'+ item">
 						<el-select style="display: block;width: 100%;" size="small" v-model="list[item-1].questionId">

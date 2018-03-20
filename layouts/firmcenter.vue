@@ -124,13 +124,13 @@
     <div class="title">
       <div class="common-width clearfix">
         <div class="fl">
-          <span style="font-size: 36px;line-height: 80px;">企业中心</span>
+          <span style="font-size: 36px;line-height: 80px;cursor: pointer" @click="goPath('/firm/center')">企业中心</span>
           <span class="line"></span>
           <span style="margin-top: 24px;">
             <img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt="">
           </span>
           <span style="margin-top: 30px;">{{firmUser.loginName}}</span>
-          <button class="exit-btn">退出</button>
+          <button class="exit-btn" @click="logout">退出</button>
         </div>
         <div class="fr">
           <el-carousel :interval="4000" type="card" height="70px" indicator-position="none" style="margin-top: 5px;width: 200px;">
@@ -151,9 +151,33 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
   export default  {
-    computed: mapGetters(['firmUser'])
+    computed: mapGetters(['firmUser']),
+    methods: {
+      goPath(path){
+        this.$router.push(path);
+      },
+      logout() {
+        this.$confirm('确定退出?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$fetch.postFirm('/companyUser/logout').then((res) => {
+            if (res.code == 0) {
+              this.$store.dispatch('firmLogout', res.data).then(() => {
+                this.$router.push('/firm/login');
+              });
+            } else {
+              this.$message(res.msg);
+            }
+          })
+        }).catch(() => {
+        });
+
+      }
+    }
   }
 </script>

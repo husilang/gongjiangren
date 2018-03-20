@@ -13,6 +13,7 @@
     border-bottom: 1px solid #fff;
 
     .m-box{
+      cursor: pointer;
       width: 142px;
       height: 86px;
       border-radius: 8px;
@@ -134,6 +135,7 @@
 
     .n-box {
       li {
+        cursor: pointer;
         display: block;
         float: left;
         width: 86px;
@@ -199,7 +201,6 @@
 </style>
 <template>
   <div>
-    <!--<firm-info></firm-info>-->
     <div class="container">
       <el-row :gutter="12">
         <el-col :span="18" class="left-wrap">
@@ -237,7 +238,7 @@
               </div>
             </div>
             <div class="nav-item clearfix">
-              <div class="fl m-box">
+              <div class="fl m-box" @click="goPath('/firm/center/rescruit')">
                 <i></i>
                 <p>企业招聘管理</p>
               </div>
@@ -290,7 +291,11 @@
           <div class="notice">
             <p class="notice-title"><i></i>通知中心</p>
             <div class="notice-item" v-for="item in 4" :key="item">
-              <p><el-badge :value="1" class="item"><span style="padding-right:8px;">最新消息</span></el-badge></p>
+              <p>
+                <el-badge :value="1" class="item">
+                  <span style="padding-right:8px;">最新消息</span>
+                </el-badge>
+              </p>
               <div class="notice-content">
                 <ul>
                   <li>最新消息</li>
@@ -305,14 +310,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import {getFirmInfo} from '~/API/firm';
   export default  {
-    async asyncData({store,params}) {
-      let {data: info} = await getFirmInfo();
-      return {
-        info
-      }
-    },
     middleware: 'firmauth',
     layout: 'firmcenter',
     data() {
@@ -322,7 +320,9 @@
       }
     },
     methods: {
-      handleClick() {}
+      goPath(path){
+        this.$router.push(path);
+      },
     }
   }
 </script>

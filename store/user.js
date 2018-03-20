@@ -32,9 +32,9 @@ export default {
 				throw error
 			}
 		},
-		async logout({commit}) {
+		async firmLogout({commit}) {
 			await axios.post('/api/logout')
-			commit('SET_USER', null)
+			commit('SET_FIRMUSER', null)
 		}
 	}
 }
