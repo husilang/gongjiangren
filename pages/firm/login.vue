@@ -14,7 +14,7 @@
             <router-link tag="button" v-if="isRegister" class="el-button btn-block el-button--default btn-block" to="/firm/"><span>点击完成验证</span></router-link>
             <el-input v-model="form.captcha" placeholder="验证码" v-else></el-input>
           </el-form-item>
-          <el-form-item class="text-center">
+          <el-form-item class="text-center" v-if="isRegister">
             <el-checkbox v-model="checked">接受 <router-link tag="button" class="el-button el-button--text" to="/firm/protocol"><span>《用户服务协议》</span></router-link> </el-checkbox>
           </el-form-item>
           <el-form-item>
@@ -22,7 +22,8 @@
             <el-button class="btn-block" type="primary" @click="login" :loading="logging" v-else>企业登录</el-button>
           </el-form-item>
           <div class="clearfix oper">
-            <p class="fl">没有账号，马上<el-button type="text">登录</el-button></p>
+            <p class="fl" v-if="isRegister">已有账号，马上<el-button type="text" @click.native="isRegister=false">登录</el-button></p>
+            <p class="fl" v-else>没有账号，马上<el-button type="text" @click.native="isRegister = true">注册</el-button></p>
             <p class="fr"><el-button type="text">忘记密码？</el-button></p>
           </div>
         </el-form>
