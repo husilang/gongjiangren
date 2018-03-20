@@ -1,30 +1,43 @@
 <template>
   <div class="box">
-    <el-Card :bordered="false">
-      <p slot="title">在这里，拥有大国工匠</p>
-      <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="120px" class="form">
-        <el-form-item label="企业账号" prop="loginName">
-          <el-input v-model="form.loginName"></el-input>
-        </el-form-item>
-        <el-form-item label="企业密码" prop="password">
-          <el-input v-model="form.password" type="password"></el-input>
-        </el-form-item>
-        <el-form-item label="验证码" prop="captcha">
-          <el-input v-model="form.captcha"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="login" :loading="logging">登录</el-button>
-          <el-button type="primary" @click="goPath('/firm/register/step1')">注册</el-button>
-        </el-form-item>
-      </el-form>
-    </el-Card>
+    <div class="commonWidth clearfix">
+      <div class="login-box fr">
+        <p class="text-center title">在这里，拥有大国工匠</p>
+        <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form">
+          <el-form-item prop="loginName">
+            <el-input v-model="form.loginName" placeholder="请填写用户名"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input v-model="form.password" type="password" placeholder="密码（6-16位字母、数字、无空格）"></el-input>
+          </el-form-item>
+          <el-form-item prop="captcha">
+            <router-link tag="button" v-if="isRegister" class="el-button btn-block el-button--default btn-block" to="/firm/"><span>点击完成验证</span></router-link>
+            <el-input v-model="form.captcha" placeholder="验证码" v-else></el-input>
+          </el-form-item>
+          <el-form-item class="text-center">
+            <el-checkbox v-model="checked">接受 <router-link tag="button" class="el-button el-button--text" to="/firm/protocol"><span>《用户服务协议》</span></router-link> </el-checkbox>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="btn-block" type="primary" @click="register" v-if="isRegister">企业注册</el-button>
+            <el-button class="btn-block" type="primary" @click="login" :loading="logging" v-else>企业登录</el-button>
+          </el-form-item>
+          <div class="clearfix oper">
+            <p class="fl">没有账号，马上<el-button type="text">登录</el-button></p>
+            <p class="fr"><el-button type="text">忘记密码？</el-button></p>
+          </div>
+        </el-form>
+      </div>
+    </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   export default {
     middleware: 'firmloginauth',
+    layout: "firmlogin",
     data() {
       return {
+        isRegister: true,
+        checked: true,
         logging: false,
         rules: {
           loginName: [
@@ -44,6 +57,9 @@
       }
     },
     methods: {
+      register() {
+
+      },
       login() {
         this.logging = true;
         this.$refs.form.validate(valid => {
@@ -71,17 +87,39 @@
     }
   }
 </script>
-<style>
-  .box {
-    width: 800px;
-    border: 1px solid #dcdcdc;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    padding: 20px;
-    transform: translate(-50%, -50%);
+<style scoped lang="less">
+  .commonWidth{
+    width: 1200px;
+    margin: 0 auto;
   }
-  .form {
-    margin-top: 38px;
+  .box {
+    background: #0694ff url('~/assets/login_bg1.jpg') no-repeat center 0;
+    padding-top: 114px;
+    padding-bottom: 246px;
+  }
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  .login-box {
+    width: 402px;
+    height: 452px;
+    background: #fff;
+    border-radius: 4px;
+    padding-left: 37px;
+    padding-right: 37px;
+    box-shadow: 2px 2px 20px #0876b4;
+
+
+    p.title {
+      font-size: 24px;
+      color: #253e52;
+      padding-top: 34px;
+      padding-bottom: 30px;
+    }
+    .oper p {
+      font-size: 14px;
+      color: #5e5e5e;
+    }
   }
 </style>
