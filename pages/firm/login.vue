@@ -11,14 +11,13 @@
             <el-input v-model="form.password" type="password" placeholder="密码（6-16位字母、数字、无空格）"></el-input>
           </el-form-item>
           <el-form-item prop="captcha">
-            <router-link tag="button" v-if="isRegister" class="el-button btn-block el-button--default btn-block" to="/firm/"><span>点击完成验证</span></router-link>
-            <el-input v-model="form.captcha" placeholder="验证码" v-else></el-input>
+            <el-input v-model="form.captcha" placeholder="验证码"></el-input>
           </el-form-item>
           <el-form-item class="text-center" v-if="isRegister">
             <el-checkbox v-model="checked">接受 <router-link tag="button" class="el-button el-button--text" to="/firm/protocol"><span>《用户服务协议》</span></router-link> </el-checkbox>
           </el-form-item>
           <el-form-item>
-            <el-button class="btn-block" type="primary" @click="register" v-if="isRegister">企业注册</el-button>
+            <el-button class="btn-block" type="primary" @click="register" :loading="registing" v-if="isRegister">企业注册</el-button>
             <el-button class="btn-block" type="primary" @click="login" :loading="logging" v-else>企业登录</el-button>
           </el-form-item>
           <div class="clearfix oper">
@@ -40,6 +39,7 @@
         isRegister: true,
         checked: true,
         logging: false,
+        registing: false,
         rules: {
           loginName: [
             {required: true, message: '请输入用户名', trigger: 'blur'}
@@ -59,7 +59,27 @@
     },
     methods: {
       register() {
-
+        this.registing = true;
+        this.$refs.form.validate((valid) => {
+          try {
+            if (valid) {
+              this.$fetch.post('/companyUser/register', this.form).then(res => {
+                if (res.code == 0) {
+                  this.$store.dispatch('firmLogin', res.data).then(() => {
+                    this.$router.push('/firm/register/step1');
+                  });
+                } else {
+                  this.registing = false;
+                  this.$message.error(res.msg);
+                }
+              });
+            }
+          } catch (e) {
+            this.$message.error(e.message);
+          } finally {
+            this.registing = false;
+          }
+        });
       },
       login() {
         this.logging = true;
@@ -80,10 +100,6 @@
             return false;
           }
         })
-
-      },
-      goPath(path) {
-        this.$router.push(`${path}`)
       }
     }
   }

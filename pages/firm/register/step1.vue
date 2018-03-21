@@ -4,10 +4,9 @@
     background-color: #fff;
   }
 </style>
-<style>
+<style scoped>
   .regBox {
     width: 1180px;
-    padding-bottom: 120px;
     margin: 0 auto;
     background: #fff;
     box-shadow: 1px 1px 1px #dee2e9;
@@ -18,6 +17,15 @@
     width: 524px;
     margin: 0 auto;
     margin-top: 38px;
+  }
+  .regBox .img {
+    text-align: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .regBox .name {
+    font-size: 16px;
+    color: #7e919a;
   }
 
   .block-btn {
@@ -132,89 +140,138 @@
 <template>
   <div class="regBox">
     <steps :active="0" :stepsArr="stepsArr"></steps>
-    <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form1">
-      <el-form-item prop="loginName">
-        <el-input placeholder="输入企业账户名" v-model="form.loginName">
-          <template slot="prepend">
-            <i class="icon icon1"></i>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input placeholder="输入企业登录密码" v-model="form.password" type="password">
-          <template slot="prepend">
-            <i class="icon icon2"></i>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="rePassword">
-        <el-input placeholder="再次确认管理员密码" v-model="form.rePassword" type="password">
-          <template slot="prepend">
-            <i class="icon icon3"></i>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item class="btn-mt">
-        <el-button type="primary" @click="submitRegist1" :loading="btnLoading" class="block-btn">下一步</el-button>
-      </el-form-item>
-      <p class="text-center goLogin"><i class="icon icon4"></i>已有账户，去&nbsp;<span
-              @click="goPath('/firm/login')">登录</span>&nbsp;!</p>
-    </el-form>
+    <el-tabs tab-position="left" style="height: 600px;padding-left: 40px;">
+      <el-tab-pane label="手机验证">
+        <div class="check form">
+          <p class="name text-center">登录账户&ensp; <b>{{firmUser.loginName}}</b></p>
+          <div class="img"><img src="~/assets/tel-check.png" alt=""></div>
+          <el-form ref="form" :model="form" :rules="rules" label-position="left" label-width="100px">
+            <el-form-item label="手机号码" prop="mobile">
+              <el-row>
+                <el-col :span="18">
+                  <el-input v-model="form.mobile"></el-input>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item label="动态验证码" prop="smsCode">
+              <el-row>
+                <el-col :span="18">
+                  <el-input v-model="form.smsCode"></el-input>
+                </el-col>
+                <el-col :span="4" style="margin-left: 10px;">
+                  <el-button size="small">获取短信验证码</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item>
+              <el-row>
+                <el-col :span="18">
+                  <el-button style="display: block;width: 100%;" type="primary" @click.native="quickNext" :loading="btnLoading1">快速体验</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item>
+              <el-row>
+                <el-col :span="18">
+                  <el-button style="display: block;width: 100%;" @click.native="next" :loading="btnLoading2">完善企业信息</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Email验证">
+        <div class="check form">
+          <p class="name text-center">登录账户&ensp; <b>{{firmUser.loginName}}</b></p>
+          <div class="img"><img src="~/assets/email-check.png" alt=""></div>
+          <el-form label-position="left" label-width="100px">
+            <el-form-item label="Email地址">
+              <el-row>
+                <el-col :span="18">
+                  <el-input></el-input>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item>
+              <el-row>
+                <el-col :span="18">
+                  <el-button style="display: block;width: 100%;" type="primary">发送Email进行验证</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+            <el-form-item>
+              <el-row>
+                <el-col :span="18">
+                  <el-button style="display: block;width: 100%;">完善企业信息</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import stepMixins from './step.mixin.js';
   import Steps from '~/components/steps/step.vue';
+  import {mapGetters} from 'vuex';
   export default {
     layout: 'firmregister',
     mixins: [stepMixins],
     components: {
       Steps
     },
+    computed: mapGetters(['firmUser']),
     data() {
       return {
-        btnLoading: false,
+        btnLoading1: false,
+        btnLoading2: false,
         form: {
-          captcha: '8888'
+          smsCode: 8888
         },
         rules: {
-          loginName: [
-            {required: true, message: '请输入用户名', trigger: 'blur'}
-          ],
-          password: [
-            {required: true, message: '请输入密码', trigger: 'blur'}
-          ],
-          rePassword: [
-            {required: true, message: '请输入密码', trigger: 'blur'}
-          ]
+          mobile: [{required: true,trigger: 'blur', message: '请输入手机号码'}],
+          smsCode: [{required: true,trigger: 'blur', message: '请输入验证码'}]
         }
       }
     },
     methods: {
-      submitRegist1() {
-        this.btnLoading = true;
-        this.$refs.form.validate((valid) => {
-          try {
+      telCheck() {
+        return new Promise((resolve, reject) => {
+          this.$refs.form.validate((valid) => {
             if (valid) {
-              this.$fetch.post('/companyUser/register', this.form).then(res => {
+              this.$fetch.postFirm('/companyUser/bindMobile', this.form).then((res) => {
                 if (res.code == 0) {
-                  this.$store.dispatch('firmLogin', res.data).then(() => {
-                    this.$router.push('/firm/register/step2');
-                  });
+                  resolve();
                 } else {
-                  this.btnLoading = false;
                   this.$message.error(res.msg);
+                  reject();
                 }
-              });
+              })
+            }else{
+              reject();
             }
-          } catch (e) {
-            this.$message.error(e.message);
-          } finally {
-            this.btnLoading = false;
-          }
-
-        });
-
+          })
+        })
+      },
+      quickNext() {
+        this.btnLoading1 = true;
+        this.telCheck().then(() => {
+          this.btnLoading1 = false;
+          this.$router.push('/firm/center');
+        }).catch(() => {
+          this.btnLoading1 = false;
+        })
+      },
+      next() {
+        this.btnLoading2 = true;
+        this.telCheck().then(() => {
+          this.btnLoading2 = false;
+          this.$router.push('/firm/register/step2');
+        }).catch(() => {
+          this.btnLoading2 = false;
+        })
       }
     }
   }
