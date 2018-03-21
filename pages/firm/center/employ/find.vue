@@ -19,7 +19,20 @@
 				margin-right: 16px;
 			}
 	        span {
-		        margin-right: 18px;
+		        margin-right: 8px;
+		        padding: 2px 8px;
+		        border: 1px solid #fff;
+		        border-radius: 4px;
+		        cursor: pointer;
+		        &:hover{
+					border: 1px solid rgba(64, 158, 255, .6);
+					color: #409EFF;
+		         }
+	            &.checked{
+		            background: #409EFF;
+		            border-color : #409EFF;
+					color: #fff;
+	            }
 	        }
 		}
 	}
@@ -72,14 +85,7 @@
 				<div class="find-condition">
 					<el-row class="clearfix">
 						<b>工种：</b>
-						<span>驾驶员</span>
-						<span>工程机械操作修理工</span>
-						<span>土建专业</span>
-						<span>市政专业</span>
-						<span>安装专业</span>
-						<span>机械化施工专业</span>
-						<span>盾构施工专业</span>
-						<span>水利专业</span>
+						<span v-for="item in jobTypeList">{{item.name}}</span>
 						<el-button class="fr" plain type="primary" size="mini">更多...</el-button>
 					</el-row>
 					<el-row class="clearfix">
@@ -174,17 +180,18 @@
 </template>
 <script type="text/ecmascript-6">
 	import {getFirmCenter, getFirmInfo, getJobList} from '~/API/firm';
+	import {getJobType} from '~/API/dict';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
 		async asyncData({isClient, params, error}) {
 			try {
 				let {data: info} = await getFirmCenter();
 				let {data: firm} = await getFirmInfo();
-				let {data: list} = await getJobList({pageNo: 1, pageSize: 5});
+				let {data: jobTypeList} = await getJobType({pageNo: 1, pageSize: 50});
 				return {
 					info: info || {},
 					firm: firm || {},
-					list: list || []
+					jobTypeList: jobTypeList
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})
@@ -199,16 +206,10 @@
 			return {
 				info: {},
 				firm: {},
-				list: []
+				jobTypeList: []
 			}
 		},
 		methods: {
-			async pageInit() {
-				let {data: info} = await getFirmCenter();
-				let {data: firm} = await getFirmInfo();
-				this.info = info;
-				this.firm = firm;
-			}
 		}
 	}
 </script>

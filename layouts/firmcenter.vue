@@ -63,10 +63,10 @@
     background-color: #d3dce6;
   }
   .firm-center-enter-active, .firm-center-leave-active {
-    transition: opacity .3s ease-in-out;
+    transition: opacity .2s ease-in-out;
   }
   .firm-center-enter, .firm-center-leave-to{
-    opacity: 0;
+    opacity: 0.6;
   }
 </style>
 <template>
