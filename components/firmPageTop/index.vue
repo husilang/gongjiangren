@@ -5,6 +5,7 @@
 		background: #fff;
 	}
 	.register-layout .header .logo p{
+		cursor: pointer;
 		display: inline-block;
 		width: 119px;
 		height: 40px;

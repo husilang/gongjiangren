@@ -62,6 +62,12 @@
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
+  .firm-center-enter-active, .firm-center-leave-active {
+    transition: opacity .3s ease-in-out;
+  }
+  .firm-center-enter, .firm-center-leave-to{
+    opacity: 0;
+  }
 </style>
 <template>
   <div class="register-layout">
@@ -88,7 +94,9 @@
     </div>
     <div class="content">
       <div class="common-width">
-        <nuxt/>
+        <transition mode="out-in" name="firm-center">
+          <nuxt/>
+        </transition>
       </div>
     </div>
     <firm-page-footer></firm-page-footer>

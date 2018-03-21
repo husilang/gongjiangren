@@ -1,11 +1,8 @@
 const bodyParser = require('body-parser')
 const session = require('express-session')
 module.exports = {
-  /*
-  ** Headers of the page
-  */
   head: {
-    title: 'gongjiangren',
+    title: '恒航匠云',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -16,22 +13,12 @@ module.exports = {
     ]
   },
   css: ['element-ui/lib/theme-chalk/index.css', './static/common.css'],
-  /*
-  ** Customize the progress bar color
-  */
   loading: { color: '#3B8070' },
   plugins: [
     {src: '~/plugins/element-ui', ssr: true},
     '~/plugins/fetch'
   ],
-  /*
-  ** Build configuration
-  */
   build: {
-
-    /*
-    ** Run ESLint on save
-    */
     vendor: ['axios', 'element-ui']
   },
   serverMiddleware: [

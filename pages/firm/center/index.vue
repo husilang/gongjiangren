@@ -217,7 +217,7 @@
                   <li>企业<br>实名认证</li>
                   <li>登录密码<br>找回问题</li>
                   <li>项目<br>授权管理</li>
-                  <li>。。。</li>
+                  <li><span class="el-icon-more-outline" style="font-size: 28px;"></span></li>
                 </ul>
               </div>
             </div>
@@ -233,7 +233,7 @@
                   <li>企业<br>大数据查询</li>
                   <li>企业用工<br>智能监控</li>
                   <li>企业<br>人才库</li>
-                  <li>。。。</li>
+                  <li><span class="el-icon-more-outline" style="font-size: 28px;"></span></li>
                 </ul>
               </div>
             </div>
@@ -249,7 +249,7 @@
                   <li>应聘信息<br>管理</li>
                   <li>招聘进度<br>管理</li>
                   <li>个人应聘<br>信息浏览</li>
-                  <li>。。。</li>
+                  <li><span class="el-icon-more-outline" style="font-size: 28px;"></span></li>
                 </ul>
               </div>
             </div>
@@ -265,7 +265,7 @@
                   <li>举报中心</li>
                   <li>智能客服<br>中心</li>
                   <li>人工客服<br>中心</li>
-                  <li>。。。</li>
+                  <li><span class="el-icon-more-outline" style="font-size: 28px;"></span></li>
                 </ul>
               </div>
             </div>
@@ -281,7 +281,7 @@
                   <li>工资代发<br>服务</li>
                   <li>专业培训<br>服务</li>
                   <li style="padding-top:10px;">短期<br>大量用工<br>解决方案</li>
-                  <li>。。。</li>
+                  <li><span class="el-icon-more-outline" style="font-size: 28px;"></span></li>
                 </ul>
               </div>
             </div>
