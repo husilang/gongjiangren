@@ -23,7 +23,7 @@
           <div class="clearfix oper">
             <p class="fl" v-if="isRegister">已有账号，马上<el-button type="text" @click.native="isRegister=false">登录</el-button></p>
             <p class="fl" v-else>没有账号，马上<el-button type="text" @click.native="isRegister = true">注册</el-button></p>
-            <p class="fr"><el-button type="text">忘记密码？</el-button></p>
+            <p class="fr"><router-link tag="button" to="/firm/forget" class="el-button el-button--text"><span>忘记密码？</span></router-link></p>
           </div>
         </el-form>
       </div>
