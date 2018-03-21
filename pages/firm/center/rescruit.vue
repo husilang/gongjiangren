@@ -94,7 +94,7 @@
 			</div>
 		</div>
 		<el-pagination
-				style="background: #fff;text-align: center;margin-top: 14px;;"
+				style="text-align: center;margin-top: 14px;"
 				layout="prev, pager, next"
 				:total="1000">
 		</el-pagination>
@@ -122,7 +122,6 @@
 		layout: 'firmcenter',
 		data() {
 			return {
-				tab: 'rescruit',
 				info: {},
 				firm: {},
 				list: []
@@ -137,9 +136,6 @@
 				let {data: firm} = await getFirmInfo();
 				this.info = info;
 				this.firm = firm;
-			},
-			handleClick(vueInstance) {
-				this.$router.push('/firm/center/' + vueInstance.name)
 			}
 		}
 	}

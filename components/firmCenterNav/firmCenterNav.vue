@@ -38,11 +38,11 @@
 			return {
 				navs: [
 					{name: '企业招聘', path: 'rescruit'},
-					{name: '找人才', path: ''},
+					{name: '找人才', path: 'find'},
 					{name: '候选人才', path: 'personnel'},
-					{name: '面试日程', path: ''},
-					{name: '人才录用', path: ''},
-					{name: '人才库', path: ''}
+					{name: '面试日程', path: 'schedule'},
+					{name: '人才录用', path: 'offer'},
+					{name: '人才库', path: 'pool'}
 				]
 			}
 		},

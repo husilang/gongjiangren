@@ -48,6 +48,10 @@ ul{
   border-color: #dddddd;
   color: #6a6363;
 }
+.el-tag--danger{
+  background: #f56c6c;
+  color: #fff;
+}
 
 .commonWidth {
   width: 1280px;

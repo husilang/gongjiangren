@@ -1,9 +1,3 @@
-<style>
-  .el-input-group__append, .el-input-group__prepend {
-    padding: 0 12px;
-    background-color: #fff;
-  }
-</style>
 <style scoped>
   .regBox {
     width: 1180px;
@@ -12,7 +6,6 @@
     box-shadow: 1px 1px 1px #dee2e9;
     border-radius: 6px;
   }
-
   .regBox .form {
     width: 524px;
     margin: 0 auto;
@@ -26,115 +19,6 @@
   .regBox .name {
     font-size: 16px;
     color: #7e919a;
-  }
-
-  .block-btn {
-    width: 100%;
-  }
-
-  .btn-mt {
-    margin-top: 25px;
-  }
-
-  i.icon {
-    display: inline-block;
-  }
-
-  i.icon1 {
-    width: 17px;
-    height: 17px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 0;
-  }
-
-  i.icon2 {
-    width: 17px;
-    height: 17px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -20px;
-  }
-
-  i.icon3 {
-    width: 17px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -40px;
-  }
-
-  i.icon4 {
-    width: 22px;
-    height: 16px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 bottom;
-  }
-
-  i.icon5 {
-    width: 22px;
-    height: 22px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -60px;
-  }
-
-  i.icon6 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 4px -80px;
-  }
-
-  i.icon7 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -99px;
-  }
-
-  i.icon8 {
-    width: 22px;
-    height: 20px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 2px -118px;
-  }
-
-  i.icon9 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -139px;
-  }
-
-  i.icon10 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -158px;
-  }
-
-  i.icon11 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -176px;
-  }
-
-  i.icon12 {
-    width: 22px;
-    height: 18px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -195px;
-  }
-
-  i.icon13 {
-    width: 22px;
-    height: 22px;
-    background: url("../../../assets/icon/reg-icon.png") no-repeat 2px -214px;
-  }
-
-  /*form1*/
-  .regBox .form1 {
-    margin-top: 104px;
-  }
-
-  .regBox .goLogin {
-    margin-top: 116px;
-  }
-
-  .regBox .goLogin i {
-    margin-bottom: -3px;
-    margin-right: 18px;
-  }
-
-  .regBox .goLogin span {
-    color: #429ffe;
-    cursor: pointer;
   }
 </style>
 <template>

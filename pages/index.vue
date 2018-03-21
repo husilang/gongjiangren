@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="index-container">
     <div class="top-box clearfix">
       <div class="fl">
         <div class="small-btn icon1">
@@ -90,7 +90,7 @@
     background-image: url("../assets/icon/bg_04.png");
   }
 
-  .container {
+  .index-container {
     position: absolute;
     width: 100%;
     top: 0;

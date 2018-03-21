@@ -13,22 +13,22 @@
   .steps {
     font-family: 'Microsoft YaHei';
     font-weight: normal;
-    padding-top: 38px;
+    padding-top: 44px;
     height: 118px;
     border-bottom: 1px solid #eeeeee;
     text-align: center;
   }
   .steps li {
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
     color: #bec3ca;
   }
   .steps li span.line {
-    width: 30px;
+    width: 20px;
     height: 1px;
     background: #bec3ca;
     margin-bottom: 5px;
-    margin-right: 10px;
+    margin-right: 6px;
     display: inline-block;
   }
   .steps li.cur {
@@ -36,12 +36,12 @@
   }
   .steps li span.num {
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border: 1px solid #bec3ca;
     border-radius: 50%;
     text-align: center;
-    line-height: 30px;
+    line-height: 26px;
   }
   .steps li.cur span {
     color: #fff;

@@ -1,11 +1,11 @@
 <template>
 	<div class="regBox">
 		<steps :active="5" :stepsArr="stepsArr"></steps>
-		<div class="text-center" style="margin-top: 48px;">
-			支付状态：<span>未付费</span>
+		<div class="text-center" style="margin-top: 48px;font-size: 14px;color:#000;">
+			支付状态：<span style="font-size: 18px;color:#ff771c;">未付费</span>
 		</div>
 		<div class="table-content">
-			<table>
+			<table width="100%">
 				<thead>
 				<tr>
 					<th><div>服务</div></th>
@@ -23,7 +23,7 @@
 				</tr>
 				<tr>
 					<td><div>操作</div></td>
-					<td v-for="item in tableData"><div></div></td>
+					<td v-for="item in tableData"><div><span class="el-icon-success" style="color:#ccc;cursor:pointer"></span></div></td>
 				</tr>
 				</tbody>
 			</table>
@@ -45,120 +45,80 @@
 		</div>
 	</div>
 </template>
-<style>
-	.el-input-group__append, .el-input-group__prepend {
-		padding: 0 12px;
-		background-color: #fff;
-	}
-</style>
-<style>
+<style lang="less">
+	@import "register.less";
 	.table-content {
 		width: 724px;
+		position: relative;
 		margin: 0 auto;
 		margin-bottom: 40px;
 		margin-top: 30px;
-	}
-	.regBox {
-		width: 1180px;
-		padding-bottom: 120px;
-		margin: 0 auto;
-		background: #fff;
-		box-shadow: 1px 1px 1px #dee2e9;
-		border-radius: 6px;
-	}
-	.regBox .form {
-		width: 524px;
-		margin: 0 auto;
-		margin-top: 38px;
-	}
-	.block-btn{
-		width: 100%;
-	}
-	.btn-mt {
-		margin-top: 25px;
-	}
-	i.icon{
-		display: inline-block;
-	}
-	i.icon1{
-		width: 17px;
-		height: 17px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 0;
-	}
-	i.icon2{
-		width: 17px;
-		height: 17px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -20px;
-	}
-	i.icon3{
-		width: 17px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -40px;
-	}
-	i.icon4{
-		width: 22px;
-		height: 16px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 bottom;
-	}
-	i.icon5{
-		width: 22px;
-		height: 22px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -60px;
-	}
-	i.icon6{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 4px -80px;
-	}
-	i.icon7{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -99px;
-	}
-	i.icon8{
-		width: 22px;
-		height: 20px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 2px -118px;
-	}
-	i.icon9{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -139px;
-	}
-	i.icon10{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -158px;
-	}
-	i.icon11{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -176px;
-	}
-	i.icon12{
-		width: 22px;
-		height: 18px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 0 -195px;
-	}
-	i.icon13{
-		width: 22px;
-		height: 22px;
-		background: url("../../../assets/icon/reg-icon.png") no-repeat 2px -214px;
-	}
-	/*form1*/
-	.regBox .form1 {
-		margin-top: 104px;
-	}
-	.regBox .goLogin {
-		margin-top: 116px;
-	}
-	.regBox .goLogin i{
-		margin-bottom:  -3px;
-		margin-right: 18px;
-	}
-	.regBox .goLogin span {
-		color: #429ffe;
-		cursor: pointer;
+		&:after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 40px;
+			background: #fff;
+			top: 0;
+			left: 0;
+			transform: skew(0deg, -2deg);
+			transform-origin: 0;
+		}
+
+		table {
+			border-collapse: collapse;
+			border: 1px solid #dfdfdf;
+			border-top: none;
+		}
+		table th{
+			padding:0;
+			font-size: 15px;
+	        color: #fff;
+	        div {
+		        padding-top: 54px;
+		        padding-bottom: 14px;
+	        }
+			&:nth-child(1){
+				div {
+					background: #8ab9ff;
+				}
+			}
+			&:nth-child(2){
+				div {
+					background: #76adff;
+				}
+			}
+			&:nth-child(3){
+				div {
+					background: #68cd8e;
+				}
+			}
+			&:nth-child(4){
+				div {
+					background: #a6a4fb;
+				}
+			}
+			&:nth-child(5){
+				div {
+					background: #ffae5f;
+				}
+			}
+		}
+		table tbody tr{
+			border-bottom: 1px solid #dfdfdf;
+		}
+		table td{
+			padding:0;
+			font-size: 16px;
+			color: #000000;
+			div{
+				padding-left: 24px;
+				padding-top: 14px;
+				padding-bottom: 14px;
+				text-align: center;
+				border-right: 1px solid #dfdfdf;
+			}
+		}
 	}
 </style>
 <script type="text/ecmascript-6">
