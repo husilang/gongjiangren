@@ -238,7 +238,7 @@
               </div>
             </div>
             <div class="nav-item clearfix">
-              <div class="fl m-box" @click="goPath('/firm/center/rescruit')">
+              <div class="fl m-box" @click="goPath('/firm/center/employ/rescruit')">
                 <i></i>
                 <p>企业招聘管理</p>
               </div>

@@ -48,7 +48,7 @@
 		},
 		methods: {
 			goPath(path) {
-				this.$router.push('/firm/center/'+path);
+				this.$router.push('/firm/center/employ/'+path);
 			}
 		}
 	}

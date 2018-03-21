@@ -1,5 +1,28 @@
 <style lang="less">
-	@import "center.less";
+	@import "employ.less";
+</style>
+<style scoped lang="less">
+	.find-condition{
+		.el-row{
+			padding-top: 10px;
+			padding-bottom: 9px;
+			border-bottom: 1px dashed #ccc;
+			font-size: 14px;
+			color: #424a50;
+			line-height: 28px;
+
+			b{
+				display: inline-block;
+				width: 78px;
+				padding-left: 4px;
+				font-weight:normal;
+				margin-right: 16px;
+			}
+	        span {
+		        margin-right: 18px;
+	        }
+		}
+	}
 </style>
 <template>
 	<div>
@@ -27,39 +50,86 @@
 			</div>
 		</div>
 		<div class="container">
-			<firm-center-nav path="personnel"></firm-center-nav>
+			<firm-center-nav path="find"></firm-center-nav>
 			<div class="inner-container">
-				<el-button-group class="btn-menu-group">
-					<el-button type="primary" plain>新简历</el-button>
-					<el-button plain>待沟通</el-button>
-					<el-button plain>待面试</el-button>
-					<el-button plain>录用</el-button>
-				</el-button-group>
-				<el-row style="margin-top: 18px;" :gutter="10" type="flex" justify="space-between">
-					<el-col :span="2">
-						<el-button plain type="default">筛选</el-button>
-					</el-col>
-					<el-col :span="3">
-						<el-select></el-select>
-					</el-col>
-					<el-col :span="3">
-						<el-select></el-select>
-					</el-col>
-					<el-col :span="8">
+				<el-row type="flex">
+					<el-col :span="12">
 						<el-input>
 							<el-button slot="append" icon="el-icon-search"></el-button>
 						</el-input>
 					</el-col>
-					<el-col :span="3">
-						<el-button type="success">移动到待沟通</el-button>
+					<el-col :span="3" style="margin-left: 20px;">
+						<el-button type="success">优选人才</el-button>
 					</el-col>
-					<el-col :span="2">
-						<el-button type="danger">淘汰</el-button>
-					</el-col>
-					<el-col :span="2">
-						<el-button type="primary">搜索人才</el-button>
+					<el-col :span="6">
+						<p style="font-size: 14px;color:#0d0d0d;">正在热搜：</p>
+						<p style="font-size: 14px;color: #fa6a43;margin-top: 8px;">电工&ensp;模板工&ensp;司机</p>
 					</el-col>
 				</el-row>
+				<el-row style="margin-top: 14px;">
+					<el-tag closable>搜索：精英人才/本科/产品经理</el-tag>
+				</el-row>
+				<div class="find-condition">
+					<el-row class="clearfix">
+						<b>工种：</b>
+						<span>驾驶员</span>
+						<span>工程机械操作修理工</span>
+						<span>土建专业</span>
+						<span>市政专业</span>
+						<span>安装专业</span>
+						<span>机械化施工专业</span>
+						<span>盾构施工专业</span>
+						<span>水利专业</span>
+						<el-button class="fr" plain type="primary" size="mini">更多...</el-button>
+					</el-row>
+					<el-row class="clearfix">
+						<b>地点：</b>
+						<span>北京</span>
+						<span>上海</span>
+						<span>武汉</span>
+						<span>深圳</span>
+						<span>广州</span>
+						<el-button class="fr" plain type="primary" size="mini">更多...</el-button>
+					</el-row>
+					<el-row class="clearfix">
+						<b>证书：</b>
+						<span>职业技能等级证书</span>
+						<span>岗位证书</span>
+						<span>毕业证书</span>
+						<el-button class="fr" plain type="primary" size="mini">更多...</el-button>
+					</el-row>
+					<el-row class="clearfix">
+						<b>项目类型：</b>
+						<span>公路</span>
+						<span>铁路</span>
+						<span>水利水运</span>
+						<span>城市轨道交通</span>
+						<span>城市道路桥梁</span>
+						<span>城市供水</span>
+						<el-button class="fr" plain type="primary" size="mini">更多...</el-button>
+					</el-row>
+					<el-row class="clearfix">
+						<b>薪资：</b>
+						目前薪资&ensp;
+						<el-input size="mini" style="width: 128px"></el-input>
+						&ensp;-&ensp;
+						<el-input size="mini" style="width: 128px"></el-input>
+						&ensp;元/月&emsp;
+						期待薪资&ensp;
+						<el-input size="mini" style="width: 128px"></el-input>
+						&ensp;-&ensp;
+						<el-input size="mini" style="width: 128px"></el-input>
+						&ensp;元/月
+					</el-row>
+					<el-row class="clearfix">
+						<b>其他：</b>
+						<el-select size="mini"  style="width: 154px" placeholder="工作年限(不限)"></el-select>&ensp;
+						<el-select size="mini"  style="width: 154px" placeholder="年龄(不限)"></el-select>&ensp;
+						<el-select size="mini"  style="width: 154px" placeholder="性别(不限)"></el-select>&ensp;
+						<el-select size="mini"  style="width: 154px" placeholder="更新时间(不限)"></el-select>&ensp;
+						<el-select size="mini"  style="width: 154px" placeholder="求职状态(不限)"></el-select>
+					</el-row>
+				</div>
 			</div>
 		</div>
 		<div class="container personnel-list">
