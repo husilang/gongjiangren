@@ -26,7 +26,7 @@
     </div>
     <div class="container">
       <el-tabs v-model="tab" @tab-click="handleClick">
-        <el-tab-pane name="1" label="企业招聘">
+        <el-tab-pane name="rescruit" label="企业招聘">
           <el-button-group size="small">
             <el-button type="primary">正在招聘</el-button>
             <el-button>历史招聘</el-button>
@@ -95,13 +95,12 @@
                   :total="1000">
           </el-pagination>
         </el-tab-pane>
-        <el-tab-pane name="2" label="候选人才">候选人才</el-tab-pane>
-        <el-tab-pane name="3" label="面试日程">面试日程</el-tab-pane>
-        <el-tab-pane name="4" label="人才录用">人才录用</el-tab-pane>
-        <el-tab-pane name="5" label="人才库">人才库</el-tab-pane>
+        <el-tab-pane name="personnel" label="候选人才"></el-tab-pane>
+        <el-tab-pane name="3" label="面试日程"></el-tab-pane>
+        <el-tab-pane name="4" label="人才录用"></el-tab-pane>
+        <el-tab-pane name="5" label="人才库"></el-tab-pane>
       </el-tabs>
     </div>
-
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -125,7 +124,7 @@
     layout: 'firmcenter',
     data() {
       return {
-        tab: '1',
+        tab: 'rescruit',
         info: {},
         firm: {},
         list: []
@@ -139,7 +138,9 @@
         this.info = info;
         this.firm = firm;
       },
-      handleClick() {}
+      handleClick(vueInstance) {
+        this.$router.push('/firm/center/'+vueInstance.name)
+      }
     }
   }
 </script>
