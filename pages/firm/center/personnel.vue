@@ -1,10 +1,55 @@
 <style lang="less">
 	@import "center.less";
 </style>
+<style scoped lang="less">
+	.list {
+		.line {
+			display: inline-block;
+			background: #e8e8ec;
+			width: 1px;
+			height: 98px;
+			margin: 0 auto;
+		}
+		img {
+			border-radius: 50%;
+			width: 60px;
+			height: 60px;
+			margin-bottom: 10px;
+		}
+	    .left-info{
+	        padding-left: 10px;
+		    .row1{
+			    color: #000;
+			    font-size: 16px;
+			    margin-bottom: 24px;
+		    }
+	        .row2 span{
+		        margin-right: 24px;
+		        color: #888e9a;
+		        font-size: 16px;
+	        }
+	        .row3{
+		        margin-top: 10px;
+		        font-size: 14px;
+		        color:#888e9a;
+	        }
+	    }
+		.right-info{
+			font-size: 14px;
+			color:#888e9a;
+			line-height: 26px;
+
+		}
+	    .choose{
+		    font-size: 14px;
+		    color:#888e9a;
+	    }
+	}
+</style>
 <template>
 	<div>
 		<div class="info-container">
-			<h4 class="firm-name"> <span>{{firm.name}}</span>
+			<h4 class="firm-name"><span>{{firm.name}}</span>
 				<el-tag type="danger" size="mini">智能优选</el-tag>
 			</h4>
 			<div class="clearfix info">
@@ -19,58 +64,113 @@
 				</div>
 				<div class="fr right-info">
 					<span class="line"></span>
-					<p>网站排名  <el-tag type="danger" size="mini">{{info.companyRank}}</el-tag></p>
+					<p>网站排名
+						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
+					</p>
 					<p>企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
 				</div>
 			</div>
 		</div>
+
 		<div class="container">
-			<el-tabs v-model="tab" @tab-click="handleClick">
-				<el-tab-pane name="rescruit" label="企业招聘">
-				</el-tab-pane>
-				<el-tab-pane name="personnel" label="候选人才">
-					<el-button-group size="small">
-						<el-button type="primary">新简历</el-button>
-						<el-button>待沟通</el-button>
-						<el-button>待面试</el-button>
-						<el-button>录用</el-button>
-					</el-button-group>
-					<el-row>
-						<el-button>筛选</el-button>
+			<firm-center-nav path="personnel"></firm-center-nav>
+			<div class="inner-container">
+				<el-button-group class="btn-menu-group">
+					<el-button type="primary" plain>新简历</el-button>
+					<el-button plain>待沟通</el-button>
+					<el-button plain>待面试</el-button>
+					<el-button plain>录用</el-button>
+				</el-button-group>
+				<el-row style="margin-top: 18px;" :gutter="10" type="flex" justify="space-between">
+					<el-col :span="2">
+						<el-button plain type="default">筛选</el-button>
+					</el-col>
+					<el-col :span="3">
 						<el-select></el-select>
+					</el-col>
+					<el-col :span="3">
 						<el-select></el-select>
-						<el-input size="small"></el-input>
-						<el-button>移动到待沟通</el-button>
-						<el-button>淘汰</el-button>
-						<el-button>搜索人才</el-button>
-					</el-row>
-				</el-tab-pane>
-				<el-tab-pane name="3" label="面试日程"></el-tab-pane>
-				<el-tab-pane name="4" label="人才录用"></el-tab-pane>
-				<el-tab-pane name="5" label="人才库"></el-tab-pane>
-			</el-tabs>
+					</el-col>
+					<el-col :span="8">
+						<el-input>
+							<el-button slot="append" icon="el-icon-search"></el-button>
+						</el-input>
+					</el-col>
+					<el-col :span="3">
+						<el-button type="success">移动到待沟通</el-button>
+					</el-col>
+					<el-col :span="2">
+						<el-button type="danger">淘汰</el-button>
+					</el-col>
+					<el-col :span="2">
+						<el-button type="primary">搜索人才</el-button>
+					</el-col>
+				</el-row>
+			</div>
 		</div>
+		<div class="container list">
+			<el-row>
+				<el-col :span="2" class="text-center">
+					<p class="img"><img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt=""></p>
+					<p><el-tag type="danger" size="small">7k-1.5w</el-tag></p>
+				</el-col>
+				<el-col :span="9" class="left-info">
+					<p class="row1">
+						行宁波&ensp;|&ensp;男&ensp;|&ensp;上海
+						<span class="icon"></span>
+					</p>
+					<p class="row2">
+						<span>管理</span>
+						<span>6年工作经验</span>
+						<span>技能熟练</span>
+						<span>有证书</span>
+					</p>
+					<p class="row3">应聘时间：1天前</p>
+				</el-col>
+				<el-col :span="1"><span class="line"></span></el-col>
+				<el-col :span="9" class="right-info">
+					<p>2008 09/21 ~ 2012 09/12 云南铝业 质量管理/测试</p>
+					<p>2008 09/21 ~ 2012 09/12 云南铝业 质量管理/测试</p>
+					<p>2008 09/21 ~ 2012 09/12 云南铝业 质量管理/测试</p>
+					<p>2008 09/21 ~ 2012 09/12 云南铝业 质量管理/测试</p>
+				</el-col>
+				<el-col :span="1"><span class="line"></span></el-col>
+				<el-col :span="2" class="choose text-center">
+					<p style="margin-bottom: 10px;margin-top: 24px;"><el-checkbox></el-checkbox></p>
+					<p>选择</p>
+				</el-col>
+			</el-row>
+		</div>
+		<el-pagination
+				style="text-align: center;margin-top: 14px;;"
+				layout="prev, pager, next"
+				:total="1000">
+		</el-pagination>
 	</div>
 </template>
 <script type="text/ecmascript-6">
 	import {getFirmCenter, getFirmInfo, getJobList} from '~/API/firm';
+	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
-		async asyncData({isClient,params,error}) {
-			try{
+		async asyncData({isClient, params, error}) {
+			try {
 				let {data: info} = await getFirmCenter();
 				let {data: firm} = await getFirmInfo();
-				let {data: list} = await getJobList({pageNo:1,pageSize:5});
+				let {data: list} = await getJobList({pageNo: 1, pageSize: 5});
 				return {
-					info: info||{},
-					firm: firm||{},
-					list: list||[]
+					info: info || {},
+					firm: firm || {},
+					list: list || []
 				}
 			} catch (error) {
-				error({ statusCode: 404, message: 'Post not found' })
+				error({statusCode: 404, message: 'Post not found'})
 			}
 		},
 		middleware: 'firmauth',
 		layout: 'firmcenter',
+		components: {
+			firmCenterNav
+		},
 		data() {
 			return {
 				tab: 'personnel',
@@ -87,7 +187,7 @@
 				this.firm = firm;
 			},
 			handleClick(vueInstance) {
-				this.$router.push('/firm/center/'+vueInstance.name)
+				this.$router.push('/firm/center/' + vueInstance.name)
 			}
 		}
 	}

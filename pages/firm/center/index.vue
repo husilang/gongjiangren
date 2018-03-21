@@ -322,7 +322,7 @@
     methods: {
       goPath(path){
         this.$router.push(path);
-      },
+      }
     }
   }
 </script>
