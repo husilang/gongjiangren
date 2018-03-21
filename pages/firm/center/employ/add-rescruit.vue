@@ -75,7 +75,10 @@
 				<el-form-item label="工种">
 					<el-row>
 						<el-col :span="10">
-							<el-select style="display: block;width: 100%"></el-select>
+							<el-select style="display: block;width: 100%">
+								<el-option v-for="item in jobTypeList" :label="item.name" :value="item.id" :key="item.id">
+								</el-option>
+							</el-select>
 						</el-col>
 					</el-row>
 				</el-form-item>
@@ -391,15 +394,19 @@
 </template>
 <script type="text/ecmascript-6">
 	import {getFirmCenter, getFirmInfo} from '~/API/firm';
+	import {getJobType} from '~/API/dict';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
 		async asyncData({isClient, params, error}) {
 			try {
 				let {data: info} = await getFirmCenter();
 				let {data: firm} = await getFirmInfo();
+				let {data: jobTypeList} = await getJobType({pageNo: 1, pageSize: 50});
 				return {
 					info: info || {},
-					firm: firm || {}
+					firm: firm || {},
+					jobTypeList: jobTypeList
+
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})
@@ -412,6 +419,7 @@
 		},
 		data() {
 			return {
+				jobTypeList: [],
 				info: {},
 				firm: {},
 				form: {},
