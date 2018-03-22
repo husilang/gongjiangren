@@ -1,5 +1,3 @@
-const bodyParser = require('body-parser')
-const session = require('express-session')
 module.exports = {
   head: {
     title: '恒航匠云',
@@ -20,15 +18,5 @@ module.exports = {
   ],
   build: {
     vendor: ['axios', 'element-ui']
-  },
-  serverMiddleware: [
-    bodyParser.json(),
-    session({
-      secret: 'gjr',
-      resave: false,
-      saveUninitialized: false,
-      cookie: {maxAge: 2*24*60*60*1000}
-    }),
-    '~/api'
-  ]
+  }
 }
