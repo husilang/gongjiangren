@@ -55,10 +55,10 @@
 				</div>
 				<div class="fr right-info">
 					<span class="line"></span>
-					<p>网站排名
+					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名
 						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
 					</p>
-					<p>企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
+					<p><i class="fa fa-trophy" aria-hidden="true"></i>&ensp;企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
 				</div>
 			</div>
 		</div>
@@ -71,12 +71,12 @@
 							<el-button slot="append" icon="el-icon-search"></el-button>
 						</el-input>
 					</el-col>
-					<el-col :span="3" style="margin-left: 20px;">
-						<el-button type="success">优选人才</el-button>
+					<el-col :span="4" style="margin-left: 20px;">
+						<el-button type="success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&ensp;优选人才</el-button>
 					</el-col>
 					<el-col :span="6">
 						<p style="font-size: 14px;color:#0d0d0d;">正在热搜：</p>
-						<p style="font-size: 14px;color: #fa6a43;margin-top: 8px;">电工&ensp;模板工&ensp;司机</p>
+						<p style="font-size: 14px;color: #fa6a43;margin-top: 8px;"><i class="fa fa-fire" aria-hidden="true"></i>&ensp;电工&ensp;模板工&ensp;司机</p>
 					</el-col>
 				</el-row>
 				<el-row style="margin-top: 14px;">

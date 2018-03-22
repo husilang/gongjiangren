@@ -19,10 +19,10 @@
 				</div>
 				<div class="fr right-info">
 					<span class="line"></span>
-					<p>网站排名
+					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名
 						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
 					</p>
-					<p>企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
+					<p><i class="fa fa-trophy" aria-hidden="true"></i>&ensp;企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
 				</div>
 			</div>
 		</div>

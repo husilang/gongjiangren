@@ -19,10 +19,10 @@
 				</div>
 				<div class="fr right-info">
 					<span class="line"></span>
-					<p>网站排名
+					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名
 						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
 					</p>
-					<p>企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
+					<p><i class="fa fa-trophy" aria-hidden="true"></i>&ensp;企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
 				</div>
 			</div>
 		</div>
@@ -30,8 +30,8 @@
 			<firm-center-nav path="rescruit"></firm-center-nav>
 			<div class="inner-container">
 				<el-button-group class="btn-menu-group">
-					<el-button :type="tab == 1?'primary':'default'" plain @click="tab=1">正在招聘</el-button>
-					<el-button :type="tab == 2?'primary':'default'" plain @click="tab=2">历史招聘</el-button>
+					<el-button :type="tab == 1?'primary':'default'" plain @click="tab=1"><i class="fa fa-user-plus" aria-hidden="true"></i>&ensp;正在招聘</el-button>
+					<el-button :type="tab == 2?'primary':'default'" plain @click="tab=2"><i class="fa fa-clock-o" aria-hidden="true"></i>&ensp;历史招聘</el-button>
 				</el-button-group>
 				<el-row type="flex" justify="space-between" style="margin-top: 18px;">
 					<el-col :span="12">
@@ -40,12 +40,14 @@
 						</el-input>
 					</el-col>
 					<el-col :span="4">
-						<el-button type="success">优选人才</el-button>
+						<router-link to="/firm/center/employ/preference" tag="button" class="el-button el-button--success">
+							<span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&ensp;优选人才</span>
+						</router-link>
 					</el-col>
 					<el-col :span="6" style="text-align: right">
 						<router-link class="el-button el-button--primary" tag="button"
 						             to="/firm/center/employ/add-rescruit">
-							<span>发布新职位</span>
+							<span><i class="fa fa-plus-circle" aria-hidden="true"></i>&ensp;发布新职位</span>
 						</router-link>
 					</el-col>
 				</el-row>
