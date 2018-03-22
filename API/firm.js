@@ -15,3 +15,13 @@ export async function getJobList(params) {
   const data = await fetch.getFirm('/company/job/list',params);
   return data;
 }
+// 历史招聘
+export async function getHistoryJobList(params) {
+  const data = await fetch.getFirm('/company/job/historyList',params);
+  return data;
+}
+// 职位信息
+export async function getJobInfo(id) {
+  const data = await fetch.getFirm('/company/job/'+id);
+  return data;
+}
