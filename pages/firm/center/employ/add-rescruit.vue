@@ -167,7 +167,8 @@
 				<el-form-item label="工作地点" prop="areaId">
 					<el-row>
 						<el-col :span="10">
-							<el-input v-model="form.areaId"></el-input>
+							<el-input v-model="form.areaId" @click.native="showAreaPick"></el-input>
+							<area-pick ref="areaPick"></area-pick>
 						</el-col>
 					</el-row>
 				</el-form-item>
@@ -409,6 +410,7 @@
 	import {getFirmCenter, getFirmInfo, getJobInfo} from '~/API/firm';
 	import {getJobType, getGlobalDict} from '~/API/dict';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
+	import areaPick from '~/components/areaPick/index';
 	export default  {
 		async asyncData({isClient, query, error}) {
 			console.log(query);
@@ -445,7 +447,7 @@
 		middleware: 'firmauth',
 		layout: 'firmcenter',
 		components: {
-			firmCenterNav
+			firmCenterNav,areaPick
 		},
 		data() {
 			return {
@@ -503,6 +505,9 @@
 						})
 					}
 				})
+			},
+			showAreaPick() {
+				this.$refs.areaPick.open();
 			}
 		}
 	}
