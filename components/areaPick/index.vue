@@ -151,7 +151,7 @@
 		},
 		data() {
 			return {
-				hide: false,
+				hide: true,
 				level: 1,
 				provinces: [],
 				cities: [],

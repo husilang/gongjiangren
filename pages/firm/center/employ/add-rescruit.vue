@@ -1,3 +1,6 @@
+<style lang="less">
+	@import "employ.less";
+</style>
 <style scoped>
 	.form {
 		padding: 0 40px;
