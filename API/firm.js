@@ -25,3 +25,8 @@ export async function getJobInfo(id) {
   const data = await fetch.getFirm('/company/job/'+id);
   return data;
 }
+// 招聘列表
+export async function getRecruitList(params) {
+  const data = await fetch.getFirm('/conpany/recruitRecord/list', params);
+  return data;
+}

@@ -1,35 +1,16 @@
-<style lang="less">
-	@import "employ.less";
-</style>
 <template>
 	<div>
-		<div class="info-container">
-			<h4 class="firm-name"><span>{{firm.name}}</span>
-				<el-tag type="danger" size="mini">智能优选</el-tag>
-			</h4>
-			<div class="clearfix info">
-				<div class="fl">
-					<p>企业综合评价指数：No.123(135)&emsp;|&emsp;网站使用时间： 365天</p>
-					<p>
-						<span>正在招聘人数 <b>{{info.recruitingAmount}}</b></span> &ensp;
-						<span>累计招聘人数 <b>{{info.recruitedAmount}}</b></span> &ensp;
-						<span>正在平台管理人数 <b>{{info.nowAdminAmount}}</b></span> &ensp;
-						<span>累计平台管理人数 <b>{{info.totalAdminAmount}}</b></span> &ensp;
-					</p>
-				</div>
-				<div class="fr right-info">
-					<span class="line"></span>
-					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名
-						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
-					</p>
-					<p><i class="fa fa-trophy" aria-hidden="true"></i>&ensp;企业荣誉：优秀企业奖，2017年最佳雇主奖</p>
-				</div>
-			</div>
-		</div>
 		<div class="container">
 			<firm-center-nav path="personnel"></firm-center-nav>
 			<div class="inner-container">
 				<el-button-group class="btn-menu-group">
+					<!--<el-button v-for="item in statuses"
+					           :key="item.value"
+					           :type="tab == item.value?'primary':'default'"
+					           plain
+					           @click="tab=item.value">
+						{{item.label}}
+					</el-button>-->
 					<el-button :type="tab == 1?'primary':'default'" plain @click="tab=1">新简历(10)</el-button>
 					<el-button :type="tab == 2?'primary':'default'" plain @click="tab=2">待沟通(8)</el-button>
 					<el-button :type="tab == 3?'primary':'default'" plain @click="tab=3">待面试(2)</el-button>
@@ -37,16 +18,20 @@
 				</el-button-group>
 				<el-row style="margin-top: 18px;" :gutter="10" type="flex" justify="space-between">
 					<el-col :span="2">
-						<el-button plain type="default">筛选</el-button>
+						<el-button plain type="default"><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;筛选</el-button>
 					</el-col>
 					<el-col :span="3">
-						<el-select></el-select>
+						<el-select v-model="form.viewType">
+							<el-option v-for="item in viewTypes" :label="item.label" :value="item.value" :key="item.value"></el-option>
+						</el-select>
 					</el-col>
 					<el-col :span="3">
-						<el-select></el-select>
+						<el-select v-model="form.sortBy">
+							<el-option v-for="item in sortByTypes" :label="item.label" :value="item.value" :key="item.value"></el-option>
+						</el-select>
 					</el-col>
 					<el-col :span="8">
-						<el-input>
+						<el-input v-model="form.keywords">
 							<el-button slot="append" icon="el-icon-search"></el-button>
 						</el-input>
 					</el-col>
@@ -106,43 +91,40 @@
 	</div>
 </template>
 <script type="text/ecmascript-6">
-	import {getFirmCenter, getFirmInfo, getJobList} from '~/API/firm';
+	import {getGlobalDict} from '~/API/dict';
+	import {getRecruitList} from '~/API/firm';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
 		async asyncData({isClient, params, error}) {
 			try {
-				let {data: info} = await getFirmCenter();
-				let {data: firm} = await getFirmInfo();
-				let {data: list} = await getJobList({pageNo: 1, pageSize: 5});
+				let {data: statuses} = await getGlobalDict('recruit_record_status');
+				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');
+				let {data: viewTypes} = await getGlobalDict('recruit_record_view_type');
+				let {data: list} = await getRecruitList({pageNo: 1, pageSize: 5, status: 1, viewType:0, sortBy:0});
 				return {
-					info: info || {},
-					firm: firm || {},
-					list: list || []
+					statuses,
+					sortByTypes,
+					viewTypes,
+					list
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})
 			}
 		},
-		middleware: 'firmauth',
-		layout: 'firmcenter',
 		components: {
 			firmCenterNav
 		},
 		data() {
 			return {
 				tab: '1',
-				info: {},
-				firm: {},
+				form: {},
+				statuses: [],
+				sortByTypes: [],
+				viewTypes: [],
 				list: []
 			}
 		},
 		methods: {
-			async pageInit() {
-				let {data: info} = await getFirmCenter();
-				let {data: firm} = await getFirmInfo();
-				this.info = info;
-				this.firm = firm;
-			}
 		}
 	}
 </script>
