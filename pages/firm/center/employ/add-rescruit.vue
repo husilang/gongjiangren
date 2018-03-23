@@ -170,8 +170,9 @@
 				<el-form-item label="工作地点" prop="areaId">
 					<el-row>
 						<el-col :span="10">
-							<el-input v-model="form.areaId" @click.native="showAreaPick"></el-input>
-							<area-pick ref="areaPick"></area-pick>
+							<el-input v-model="form.areaName" @click.native="showAreaPick"></el-input>
+							<el-input v-model="form.areaId" v-show="false"></el-input>
+							<area-pick ref="areaPick" @areaChecked="areaChecked"></area-pick>
 						</el-col>
 					</el-row>
 				</el-form-item>
@@ -508,6 +509,10 @@
 						})
 					}
 				})
+			},
+			areaChecked({id, name}) {
+				this.form.areaId = id;
+				this.form.areaName = name;
 			},
 			showAreaPick() {
 				this.$refs.areaPick.open();
