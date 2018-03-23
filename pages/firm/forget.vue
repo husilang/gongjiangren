@@ -36,9 +36,15 @@
 			<el-tabs tab-position="left" style="height: 600px;padding-left: 40px;">
 				<el-tab-pane label="手机验证">
 					<div class="check form">
-						<p class="name text-center">登录账户&ensp; <b></b></p>
 						<div class="img"><img src="~/assets/tel-check.png" alt=""></div>
 						<el-form ref="form" :model="form" :rules="rules" label-position="left" label-width="100px">
+							<el-form-item label="登录账号" prop="loginName">
+								<el-row>
+									<el-col :span="18">
+										<el-input v-model="form.loginName"></el-input>
+									</el-col>
+								</el-row>
+							</el-form-item>
 							<el-form-item label="手机号码" prop="mobile">
 								<el-row>
 									<el-col :span="18">
@@ -103,6 +109,7 @@
 					smsCode: 8888
 				},
 				rules: {
+					loginName: [{required: true,trigger: 'blur', message: '请输入登录账号'}],
 					mobile: [{required: true,trigger: 'blur', message: '请输入手机号码'}],
 					smsCode: [{required: true,trigger: 'blur', message: '请输入验证码'}]
 				}

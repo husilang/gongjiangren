@@ -62,7 +62,7 @@
 						</router-link>
 						<span v-if="tab==1"><b>{{parseFloat(item.completeRate)*100}}%</b>招聘完成率</span>
 					</p>
-					<p class="row2" v-if="tab==1"><span class="oper">再发布</span> | <span class="oper" @click="editJob(item.jobId)">编辑职位</span></p>
+					<p class="row2" v-if="tab==1"><span class="oper" @click="copyJob(item.jobId)">再发布</span> | <span class="oper" @click="editJob(item.jobId)">编辑职位</span></p>
 					<p class="row2" v-if="tab==2"><span class="oper" @click="editJob(item.jobId)">编辑职位</span> | <span class="oper" @click="closeJob(item.jobId)">关闭职位</span></p>
 				</div>
 			</div>
@@ -108,7 +108,10 @@
 				this.list = data.data;
 			},
 			editJob(id) {
-				this.$router.push({path:'/firm/center/employ/rescruit-oper', query:{id: id}});
+				this.$router.push({path:'/firm/center/employ/rescruit-oper', query:{id: id, type: 'edit'}});
+			},
+			copyJob(id) {
+				this.$router.push({path:'/firm/center/employ/rescruit-oper', query:{id: id, type: 'copy'}});
 			},
 			closeJob(id) {
 				this.$confirm('确定关闭?', '提示', {

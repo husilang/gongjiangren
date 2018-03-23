@@ -151,7 +151,7 @@
 				</el-form-item>
 				<el-form-item label="职位月薪" required>
 					<el-row>
-						<el-col :span="8">
+						<el-col :span="6">
 							<el-form-item prop="salaryMin">
 								<el-input v-model="form.salaryMin"></el-input>
 							</el-form-item>
@@ -159,7 +159,7 @@
 						<el-col :span="2" style="text-align: center">
 							千元至
 						</el-col>
-						<el-col :span="8">
+						<el-col :span="6">
 							<el-form-item prop="salaryMax">
 								<el-input v-model="form.salaryMax"></el-input>
 							</el-form-item>
@@ -390,8 +390,15 @@
 	import areaPick from '~/components/areaPick/index';
 	export default  {
 		async asyncData({isClient, query, error}) {
-			console.log(query);
 			try {
+				let pageType = '1';
+				let pageId = '';
+				if (query.type == 'edit') {
+					pageType = '2';
+					pageId = query.id;
+				} else if (query.type == 'copy') {
+					pageType = '3'
+				}
 				let {data: jobTypeList} = await getJobType({pageNo: 1, pageSize: 50});
 				let {data: yes_no} = await getGlobalDict('yes_no');
 				let {data: workNatures} = await getGlobalDict('work_nature');
@@ -402,20 +409,27 @@
 					needProxy: 0,
 					salaryDiscussPersonally: 0
 				};
+				let dateRange1 = [];
 				if (query.id) {
 					({data: form} = await getJobInfo(query.id));
 					form.workNature+='';
 					form.period+='';
 					form.confirmEndDate+='';
 					form.certRequire+='';
+					dateRange1 = [form.workBeginDate, form.workEndDate];
+					form.areaName = form.area.name;
+					form.areaId = form.area.id;
 				}
 				return {
+					pageType,
+					pageId,
 					jobTypeList,
 					yes_no,
 					workNatures,
 					confirmEnds,
 					periods,
-					form: JSON.parse(JSON.stringify(form))
+					form,
+					dateRange1
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})
@@ -427,6 +441,8 @@
 		data() {
 			return {
 				tab: '1',
+				pageType: '1',
+				pageId: '',
 				jobTypeList: [],
 				workNatures: [],
 				yes_no: [],
@@ -466,15 +482,30 @@
 				this.form.workEndDate = this.dateRange1 ? this.dateRange1[1] : '';
 				this.$refs.form.validate(valid => {
 					if (valid) {
-						this.$fetch.postFirm('/company/job/', this.form).then((res) => {
-							this.btnLoading1 = false;
-							if (res.code == 0) {
-								this.$message.success(res.msg);
-								this.$router.push('/firm/center/employ/rescruit');
-							} else {
-								this.$message.error(res.msg);
-							}
-						})
+						if (this.pageType == '1' || this.pageType == '3') {
+							delete this.form.id;
+							this.$fetch.postFirm('/company/job/', this.form).then((res) => {
+								this.btnLoading1 = false;
+								if (res.code == 0) {
+									this.$message.success(res.msg);
+									this.$router.push('/firm/center/employ/rescruit');
+								} else {
+									this.$message.error(res.msg);
+								}
+							})
+						} else if(this.pageType == '2') {
+							this.form.id = this.pageId;
+							this.$fetch.postFirm('/company/job/'+this.pageId+'/edit', this.form).then((res) => {
+								this.btnLoading1 = false;
+								if (res.code == 0) {
+									this.$message.success(res.msg);
+									this.$router.push('/firm/center/employ/rescruit');
+								} else {
+									this.$message.error(res.msg);
+								}
+							})
+						}
+
 					}
 				})
 			},

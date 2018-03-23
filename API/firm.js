@@ -30,3 +30,8 @@ export async function getRecruitList(params) {
   const data = await fetch.getFirm('/conpany/recruitRecord/list', params);
   return data;
 }
+// 各状态人才数量
+export async function getRecordCount() {
+  const data = await fetch.getFirm('/conpany/recruitRecord/count');
+  return data;
+}

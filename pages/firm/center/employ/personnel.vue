@@ -4,10 +4,10 @@
 			<firm-center-nav path="personnel"></firm-center-nav>
 			<div class="inner-container">
 				<el-button-group class="btn-menu-group">
-					<el-button :type="form.status == 1?'primary':'default'" plain @click="tabClick(1)">新简历(10)</el-button>
-					<el-button :type="form.status == 2?'primary':'default'" plain @click="tabClick(2)">待沟通(8)</el-button>
-					<el-button :type="form.status == 3?'primary':'default'" plain @click="tabClick(3)">待面试(2)</el-button>
-					<el-button :type="form.status == 4?'primary':'default'" plain @click="tabClick(4)">录用(14)</el-button>
+					<el-button :type="form.status == 1?'primary':'default'" plain @click="tabClick(1)">新简历({{counts.newCount}})</el-button>
+					<el-button :type="form.status == 2?'primary':'default'" plain @click="tabClick(2)">待沟通({{counts.waitingCount}})</el-button>
+					<el-button :type="form.status == 3?'primary':'default'" plain @click="tabClick(3)">待面试({{counts.preInterviewCount}})</el-button>
+					<el-button :type="form.status == 4?'primary':'default'" plain @click="tabClick(4)">录用({{counts.employedCount}})</el-button>
 				</el-button-group>
 				<el-row style="margin-top: 18px;" :gutter="10" type="flex" justify="space-between">
 					<el-col :span="2">
@@ -29,13 +29,13 @@
 						</el-input>
 					</el-col>
 					<el-col :span="3">
-						<el-button type="success" v-if="form.status==1" @click="moveToWait">移动到待沟通</el-button>
-						<el-button type="success" v-if="form.status==2">安排面试</el-button>
-						<el-button type="success" v-if="form.status==3">移动到录用</el-button>
-						<el-button type="success" v-if="form.status==4">移动到已入职</el-button>
+						<el-button type="success" v-if="form.status==1" @click.native="moveToWait">移动到待沟通</el-button>
+						<el-button type="success" v-if="form.status==2" @click.native="preInterview">安排面试</el-button>
+						<el-button type="success" v-if="form.status==3" @click.native="doEmploy">移动到录用</el-button>
+						<el-button type="success" v-if="form.status==4" @click.native="moveToComplete">移动到已入职</el-button>
 					</el-col>
 					<el-col :span="2">
-						<el-button type="danger">淘汰</el-button>
+						<el-button type="danger" @click.native="eliminated">淘汰</el-button>
 					</el-col>
 					<el-col :span="2">
 						<router-link tag="button" class="el-button el-button--primary" to="/firm/center/employ/find">
@@ -83,7 +83,7 @@
 </template>
 <script type="text/ecmascript-6">
 	import {getGlobalDict} from '~/API/dict';
-	import {getRecruitList} from '~/API/firm';
+	import {getRecruitList, getRecordCount} from '~/API/firm';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
 		async asyncData({isClient, query, error}) {
@@ -91,11 +91,13 @@
 				let {data: statuses} = await getGlobalDict('recruit_record_status');
 				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');
 				let {data: viewTypes} = await getGlobalDict('recruit_record_view_type');
+				let {data: counts} = await getRecordCount();
 				let {data: list} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType:1, sortBy:1});
 				return {
 					statuses,
 					sortByTypes,
 					viewTypes,
+					counts,
 					list
 				}
 			} catch (error) {
@@ -117,6 +119,7 @@
 				statuses: [],
 				sortByTypes: [],
 				viewTypes: [],
+				counts:{},
 				list: [],
 				checked: [],
 				checkedStr: ''
@@ -149,13 +152,88 @@
 			},
 			// 移动到待沟通
 			moveToWait() {
-				this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/moveToWaiting').then((res) => {
-					if (res.code == 0) {
-						this.getList();
-					} else {
-						this.$message.error(res.msg);
-					}
-				})
+				if (this.checked.length>0){
+					this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/moveToWaiting').then((res) => {
+						if (res.code == 0) {
+							this.getList();
+							this.counts.waitingCount = parseInt(this.counts.waitingCount)+1;
+							this.counts.newCount = parseInt(this.counts.newCount)-1;
+						} else {
+							this.$message.error(res.msg);
+						}
+					})
+				}else{
+					this.$message.warning('请先选中数据');
+				}
+			},
+			// 安排面试
+			preInterview() {
+				if (this.checked.length>0){
+					this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/preInterview').then((res) => {
+						if (res.code == 0) {
+							this.getList();
+							this.counts.preInterviewCount = parseInt(this.counts.preInterviewCount)+1;
+							this.counts.waitingCount = parseInt(this.counts.waitingCount)-1;
+						} else {
+							this.$message.error(res.msg);
+						}
+					})
+				}else{
+					this.$message.warning('请先选中数据');
+				}
+			},
+			// 移动到录用
+			doEmploy() {
+				if (this.checked.length>0){
+					this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/doEmploy').then((res) => {
+						if (res.code == 0) {
+							this.getList();
+							this.counts.preInterviewCount = parseInt(this.counts.preInterviewCount)-1;
+							this.counts.employedCount = parseInt(this.counts.employedCount)+1;
+						} else {
+							this.$message.error(res.msg);
+						}
+					})
+				}else{
+					this.$message.warning('请先选中数据');
+				}
+			},
+			// 移动到已入职
+			moveToComplete() {
+				if (this.checked.length>0){
+					this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/moveToCompleted').then((res) => {
+						if (res.code == 0) {
+							this.getList();
+							this.counts.employedCount = parseInt(this.counts.employedCount)-1;
+						} else {
+							this.$message.error(res.msg);
+						}
+					})
+				}else{
+					this.$message.warning('请先选中数据');
+				}
+			},
+			// 淘汰
+			eliminated() {
+				if (this.checked.length>0){
+					this.$confirm('确定淘汰?', '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(()=>{
+						this.$fetch.postFirm('/conpany/recruitRecord/'+this.checkedStr+'/eliminated').then((res) => {
+							if (res.code == 0) {
+								this.getList();
+								let nowCount = ["","newCount","waitingCount","preInterviewCount","employedCount"][parseInt(this.form.status)];
+								this.counts[nowCount]-- ;
+							} else {
+								this.$message.error(res.msg);
+							}
+						})
+					}).catch(()=>{})
+				} else {
+					this.$message.warning('请先选中数据');
+				}
 			}
 		}
 	}
