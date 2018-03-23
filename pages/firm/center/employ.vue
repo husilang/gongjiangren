@@ -1,5 +1,5 @@
 <style lang="less">
-	@import "employ/employ.less";
+	@import "employ.less";
 </style>
 <template>
 	<div>
@@ -39,8 +39,8 @@
 				let {data: info} = await getFirmCenter();
 				let {data: firm} = await getFirmInfo();
 				return {
-					info,
-					firm,
+					info: info || {},
+					firm: firm||{}
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})

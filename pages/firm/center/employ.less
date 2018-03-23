@@ -1,6 +1,15 @@
 .el-pagination .btn-next, .el-pagination .btn-prev,.el-pager li{
   background: transparent !important;
 }
+.el-input-group__append button.el-button{
+  background: #70ccfe;
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+  border-color: #70ccfe;
+  &:hover {
+    background: #89d4fc;
+  }
+}
 .container{
   background: #fff;
   width: 100%;
@@ -17,7 +26,7 @@
   }
   .el-button--default{
     background: #fff;
-    font-size: 16px;
+    font-size: 15px;
   }
   .btn-menu-group {
     .el-button{
@@ -189,5 +198,28 @@
   .choose{
     font-size: 14px;
     color:#888e9a;
+    span.checkBox{
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      line-height: 10px;
+      transition: all 0.2s ease-in-out;
+      b{
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        transition: all 0.2s ease-in-out;
+        background: #fff;
+      }
+      &.checked {
+        border-color: #70ccfe;
+        b{
+          background: #70ccfe;
+        }
+
+      }
+    }
   }
 }

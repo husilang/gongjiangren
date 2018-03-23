@@ -20,7 +20,7 @@
 					</el-col>
 					<el-col :span="6" style="text-align: right">
 						<router-link class="el-button el-button--primary" tag="button"
-						             to="/firm/center/employ/add-rescruit">
+						             to="/firm/center/employ/rescruit-oper">
 							<span><i class="fa fa-plus-circle" aria-hidden="true"></i>&ensp;发布新职位</span>
 						</router-link>
 					</el-col>
@@ -100,7 +100,7 @@
 				this.list = data.data;
 			},
 			editJob(id) {
-				this.$router.push({path:'/firm/center/employ/add-rescruit', query:{id: id}});
+				this.$router.push({path:'/firm/center/employ/rescruit-oper', query:{id: id}});
 			},
 			closeJob(id) {
 				this.$confirm('确定关闭?', '提示', {
