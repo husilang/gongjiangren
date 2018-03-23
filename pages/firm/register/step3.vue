@@ -50,7 +50,7 @@
 			<el-form-item class="btn-mt" label-width="0">
 				<el-row :gutter="16">
 					<el-col :span="12">
-						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
+						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step2')">上一步</el-button>
 					</el-col>
 					<el-col :span="12">
 						<el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
@@ -58,7 +58,9 @@
 				</el-row>
 			</el-form-item>
 			<el-form-item label-width="0">
-				<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+				<router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
+					<span>抢先体验，跳过</span>
+				</router-link>
 			</el-form-item>
 		</el-form>
 	</div>

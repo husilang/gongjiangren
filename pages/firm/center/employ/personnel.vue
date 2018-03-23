@@ -49,18 +49,17 @@
 			<el-row>
 				<el-col :span="2" class="text-center">
 					<p class="img"><img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt=""></p>
-					<p><el-tag type="danger" size="small">7k-1.5w</el-tag></p>
 				</el-col>
 				<el-col :span="9" class="left-info">
 					<p class="row1">
 						{{item.name}}&ensp;|&ensp;{{item.sex}}&ensp;|&ensp;{{item.areaName}}
 						<span class="icon"></span>
 					</p>
-					<p class="row2">
-						<span>{{item.skills[0].jobTypeName}}</span>
-						<span>{{item.skills[0].workAge}}年工作经验</span>
-						<span>{{item.skills[0].level}}</span>
-						<span>{{item.skills[0].hasCert?'有证书':'无证书'}}</span>
+					<p class="row2" v-for="sub in item.skills">
+						<span>{{sub.jobTypeName}}</span>
+						<span>{{sub.workAge}}年工作经验</span>
+						<span>{{sub.level}}</span>
+						<span>{{sub.hasCert?'有证书':'无证书'}}</span>
 					</p>
 					<p class="row3">应聘时间：{{item.applyDate}}</p>
 				</el-col>
@@ -87,12 +86,12 @@
 	import {getRecruitList} from '~/API/firm';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
-		async asyncData({isClient, params, error}) {
+		async asyncData({isClient, query, error}) {
 			try {
 				let {data: statuses} = await getGlobalDict('recruit_record_status');
 				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');
 				let {data: viewTypes} = await getGlobalDict('recruit_record_view_type');
-				let {data: list} = await getRecruitList({pageNo: 1, pageSize: 5, status: 1, viewType:1, sortBy:1});
+				let {data: list} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType:1, sortBy:1});
 				return {
 					statuses,
 					sortByTypes,
@@ -130,7 +129,7 @@
 			},
 			async getList() {
 				let res = await getRecruitList(this.form);
-				this.list = res.data;
+				this.list = res.data||[];
 				this.checked=[];
 				this.checkedStr = "";
 			},

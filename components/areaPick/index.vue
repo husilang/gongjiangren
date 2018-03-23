@@ -68,6 +68,7 @@
 			.tabs ul.tabs-ul{
 				height: 30px;
 				margin-top: 10px;
+				line-height: 32px;;
 			}
 			.tabs li {border: 1px solid #e7e7e7;display: inline-block;padding: 0 16px;
 				font-size: 12px;line-height: 29px;cursor:pointer;

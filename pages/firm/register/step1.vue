@@ -20,6 +20,9 @@
     font-size: 16px;
     color: #7e919a;
   }
+  .el-button--default{
+    background: #fff;
+  }
 </style>
 <template>
   <div class="regBox">

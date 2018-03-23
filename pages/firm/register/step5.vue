@@ -55,7 +55,7 @@
 		<div class="btn-mt" style="width: 524px;margin: 0 auto;margin-bottom: 10px;">
 			<el-row :gutter="16">
 				<el-col :span="12">
-					<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
+					<el-button class="block-btn" plain type="default" @click="goPath('/firm/register/step4')">上一步</el-button>
 				</el-col>
 				<el-col :span="12">
 					<router-link class="el-button block-btn el-button--primary" to="/firm/register/step6">
@@ -65,7 +65,9 @@
 			</el-row>
 		</div>
 		<div style="width: 524px; margin: 0 auto;">
-			<el-button type="default" class="block-btn">抢先体验，跳过</el-button>
+			<router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
+				<span>抢先体验，跳过</span>
+			</router-link>
 		</div>
 	</div>
 </template>

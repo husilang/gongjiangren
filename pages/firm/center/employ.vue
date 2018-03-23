@@ -5,7 +5,7 @@
 	<div>
 		<div class="info-container">
 			<h4 class="firm-name"><span>{{firm.name}}</span>
-				<el-tag type="danger" size="mini">智能优选</el-tag>
+				<el-tag type="danger" size="mini"><i class="fa fa-diamond" aria-hidden="true"></i>&nbsp;智能优选</el-tag>
 			</h4>
 			<div class="clearfix info">
 				<div class="fl">
@@ -19,7 +19,7 @@
 				</div>
 				<div class="fr right-info">
 					<span class="line"></span>
-					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名
+					<p><i class="fa fa-list-ul" aria-hidden="true"style="font-size: 13px;"></i>&ensp;网站排名&emsp;
 						<el-tag type="danger" size="mini">{{info.companyRank}}</el-tag>
 					</p>
 					<p><i class="fa fa-trophy" aria-hidden="true"></i>&ensp;企业荣誉：优秀企业奖，2017年最佳雇主奖</p>

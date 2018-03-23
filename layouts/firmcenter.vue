@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="less">
   .register-layout .title {
     height: 80px;
     background: #349dee;
@@ -17,7 +17,7 @@
     margin-right: 24px;
     margin-top: 25px;
   }
-  .register-layout .title img {
+  .register-layout .title img.portrait {
     width: 34px;
     border-radius: 50%;
     height: 34px;
@@ -50,9 +50,10 @@
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
+    height: 70px;
     opacity: 0.75;
-    line-height: 200px;
     margin: 0;
+    img {width: 100%;}
   }
 
   .el-carousel__item:nth-child(2n) {
@@ -78,15 +79,15 @@
           <span style="font-size: 36px;line-height: 80px;cursor: pointer" @click="goPath('/firm/center')">企业中心</span>
           <span class="line"></span>
           <span style="margin-top: 24px;">
-            <img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt="">
+            <img class="portrait" src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt="">
           </span>
           <span style="margin-top: 30px;">{{firmUser.loginName}}</span>
           <button class="exit-btn" @click="logout">退出</button>
         </div>
         <div class="fr">
-          <el-carousel :interval="4000" type="card" height="70px" indicator-position="none" style="margin-top: 5px;width: 200px;">
-            <el-carousel-item v-for="item in 6" :key="item">
-              <h3>{{ item }}</h3>
+          <el-carousel :interval="4000" type="card" height="70px" indicator-position="none" :autoplay="false" style="margin-top: 5px;width: 200px;">
+            <el-carousel-item v-for="item in 3" :key="item">
+              <h3><img :src="imgs[item]" alt=""></h3>
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -108,6 +109,11 @@
   import firmPageFooter from '~/components/firmPageFooter/index'
   export default  {
     computed: mapGetters(['firmUser']),
+    data() {
+      return{
+        imgs: ["","http://pic36.photophoto.cn/20150813/0022005593429109_b.jpg", "http://img.zcool.cn/community/01702e568643f66ac7251bb6e5d788.jpg@1280w_1l_2o_100sh.jpg","http://img.zcool.cn/community/038cf1b55deb85500000159959a7d0e.jpg"]
+      }
+    },
     methods: {
       goPath(path){
         this.$router.push(path);

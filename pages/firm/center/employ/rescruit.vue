@@ -43,15 +43,23 @@
 					</p>
 					<p class="row3">
 						<span>发布时间：2018年2月2日</span>
-						<span>搜索人才</span>
+						<router-link tag="span" to="/firm/center/employ/find">搜索人才</router-link>
 					</p>
 				</div>
 				<div class="fr right-item">
 					<p class="row1">
-			            <span><b>12</b>未阅读</span>
-			            <span><b>12</b>面试中</span>
-			            <span><b>12</b>候选人才</span>
-			            <span><b>12</b>录用人才</span>
+						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1}}">
+							<b>12</b>未阅读
+						</router-link>
+						<router-link tag="span" :to="{path: '/firm/center/employ/schedule'}">
+							<b>12</b>面试中
+						</router-link>
+						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1}}">
+							<b>12</b>候选人才
+						</router-link>
+						<router-link tag="span" :to="{path: '/firm/center/employ/offer'}">
+							<b>12</b>录用人才
+						</router-link>
 						<span v-if="tab==1"><b>{{parseFloat(item.completeRate)*100}}%</b>招聘完成率</span>
 					</p>
 					<p class="row2" v-if="tab==1"><span class="oper">再发布</span> | <span class="oper" @click="editJob(item.jobId)">编辑职位</span></p>

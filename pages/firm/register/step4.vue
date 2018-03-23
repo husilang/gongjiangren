@@ -2,10 +2,10 @@
 	<div class="regBox">
 		<steps :active="3" :stepsArr="stepsArr"></steps>
 		<el-form :model="form" ref="form" label-position="top" label-width="0px" class="form form2">
-			<el-row :gutter="10" v-for="item in 3" :key="item">
+			<el-row :gutter="16" v-for="item in 3" :key="item">
 				<el-col :span="12">
 					<el-form-item :label="'问题'+ item">
-						<el-select style="display: block;width: 100%;" size="small" v-model="list[item-1].questionId">
+						<el-select style="display: block;width: 100%;" v-model="list[item-1].questionId">
 							<el-option v-for="item in questions" :label="item.name" :value="item.id" :key="item.id">
 							</el-option>
 						</el-select>
@@ -13,24 +13,26 @@
 				</el-col>
 				<el-col :span="12">
 					<el-form-item :label="'答案' + item">
-						<el-input size="small" v-model="list[item-1].answer"></el-input>
+						<el-input v-model="list[item-1].answer"></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
-			<el-form-item class="btn-mt">
-				<el-row :gutter="16">
-					<el-col :span="12">
-						<el-button class="block-btn" type="default" @click="goPath('/firm/register/step1')">上一步</el-button>
-					</el-col>
-					<el-col :span="12">
-						<el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
-					</el-col>
-				</el-row>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="default" class="block-btn" @click.native="goPath('/firm/center')">抢先体验，跳过</el-button>
-			</el-form-item>
 		</el-form>
+		<div class="btn-mt" style="width: 524px;margin: 0 auto;margin-top: 20px;margin-bottom: 10px;">
+			<el-row :gutter="16">
+				<el-col :span="12">
+					<el-button class="block-btn" type="default" @click="goPath('/firm/register/step3')">上一步</el-button>
+				</el-col>
+				<el-col :span="12">
+					<el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
+				</el-col>
+			</el-row>
+		</div>
+		<div style="width: 524px; margin: 0 auto;">
+			<router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
+				<span>抢先体验，跳过</span>
+			</router-link>
+		</div>
 	</div>
 </template>
 <style>

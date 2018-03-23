@@ -145,7 +145,6 @@
 					<el-row>
 						<el-col :span="10">
 							<el-input v-model="form.areaName" @click.native="showAreaPick"></el-input>
-							<el-input v-model="form.areaId" v-show="false"></el-input>
 							<area-pick ref="areaPick" @areaChecked="areaChecked"></area-pick>
 						</el-col>
 					</el-row>
@@ -405,6 +404,10 @@
 				};
 				if (query.id) {
 					({data: form} = await getJobInfo(query.id));
+					form.workNature+='';
+					form.period+='';
+					form.confirmEndDate+='';
+					form.certRequire+='';
 				}
 				return {
 					jobTypeList,
@@ -412,7 +415,7 @@
 					workNatures,
 					confirmEnds,
 					periods,
-					form
+					form: JSON.parse(JSON.stringify(form))
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})

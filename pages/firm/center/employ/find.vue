@@ -116,7 +116,6 @@
 			<el-row>
 				<el-col :span="2" class="text-center">
 					<p class="img"><img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt=""></p>
-					<p><el-tag type="danger" size="small">7k-1.5w</el-tag></p>
 				</el-col>
 				<el-col :span="9" class="left-info">
 					<p class="row1">

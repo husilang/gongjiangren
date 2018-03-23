@@ -9,13 +9,9 @@
 					</template>
 				</el-input>
 			</el-form-item>
-			<el-form-item prop="nature">
-				<!--<el-select placeholder="选择企业性质" v-model="form2.password" type="password" style="display: block;width: 100%;">
-					<template slot="prepend">
-						<i class="icon icon6"></i>
-					</template>
-				</el-select>-->
-				<el-select placeholder="选择企业性质" v-model="form.nature" type="password" style="display: block;width: 100%;">
+			<el-form-item prop="nature" style="position:relative">
+				<span class="select-icon"><i class="icon icon6 slot"></i></span>
+				<el-select placeholder="选择企业性质" v-model="form.nature" type="password" style="display: inline-block;width: 100%;padding-left: 46px;">
 					<el-option v-for="item in companyNatures"
 					           :key="item.value"
 					           :label="item.label"
@@ -23,13 +19,9 @@
 					</el-option>
 				</el-select>
 			</el-form-item>
-			<el-form-item prop="scale">
-				<!--<el-input placeholder="选择企业规模" v-model="form2.rePassword" type="password">
-					<template slot="prepend">
-						<i class="icon icon7"></i>
-					</template>
-				</el-input>-->
-				<el-select placeholder="选择企业规模" v-model="form.scale" type="password" style="display: block;width: 100%;">
+			<el-form-item prop="scale" style="position:relative">
+				<span class="select-icon"><i class="icon icon7"></i></span>
+				<el-select placeholder="选择企业规模" v-model="form.scale" type="password" style="display: block;width: 100%;;padding-left: 46px;">
 					<el-option v-for="item in companyScales"
 					           :key="item.value"
 					           :label="item.label"
@@ -38,12 +30,12 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item prop="areaId">
-				<!--<el-input placeholder="选择企业所在(省/市/县)地址" v-model="form.areaId">
+				<el-input placeholder="选择企业所在(省/市/县)地址" v-model="form.areaName" @click.native="showAreaPick">
 					<template slot="prepend">
 						<i class="icon icon8"></i>
 					</template>
-				</el-input>-->
-				<area-select @change="areaChange"></area-select>
+				</el-input>
+				<area-pick ref="areaPick" @areaChecked="areaChecked"></area-pick>
 			</el-form-item>
 			<el-form-item prop="address">
 				<el-input placeholder="输入详细地址" v-model="form.address">
@@ -106,12 +98,23 @@
 		background-color: #fff;
 	}
 </style>
+<style scoped>
+	.select-icon{
+		position:absolute;
+		left:0;
+		width: 48px;
+		height: 40px;
+		text-align: center;
+		border: 1px solid #dcdfe7;
+		border-radius: 4px 0 0 4px;
+	}
+</style>
 <style lang="less">
 	@import "register.less";
 </style>
 <script type="text/ecmascript-6">
 	import Steps from '~/components/steps/step.vue';
-	import areaSelect from '~/components/areaSelect/areaSelect.vue';
+	import areaPick from '~/components/areaPick/index.vue';
 	import stepMixins from './step.mixin.js';
 	import {getGlobalDict} from '~/API/dict';
 	export default {
@@ -128,7 +131,7 @@
 		layout: 'firmregister',
 		components: {
 			Steps,
-			areaSelect
+			areaPick
 		},
 		data() {
 			return {
@@ -166,8 +169,13 @@
 			}
 		},
 		methods: {
-			areaChange(val) {
-				this.form.areaId = val;
+			showAreaPick() {
+				this.$refs.areaPick.open();
+			},
+			areaChecked({id,name}) {
+				this.form.areaName = name;
+				this.form.areaId = id;
+				this.$nextTick(() => {});
 			},
 			submitRegist() {
 				this.btnLoading = true;
