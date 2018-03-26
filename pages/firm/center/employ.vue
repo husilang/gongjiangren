@@ -34,7 +34,7 @@
 <script type="text/ecmascript-6">
 	import {getFirmCenter, getFirmInfo} from '~/API/firm';
 	export default  {
-		async asyncData({isClient, params, error}) {
+		async asyncData({params, error}) {
 			try {
 				let {data: info} = await getFirmCenter();
 				let {data: firm} = await getFirmInfo();

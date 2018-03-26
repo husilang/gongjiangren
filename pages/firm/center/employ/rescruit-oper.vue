@@ -389,7 +389,7 @@
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	import areaPick from '~/components/areaPick/index';
 	export default  {
-		async asyncData({isClient, query, error}) {
+		async asyncData({query, error}) {
 			try {
 				let pageType = '1';
 				let pageId = '';

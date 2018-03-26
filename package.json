@@ -20,7 +20,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "font-awesome": "^4.7.0",
-    "nuxt": "^1.0.0",
+    "nuxt": "^1.4.0",
     "qs": "^6.5.1"
   },
   "devDependencies": {

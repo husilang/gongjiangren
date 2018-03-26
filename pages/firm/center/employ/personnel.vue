@@ -86,7 +86,7 @@
 	import {getRecruitList, getRecordCount} from '~/API/firm';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
-		async asyncData({isClient, query, error}) {
+		async asyncData({query, error}) {
 			try {
 				let {data: statuses} = await getGlobalDict('recruit_record_status');
 				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');

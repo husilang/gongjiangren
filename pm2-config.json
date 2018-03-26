@@ -1,0 +1,10 @@
+{
+  "name": "gongjiangren",
+  "script": "./server/index",
+  "cwd": "/fr/",
+  "error_file": "./logs/app-err.log",
+  "out_file": "./logs/app-out.log",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

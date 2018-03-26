@@ -74,7 +74,7 @@
 	import {getJobList} from '~/API/firm';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
-		async asyncData({isClient, params, error}) {
+		async asyncData({ params, error}) {
 			try {
 				let {data: list} = await getJobList({pageNo: 1, pageSize: 5});
 				return {

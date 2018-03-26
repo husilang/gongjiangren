@@ -156,7 +156,7 @@
 	import {getJobType} from '~/API/dict';
 	import firmCenterNav from '~/components/firmCenterNav/firmCenterNav';
 	export default  {
-		async asyncData({isClient, params, error}) {
+		async asyncData({params, error}) {
 			try {
 				let {data: jobTypeList} = await getJobType({pageNo: 1, pageSize: 50});
 				return {
