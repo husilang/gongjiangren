@@ -1,6 +1,6 @@
 const {Nuxt, Builder} = require('nuxt');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 const app = require('express')();
 const router = require('express').Router()
 // 用来封装req.body
@@ -33,12 +33,19 @@ let config = require('../nuxt.config')
 config.dev = !isProd;
 const nuxt = new Nuxt(config);
 
+
+app.use(nuxt.render)
+
 // 生产模式不需要build
 if(!isProd) {
 	const builder = new Builder(nuxt)
 	builder.build()
+		.catch((error) => {
+			console.log(error)
+			process.exit(1)
+		})
 }
-//app.use(nuxt.render)
-app.use(nuxt.render)
-app.listen(3000)
-console.log('Server is listening on http://localhost:3000')
+app.listen(8081, function () {
+	console.log('Server is listening on http://localhost:8081')
+})
+
