@@ -1,7 +1,38 @@
+<style scope lang="less">
+	.logo {
+		font-size: 14px;
+		margin-bottom: 8px;
+		color: #939393;
+		line-height: 90px;
+		i {
+			display: inline-block;
+			width: 21px;
+			height: 21px;
+			background: url("~/assets/icon/rstep2.png") no-repeat 0 0;
+			vertical-align: middle;
+			margin-right: 8px;
+		}
+	}
+</style>
 <template>
 	<div class="regBox">
 		<steps :active="1" :stepsArr="stepsArr"></steps>
 		<el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="0px" class="form form2">
+			<div class="logo clearfix">
+				<i></i>添加企业LOGO
+				<div class="fr">
+					<el-upload
+							class="avatar-uploader"
+							action="https://jsonplaceholder.typicode.com/posts/"
+							:show-file-list="false"
+							:on-success="handleAvatarSuccess"
+							:before-upload="beforeAvatarUpload">
+						<img v-if="imageUrl" :src="imageUrl" class="avatar">
+						<img src="~/assets/upload_logo.png" alt="" v-else>
+						<!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+					</el-upload>
+				</div>
+			</div>
 			<el-form-item prop="name">
 				<el-input placeholder="输入企业名称" v-model="form.name">
 					<template slot="prepend">
@@ -48,6 +79,16 @@
 				<el-input placeholder="输入号码" v-model="form.contact">
 					<template slot="prepend">
 						<i class="icon icon10"></i>
+						<el-select v-model="select" placeholder="+86" style="width: 90px;border-left:1px solid #dcdfe6;margin-left: 12px;padding-right: 8px;">
+							<el-option label="餐厅名" value="1"></el-option>
+							<el-option label="订单号" value="2"></el-option>
+							<el-option label="用户电话" value="3"></el-option>
+						</el-select>
+						<el-select v-model="select" placeholder="区号" style="width:90px;border-left:1px solid #dcdfe6;margin-left: 10px;padding-right: 8px;">
+							<el-option label="餐厅名" value="1"></el-option>
+							<el-option label="订单号" value="2"></el-option>
+							<el-option label="用户电话" value="3"></el-option>
+						</el-select>
 					</template>
 				</el-input>
 			</el-form-item>
@@ -70,8 +111,39 @@
 					<template slot="prepend">
 						<i class="icon icon13"></i>
 					</template>
+
 				</el-input>
 			</el-form-item>
+			<el-form-item prop="tel">
+				<el-input placeholder="企业网址" v-model="form.tel">
+					<template slot="prepend">
+						<i class="icon icon13"></i>
+					</template>
+				</el-input>
+			</el-form-item>
+			<el-form-item prop="tel" style="position:relative">
+				<span class="select-icon" style="height: 96px;padding-top: 20px;"><i class="icon icon7"></i></span>
+				<el-input placeholder="企业简介"
+				          type="textarea"
+				          style="display: block;width: 100%;;padding-left: 46px;position: relative;"
+				          :rows="4">
+				</el-input>
+			</el-form-item>
+			<div class="honor clearfix">
+				<div class="fl">
+
+				</div>
+				<div class="fr">
+					<el-upload
+							action="https://jsonplaceholder.typicode.com/posts/"
+							list-type="picture-card"
+							:on-remove="handleRemove">
+						<i class="el-icon-circle-plus-outline">
+							<br><span style="font-size: 14px;color:#81bfff;">企业荣誉照片</span>
+						</i>
+					</el-upload>
+				</div>
+			</div>
 			<el-form-item class="btn-mt">
 				<el-row :gutter="16">
 					<el-col :span="12">
@@ -138,6 +210,7 @@
 				companyNatures: [],
 				companyScales: [],
 				btnLoading: false,
+				select: '',
 				form: {
 				},
 				rules: {

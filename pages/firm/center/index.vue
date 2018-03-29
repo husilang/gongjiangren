@@ -206,7 +206,7 @@
         <el-col :span="18" class="left-wrap">
           <div>
             <div class="nav-item clearfix">
-              <div class="fl m-box">
+              <div class="fl m-box" @click="goPath('/firm/register/step2')">
                 <i></i>
                 <p>企业注册信息管理</p>
               </div>
