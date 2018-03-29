@@ -13,21 +13,21 @@
       </div>
     </div>
     <div class="btn-box">
-      <div class="btn clearfix" @click="toFirm">
+      <div class="btn clearfix" @click="goPath('/firm')">
         <div class="icon"></div>
         <div class="text">
           <p>企业用户</p>
           <p class="eng">ENTERPRISE CUSTOMERS</p>
         </div>
       </div>
-      <div class="btn clearfix" @click="toFirm">
+      <div class="btn clearfix" @click="goPath('/pro')">
         <div class="icon"></div>
         <div class="text">
           <p>项目用户</p>
           <p class="eng">ENTERPRISE CUSTOMERS</p>
         </div>
       </div>
-      <div class="btn clearfix" @click="toFirm">
+      <div class="btn clearfix" @click="goPath('/client')">
         <div class="icon"></div>
         <div class="text">
           <p>个人用户</p>
@@ -56,8 +56,8 @@
 <script>
   export default {
     methods: {
-      toFirm() {
-        this.$router.push("/firm")
+      goPath(path) {
+        this.$router.push(path)
       }
     }
   }

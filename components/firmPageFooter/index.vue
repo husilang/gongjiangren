@@ -1,12 +1,12 @@
 <style scoped>
-	.register-layout .footer {
+	.footer {
 		height: 83px;
 		background: url("~/assets/reg-footer.jpg") no-repeat center bottom;
 		font-size: 12px;
 		line-height: 83px;
 		color: #7c8797;
 	}
-	.register-layout .footer p {
+	.footer p {
 		padding-left: 82px;
 		margin: 0 auto;
 		width: 212px;
