@@ -33,8 +33,9 @@ export default {
 			}
 		},
 		async firmLogout({commit}) {
+			//console.log('firmLogout');
 			await axios.post('/api/logout')
-			commit('SET_FIRMUSER', null)
+			commit('SET_FIRMUSER', null);
 		}
 	}
 }

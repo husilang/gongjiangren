@@ -10,10 +10,10 @@ app.use(session({
 	secret: 'gjr',
 	resave: false,
 	saveUninitialized: false,
-	cookie: {maxAge: 2*24*60*60*1000}
+	cookie: {maxAge: 1*24*60*60*1000}
 }));
 
-// 发起post /api/login 请求完成企业用户登录，并添加该用户到req.session.firmUser
+// 发起post /api/login 请求完成企业用户登录，并添加该用户信息到req.session.firmUser
 router.post('/api/login', (req, res) => {
 	if (req.body.token) {
 		req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}

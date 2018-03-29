@@ -130,7 +130,7 @@
         }).then(() => {
           this.$fetch.postFirm('/companyUser/logout').then((res) => {
             if (res.code == 0) {
-              this.$store.dispatch('firmLogout', res.data).then(() => {
+              this.$store.dispatch('firmLogout').then(() => {
                 this.$router.push('/firm/login');
               });
             } else {
