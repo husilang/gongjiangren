@@ -1,4 +1,5 @@
 <style lang="less">
+	@import "../../personnel.less";
 	@import "employ.less";
 </style>
 <template>

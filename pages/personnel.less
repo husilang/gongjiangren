@@ -1,0 +1,85 @@
+.el-pagination .btn-next, .el-pagination .btn-prev,.el-pager li{
+  background: transparent !important;
+}
+.el-input-group__append button.el-button{
+  background: #70ccfe;
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+  border-color: #70ccfe;
+  &:hover {
+    background: #89d4fc;
+  }
+}
+.container{
+  background: #fff;
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 8px;
+  padding: 40px 48px 30px 52px;
+}
+.personnel-list {
+  .line {
+    display: inline-block;
+    background: #e8e8ec;
+    width: 1px;
+    height: 98px;
+    margin: 0 auto;
+  }
+  img {
+    border-radius: 50%;
+    width: 100%;
+    margin-top:4px;
+  }
+  .left-info{
+    padding-left: 20px;
+    .row1{
+      color: #000;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .row2 span{
+      margin-right: 24px;
+      color: #888e9a;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .row3{
+      margin-top: 6px;
+      font-size: 14px;
+      color:#888e9a;
+    }
+  }
+  .right-info{
+    font-size: 14px;
+    color:#888e9a;
+    line-height: 26px;
+
+  }
+  .choose{
+    font-size: 14px;
+    color:#888e9a;
+    span.checkBox{
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      line-height: 10px;
+      transition: all 0.2s ease-in-out;
+      b{
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        transition: all 0.2s ease-in-out;
+        background: #fff;
+      }
+      &.checked {
+        border-color: #70ccfe;
+        b{
+          background: #70ccfe;
+        }
+
+      }
+    }
+  }
+}
