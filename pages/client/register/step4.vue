@@ -1,78 +1,61 @@
 <template>
   <div class="regBox">
-    <steps :active="2" :stepsArr="stepsArr"></steps>
-    <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="140px" class="form form2">
-      <el-form-item label="证件类型">
-        <el-select style="display: block;width: 100%;">
-
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="uscc" label="证件号">
-        <el-input placeholder="证件号" v-model="form.uscc">
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="uscc" label="身份证照片">
-        <el-upload
-          :action="uploadUrl"
-          list-type="picture-card"
-          :on-success="idCardSuccess"
-          :on-preview="handleIDCardPreview"
-          :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="idDialogVisible">
-          <img width="100%" :src="idDialogImageUrl" alt="">
-        </el-dialog>
-      </el-form-item>
-      <el-form-item class="btn-mt" label-width="0">
-        <el-row :gutter="16">
-          <el-col :span="12">
-            <el-button class="block-btn" type="default" @click="goPath('/firm/register/step2')">上一步</el-button>
-          </el-col>
-          <el-col :span="12">
-            <el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
-          </el-col>
-        </el-row>
-      </el-form-item>
-      <el-form-item label-width="0">
-        <router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
-          <span>抢先体验，跳过</span>
-        </router-link>
-      </el-form-item>
-    </el-form>
+    <steps :active="3" :stepsArr="stepsArr"></steps>
+    <div class="form">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <p class="fl">
+            <strong>高级电焊技师</strong>
+            <span>6年工作经验</span>
+            <span>技能熟练</span>
+            <span>有证书</span>
+          </p>
+          <el-button type="text" style="float: right">编辑专业信息</el-button>
+        </div>
+        <div class="box-content">
+          <div class="item">
+            <span>从业证书</span>
+            <div class="img">
+              <img src="" alt="">
+            </div>
+            <div class="img">
+              <img src="" alt="">
+            </div>
+            <div class="img">
+              <img src="" alt="">
+            </div>
+          </div>
+        </div>
+      </el-card>
+      <el-button style="display: block;width: 100%;">添加专业信息</el-button>
+    </div>
+    <div class="btn-mt" style="width: 524px;margin: 0 auto;margin-top: 20px;margin-bottom: 10px;">
+      <el-row :gutter="16">
+        <el-col :span="12">
+          <el-button class="block-btn" type="default" @click="goPath('/firm/register/step3')">上一步</el-button>
+        </el-col>
+        <el-col :span="12">
+          <el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
+        </el-col>
+      </el-row>
+    </div>
+    <div style="width: 524px; margin: 0 auto;">
+      <router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
+        <span>抢先体验，跳过</span>
+      </router-link>
+    </div>
   </div>
 </template>
 <style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-  .el-input-group__append, .el-input-group__prepend {
-    padding: 0 12px;
-    background-color: #fff;
-  }
+
 </style>
 <style lang="less">
   @import "register.less";
+  .regBox .form {
+    width: 724px;
+    margin: 0 auto;
+    margin-top: 38px;
+  }
 </style>
 <script type="text/ecmascript-6">
   import Steps from '~/components/steps/step.vue';

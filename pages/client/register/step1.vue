@@ -105,6 +105,7 @@
   import {mapGetters} from 'vuex';
   export default {
     layout: 'clientregister',
+    middleware: 'clientauth',
     mixins: [stepMixins],
     components: {
       Steps

@@ -167,7 +167,7 @@
 							</el-input>
 						</el-form-item>
 						<el-form-item prop="password">
-							<el-input placeholder="密码(6-16位字母、数字、无空格)" v-model="form.password">
+							<el-input placeholder="密码(6-16位字母、数字、无空格)" v-model="form.password" type="password">
 								<i slot="prefix" class="fa fa-lock" style="font-size: 16px;color: #818181;padding-left: 6px;"></i>
 							</el-input>
 						</el-form-item>
@@ -345,7 +345,6 @@
           try {
             if (valid) {
               this.$fetch.post('/user/register', this.form).then(res => {
-                console.log(res);
                 if (res.code == 0) {
                   this.$store.dispatch('clientLogin', res.data).then(() => {
                     this.$router.push('/client/register/step1');
@@ -367,11 +366,11 @@
         this.logging = true;
         this.$refs.form.validate(valid => {
           if (valid) {
-            this.$fetch.post('/companyUser/login', this.form).then(res => {
+            this.$fetch.post('/user/login', this.form).then(res => {
               this.logging = false;
               if (res.code == 0) {
-                this.$store.dispatch('firmLogin', res.data).then(() => {
-                  this.$router.push('/firm/center');
+                this.$store.dispatch('clientLogin', res.data).then(() => {
+                  this.$router.push('/client/center');
                 });
               } else {
                 this.$message.error(res.msg);

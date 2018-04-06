@@ -140,6 +140,7 @@
       }
     },
     mixins: [stepMixins],
+    middleware: 'clientauth',
     layout: 'clientregister',
     components: {
       Steps,
