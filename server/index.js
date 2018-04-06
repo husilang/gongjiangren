@@ -23,7 +23,9 @@ router.post('/api/login', (req, res) => {
 });
 // 发起post /api/logout 请求注销当前企业用户，并从req.session中移除
 router.post('/api/logout', (req, res) => {
-	delete req.session.firmUser;
+	delete req.session;
+	console.log("req.session");
+	console.log(req.session);
 	res.json({ok: true})
 });
 app.use(router);

@@ -3,7 +3,7 @@ import axios from 'axios';
 import consts from '~/utils/consts'
 import qs from 'qs';
 
-export default ({app, store, router}) => {
+export default ({app, store}) => {
 	axios.defaults.timeout = 90000;
 	axios.defaults.withCredentials = true;
 	axios.interceptors.request.use(config => {
@@ -20,15 +20,11 @@ export default ({app, store, router}) => {
 		return Promise.reject(err)
 	});
 	axios.interceptors.response.use(response => {
-		/*if (response.status !== 200) {
-			return Promise.reject(response);
-		}*/
 		if (response.data.code == 1 && store.getters.firmUser.token) {
 			store.dispatch('firmLogout').then(() => {
-				router.push('/firm/login')
+				app.router.push('/firm/login')
 			});
 		}
-		console.log(response);
 		return response;
 	}, err => {
 		/*let { status, data: { message }, config: { url } } = error.response;

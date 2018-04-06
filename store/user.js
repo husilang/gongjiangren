@@ -17,7 +17,7 @@ export default {
 	},
 	actions: {
 		nuxtServerInit({commit}, {req}) {
-			if (req.session && req.session.firmUser) {
+      if (req.session && req.session.firmUser) {
 				commit('SET_FIRMUSER', req.session.firmUser)
 			}
 		},
@@ -33,7 +33,6 @@ export default {
 			}
 		},
 		async firmLogout({commit}) {
-			//console.log('firmLogout');
 			await axios.post('/api/logout')
 			commit('SET_FIRMUSER', null);
 		}
