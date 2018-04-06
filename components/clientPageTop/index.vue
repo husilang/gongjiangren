@@ -10,7 +10,7 @@
 		display: inline-block;
 		width: 119px;
 		height: 26px;
-		background: url("~/assets/icon/reg_logo.png") no-repeat;
+		background: url("~/assets/client-logo.png") no-repeat left center;
 	}
 	.header .info li {
 		display: inline-block;

@@ -54,6 +54,12 @@
 					text-align: center;
 					margin-bottom: 30px;
 				}
+        a{
+          color: #fff;
+          &:hover{
+            text-decoration: underline;
+          }
+        }
 			}
 		}
 	    .content{
@@ -68,7 +74,7 @@
 		    }
 	        .search {
 	            .newjob{
-					background: #f2f3f6;
+					      background: #f2f3f6;
 		            font-weight: bold;
 		            color: #407c9f;
 		            font-size: 16px;
@@ -145,8 +151,8 @@
 					</ul>
 				</div>
 				<div class="fr">
-					<nuxt-link tag="span" to="/index" class="btn-type1">网站首页</nuxt-link>
-					<nuxt-link tag="span" to="/index" class="btn-type2">我是企业用户&nbsp;<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></nuxt-link>
+					<nuxt-link tag="span" to="/" class="btn-type1">网站首页</nuxt-link>
+					<nuxt-link tag="span" to="/firm" class="btn-type2">我是企业用户&nbsp;<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></nuxt-link>
 				</div>
 			</div>
 		</div>
@@ -154,37 +160,37 @@
 			<div class="commonWidth clearfix">
 				<div class="box fr">
 					<div class="title">在这里，拥有大国工匠</div>
-					<el-form label-width="0" label-position="left" :model="form">
-						<el-form-item>
-							<el-input placeholder="请填写用户名">
+					<el-form label-width="0" label-position="left" :model="form" :rules="rules" ref="form">
+						<el-form-item prop="loginName">
+							<el-input placeholder="请填写用户名" v-model="form.loginName">
 								<i slot="prefix" class="fa fa-user" style="font-size: 16px;color: #818181;padding-left: 6px;"></i>
 							</el-input>
 						</el-form-item>
-						<el-form-item>
-							<el-input placeholder="密码(6-16位字母、数字、无空格)">
+						<el-form-item prop="password">
+							<el-input placeholder="密码(6-16位字母、数字、无空格)" v-model="form.password">
 								<i slot="prefix" class="fa fa-lock" style="font-size: 16px;color: #818181;padding-left: 6px;"></i>
 							</el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-input placeholder="验证码">
-							</el-input>
+							<el-input placeholder="验证码" v-model="form.captcha"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" style="display: block;width: 100%;">人才登录</el-button>
+							<el-button v-if="isRegister" type="primary" style="display: block;width: 100%;" @click="register" :loading="registing">人才注册</el-button>
+							<el-button v-else type="primary" style="display: block;width: 100%;" @click="login" :loading="logging">人才登录</el-button>
 						</el-form-item>
 						<div class="clearfix" style="font-size: 14px;">
-							<p class="fl">
+							<a class="fl" href="javascript:;">
 								<i class="fa fa-bookmark-o" aria-hidden="true" style="color: #71cbff;"></i>&nbsp;生成桌面图标
-							</p>
+							</a>
 							<p class="fr">
-								<nuxt-link tag="span" to="/client/register/step1">立即注册</nuxt-link>
+                <a href="javascript:;" v-if="isRegister" @click="isRegister=false">立即登录</a>
+                <a href="javascript:;" v-else @click="isRegister=true">立即注册</a>
 								/
-								<nuxt-link tag="span" to="/client/forget">忘记密码？</nuxt-link>
+								<nuxt-link tag="a" to="/client/forget">忘记密码？</nuxt-link>
 							</p>
 						</div>
 					</el-form>
 				</div>
-
 			</div>
 		</div>
 		<div class="content">
@@ -310,8 +316,73 @@
 		},
 		data() {
 			return {
-				form: {}
+        isRegister: false,
+        logging: false,
+        registing: false,
+        rules: {
+          loginName: [
+            {required: true, message: '请输入用户名', trigger: 'blur'}
+          ],
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'}
+          ],
+          captcha: [
+            {required: true, message: '请输入验证码', trigger: 'blur'}
+          ]
+        },
+        form: {
+          captcha: '8888',
+          loginName:''
+        },
+
+        jobTypeList:[]
 			}
-		}
+		},
+    methods: {
+      register() {
+        this.registing = true;
+        this.$refs.form.validate((valid) => {
+          try {
+            if (valid) {
+              this.$fetch.post('/user/register', this.form).then(res => {
+                console.log(res);
+                if (res.code == 0) {
+                  this.$store.dispatch('clientLogin', res.data).then(() => {
+                    this.$router.push('/client/register/step1');
+                  });
+                } else {
+                  this.registing = false;
+                  this.$message.error(res.msg);
+                }
+              });
+            }
+          } catch (e) {
+            this.$message.error(e.message);
+          } finally {
+            this.registing = false;
+          }
+        });
+      },
+      login() {
+        this.logging = true;
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            this.$fetch.post('/companyUser/login', this.form).then(res => {
+              this.logging = false;
+              if (res.code == 0) {
+                this.$store.dispatch('firmLogin', res.data).then(() => {
+                  this.$router.push('/firm/center');
+                });
+              } else {
+                this.$message.error(res.msg);
+              }
+            })
+          } else {
+            this.logging = false;
+            return false;
+          }
+        })
+      }
+    }
 	}
 </script>

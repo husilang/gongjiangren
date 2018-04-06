@@ -16,7 +16,6 @@ export default ({app, store}) => {
 		}
 		return config
 	}, err => {
-		console.log('in requeset err');
 		return Promise.reject(err)
 	});
 	axios.interceptors.response.use(response => {

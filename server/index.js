@@ -16,6 +16,8 @@ app.use(session({
 // 发起post /api/login 请求完成企业用户登录，并添加该用户信息到req.session.firmUser
 router.post('/api/login', (req, res) => {
 	if (req.body.token) {
+	  delete req.session.clientUser;
+	  delete req.session.proUser;
 		req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
 		return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
 	}
@@ -23,11 +25,26 @@ router.post('/api/login', (req, res) => {
 });
 // 发起post /api/logout 请求注销当前企业用户，并从req.session中移除
 router.post('/api/logout', (req, res) => {
-	delete req.session;
-	console.log("req.session");
-	console.log(req.session);
+	req.session = null;
 	res.json({ok: true})
 });
+
+
+router.post('/api/clientLogin', (req, res) => {
+  if (req.body.token) {
+    delete req.session.firmUser;
+    delete req.session.proUser;
+    req.session.clientUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
+    return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
+  }
+  res.status(401).json({message: '401 Bad credentials'})
+});
+router.post('/api/clientLogout', (req, res) => {
+  req.session = null;
+  res.json({ok: true})
+});
+
+
 app.use(router);
 // 我们用这些选项初始化 nuxt.js;
 const isProd = process.env.NODE_ENV === 'production'
