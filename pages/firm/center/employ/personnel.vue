@@ -75,9 +75,10 @@
 			</el-row>
 		</div>
 		<el-pagination
+        v-if="total"
 				style="text-align: center;margin-top: 14px;;"
 				layout="prev, pager, next"
-				:total="10">
+				:total="total">
 		</el-pagination>
 	</div>
 </template>
@@ -92,10 +93,11 @@
 				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');
 				let {data: viewTypes} = await getGlobalDict('recruit_record_view_type');
 				let {data: counts} = await getRecordCount();
-				let {data: list} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType:1, sortBy:1});
+				let {data: list, total} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType:1, sortBy:1});
 				return {
 					statuses,
 					sortByTypes,
+          total,
 					viewTypes,
 					counts,
 					list
@@ -116,6 +118,7 @@
 					pageNo: 1,
 					pageSize: 5
 				},
+        total: 0,
 				statuses: [],
 				sortByTypes: [],
 				viewTypes: [],
@@ -133,6 +136,7 @@
 			async getList() {
 				let res = await getRecruitList(this.form);
 				this.list = res.data||[];
+				this.total = res.total;
 				this.checked=[];
 				this.checkedStr = "";
 			},

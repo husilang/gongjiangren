@@ -9,8 +9,8 @@
 				</el-button-group>
 				<el-row type="flex" justify="space-between" style="margin-top: 18px;">
 					<el-col :span="12">
-						<el-input>
-							<el-button slot="append" icon="el-icon-search"></el-button>
+						<el-input v-model="form.keywords">
+							<el-button slot="append" icon="el-icon-search" @click="getList()"></el-button>
 						</el-input>
 					</el-col>
 					<el-col :span="4">
@@ -68,9 +68,10 @@
 			</div>
 		</div>
 		<el-pagination
+        v-if="total"
 				style="text-align: center;margin-top: 14px;"
 				layout="prev, pager, next"
-				:total="1000">
+				:total="total">
 		</el-pagination>
 	</div>
 </template>
@@ -80,9 +81,10 @@
 	export default  {
 		async asyncData({params, error}) {
 			try {
-				let {data: list} = await getJobList({pageNo: 1, pageSize: 5});
+				let {data: list, total} = await getJobList({pageNo: 1, pageSize: 5});
 				return {
-					list: list
+					list,
+          total
 				}
 			} catch (error) {
 				error({statusCode: 404, message: 'Post not found'})
@@ -91,7 +93,13 @@
 		data() {
 			return {
 				tab: '1',
-				list: []
+        form: {
+          pageNo: 1,
+          pageSize: 5,
+          keywords:''
+        },
+				list: [],
+        total: 0
 			}
 		},
 		components: {
@@ -101,11 +109,12 @@
 			async getList() {
 				let data = {};
 				if (this.tab == 1) {
-					data = await getJobList({pageNo: 1, pageSize: 5});
+					data = await getJobList(this.form);
 				} else if (this.tab == 2) {
-					data = await getHistoryJobList({pageNo: 1, pageSize: 5});
+					data = await getHistoryJobList(this.form);
 				}
 				this.list = data.data;
+				this.total = data.total;
 			},
 			editJob(id) {
 				this.$router.push({path:'/firm/center/employ/rescruit-oper', query:{id: id, type: 'edit'}});
