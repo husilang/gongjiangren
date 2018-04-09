@@ -93,7 +93,8 @@
 				let {data: sortByTypes} = await getGlobalDict('recruit_record_sort_by');
 				let {data: viewTypes} = await getGlobalDict('recruit_record_view_type');
 				let {data: counts} = await getRecordCount();
-				let {data: list, total} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType:1, sortBy:1});
+				let {data: list, total} = await getRecruitList({pageNo: 1, pageSize: 5, status: query.status || 1, viewType: query.viewType||1, sortBy:1, jobId: query.jobId||''});
+
 				return {
 					statuses,
 					sortByTypes,
@@ -113,7 +114,7 @@
 			return {
 				form: {
 					status: '1',
-					viewType:'1',
+					viewType: this.$route.query.viewType?this.$route.query.viewType+'':'1',
 					sortBy:'1',
 					pageNo: 1,
 					pageSize: 5

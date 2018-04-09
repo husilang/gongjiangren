@@ -48,16 +48,16 @@
 				</div>
 				<div class="fr right-item">
 					<p class="row1">
-						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1}}">
+						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1, jobId: item.jobId, viewType: 2}}">
 							<b>{{item.amountOfUnread}}</b>未阅读
 						</router-link>
-						<router-link tag="span" :to="{path: '/firm/center/employ/schedule'}">
+						<router-link tag="span" :to="{path: '/firm/center/employ/schedule', query: {jobId: item.jobId}}">
 							<b>{{item.amountOfInterview}}</b>面试中
 						</router-link>
-						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1}}">
+						<router-link tag="span" :to="{path: '/firm/center/employ/personnel', query: {status: 1, jobId: item.jobId}}">
 							<b>{{item.amountOfWaiting}}</b>候选人才
 						</router-link>
-						<router-link tag="span" :to="{path: '/firm/center/employ/offer'}">
+						<router-link tag="span" :to="{path: '/firm/center/employ/offer', query: {jobId: item.jobId}}">
 							<b>{{item.amountOfComplete}}</b>录用人才
 						</router-link>
 						<span v-if="tab==1"><b>{{parseFloat(item.completeRate)*100}}%</b>招聘完成率</span>
