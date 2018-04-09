@@ -49,7 +49,7 @@ export default {
 		},
     async clientLogin({commit}, {authStatus, id, loginName, token}){
       try {
-        const {data} = await axios.post('/api/clientLogin', {authStatus, id, loginName, token})
+        const {data} = await axios.post('/api/client/login', {authStatus, id, loginName, token})
         commit('SET_CLIENTUSER', data)
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -59,7 +59,7 @@ export default {
       }
     },
     async clientLogout({commit}) {
-		  await axios.post('/api/clientLogout')
+		  await axios.post('/api/logout')
       commit('SET_CLIENTUSER', null)
     }
 	}

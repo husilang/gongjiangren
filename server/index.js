@@ -30,7 +30,7 @@ router.post('/api/logout', (req, res) => {
 });
 
 
-router.post('/api/clientLogin', (req, res) => {
+router.post('/api/client/login', (req, res) => {
   if (req.body.token) {
     delete req.session.firmUser;
     delete req.session.proUser;
@@ -39,10 +39,10 @@ router.post('/api/clientLogin', (req, res) => {
   }
   res.status(401).json({message: '401 Bad credentials'})
 });
-router.post('/api/clientLogout', (req, res) => {
+/*router.post('/api/clientLogout', (req, res) => {
   req.session = null;
   res.json({ok: true})
-});
+});*/
 
 
 app.use(router);
