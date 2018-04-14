@@ -303,16 +303,16 @@
 				</div>
 			</div>
 		</div>
-		<firm-page-footer></firm-page-footer>
+		<client-page-footer></client-page-footer>
 	</div>
 </template>
 <script type="text/ecmascript-6">
 	import clientPageTop from '~/components/clientPageTop'
-	import firmPageFooter from '~/components/firmPageFooter'
+	import clientPageFooter from '~/components/clientPageFooter'
 	export default{
 		components: {
 			clientPageTop,
-			firmPageFooter
+      clientPageFooter
 		},
 		data() {
 			return {
