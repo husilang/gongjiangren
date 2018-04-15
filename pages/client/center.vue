@@ -1,11 +1,11 @@
 <style lang="less" scoped>
-@import "../center.less";
+@import "center.less";
 </style>
 <template>
   <div class="client-center">
     <client-page-top></client-page-top>
     <div class="nav">
-      <div class="commonWidth clearfix">
+      <div class="clearfix">
         <div class="fl">
           <ul>
             <nuxt-link tag="li" to="/client/center" class="cur">个人中心</nuxt-link>
@@ -27,7 +27,7 @@
             <div class="info">
               <div class="clearfix name-info">
                 <div class="fl img">
-                  <img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt="" class="portrait">
+                  <img src="../../assets/portrait.jpg" alt="" class="portrait">
                 </div>
                 <div class="fr text">
                   <p class="clearfix name"><strong>李建国</strong><span class="msg-icon fr"><i></i></span></p>
@@ -89,7 +89,9 @@
             <img src="" alt="">
           </div>
         </div>
-        <div class="content fr"></div>
+        <div class="content fr">
+          <nuxt-child />
+        </div>
       </div>
     </div>
     <client-page-footer></client-page-footer>
