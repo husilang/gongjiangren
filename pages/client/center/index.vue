@@ -1,86 +1,5 @@
 <style lang="less" scoped>
-  .client-center{
-    .nav {
-      background: #344c68;
-      height: 73px;
-      color: #fff;
-      li {
-        display: inline-block;
-        margin-right: 10px;
-        margin-top: 22px;
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 33px;
-        width: 106px;
-        height: 33px;
-        text-align: center;
-
-        &.cur{
-          background: #fff;
-          color: #344c68;
-          border-radius: 4px;
-        }
-      }
-      span {
-        display: inline-block;
-        text-align: center;
-        border-radius: 4px;;
-        font-size: 15px;
-        cursor: pointer;
-        line-height: 32px;
-        margin-top: 22px;
-      }
-      span.btn-type1 {
-        width: 104px;
-        height: 32px;
-        background: #ffde41;
-        color: #8e1e06;
-        margin-left: 14px;
-      }
-      .icon{
-        display: block;
-        float: left;
-        margin-top: 22px;
-        width: 31px;
-        height: 31px;
-        background: #fff;
-        border: 1px solid #0694ff;
-        border-radius: 50%;
-        margin-right: 12px;
-        text-align: center;
-      }
-      .icon1 i{
-        display: inline-block;
-        width: 17px;
-        height: 18px;
-        background: url("~/assets/icon/client-icon.png") no-repeat 0 -185px;
-        margin-top: 4px;
-      }
-      .icon2 i{
-        display: inline-block;
-        width: 14px;
-        height: 22px;
-        background: url("~/assets/icon/client-icon.png") no-repeat 0 -235px;
-        margin-top: 2px;
-      }
-    }
-    .main{
-      background: #e7ebf3;
-      padding-top: 15px;
-      padding-bottom: 15px;
-    }
-    .aside{
-      width: 310px;
-      .person{
-        background: #fff;
-        padding: 12px 25px 14px 14px;
-        border-radius: 4px;
-      }
-    }
-    .content{
-      width: 856px;
-    }
-  }
+@import "../center.less";
 </style>
 <template>
   <div class="client-center">
@@ -106,22 +25,68 @@
         <div class="aside fl">
           <div class="person">
             <div class="info">
-              <div class="clearfix">
+              <div class="clearfix name-info">
                 <div class="fl img">
                   <img src="http://wx1.sinaimg.cn/orj360/9359621dly1fp8udaub8ej20j60j6q4i.jpg" alt="" class="portrait">
                 </div>
                 <div class="fr text">
-                  <p><strong>李建国</strong></p>
-                  <p><span>高级焊工</span></p>
-                  <p><i class="diamond"></i><span>等级1</span></p>
+                  <p class="clearfix name"><strong>李建国</strong><span class="msg-icon fr"><i></i></span></p>
+                  <p class="job"><span>高级焊工</span></p>
+                  <p class="level"><i class="diamond-icon"></i><span>等级1</span></p>
                 </div>
               </div>
-              <p><i class="hg"></i>12家企业人才库成员</p>
+              <p class="job-info">上海 | 建筑工程 | 工作大于3年</p>
+              <p class="oth-info"><i class="hg-icon"></i>12家企业人才库成员</p>
             </div>
-            <div class="menu"></div>
+            <div class="menu clearfix">
+              <ul>
+                <li class="cur"><nuxt-link tag="span" to="/">账号设置</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">修改密码</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">编辑简历</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">企业库</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">密码问题</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">发票中心</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">举报中心</nuxt-link></li>
+                <li><nuxt-link tag="span" to="/">信息认证</nuxt-link></li>
+              </ul>
+            </div>
             <div class="resume">
-
+              <div class="clearfix">
+                <strong class="fl">简历</strong>
+                <p class="fr">
+                  <a href="">预览</a>
+                  <a href="">编辑</a>
+                  <a href="">下载</a>
+                </p>
+              </div>
+              <p class="percent">简历完整度：60%</p>
+              <div class="progress">
+                <span></span>
+              </div>
             </div>
+          </div>
+          <div class="notice">
+            <div class="title">
+              通知中心
+            </div>
+            <div class="notice-item">
+              <p class="tit">最新消息</p>
+              <p class="desc">最新消息1</p>
+            </div>
+            <div class="notice-item">
+              <p class="tit">最新消息</p>
+              <p class="desc">最新消息1</p>
+            </div>
+            <div class="notice-item">
+              <p class="tit">最新消息</p>
+              <p class="desc">最新消息1</p>
+            </div>
+            <nuxt-link class="notice-btn" tag="p" to="/">
+              发布消息
+            </nuxt-link>
+          </div>
+          <div class="ad">
+            <img src="" alt="">
           </div>
         </div>
         <div class="content fr"></div>
