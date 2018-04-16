@@ -73,6 +73,33 @@
         color: #000;
       }
     }
+    .tab3{
+      padding-bottom: 170px;
+      .portrait{
+        text-align: center;
+        img{
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 1px solid #34a8ff;
+        }
+        .account-name-info{
+          background: #f7f7f7;
+          border-radius: 10px;
+          height: 30px;
+          line-height: 30px;
+          display: inline-block;
+          padding:0 40px;
+          font-size: 15px;
+          color: #a1a1a1;
+          margin-top: 16px;
+          margin-bottom: 45px;
+          span{
+            color: #2b3e47;
+          }
+        }
+      }
+    }
     .tab4{
       padding-bottom: 340px;
       .avatar-uploader .el-upload {
@@ -214,7 +241,31 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="tab tab3" v-show="active == 3"></div>
+        <div class="tab tab3" v-show="active == 3">
+          <el-form :model="form3" ref="form3" :rules="rules3" label-position="left" label-width="120px" class="form">
+            <div class="portrait clearfix">
+              <img src="../../../assets/portrait.jpg" alt="">
+              <div><p class="account-name-info">账号：<span>司马卓文</span></p></div>
+            </div>
+            <el-form-item prop="name" label="旧登录密码">
+              <el-input placeholder="输入名称" v-model="form3.name" type="password">
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="name" label="设置新密码">
+              <el-input placeholder="输入名称" type="password" v-model="form3.name">
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="name" label="确认新密码">
+              <el-input placeholder="输入名称" v-model="form3.name" type="password">
+              </el-input>
+            </el-form-item>
+            <el-form-item class="btn-mt" label-width="0px">
+              <router-link tag="button" class="el-button block-btn el-button--primary" to="/firm/register/step1">
+                <span>提交</span>
+              </router-link>
+            </el-form-item>
+          </el-form>
+        </div>
         <div class="tab tab4" v-show="active == 4">
           <el-form :model="form4" ref="form4" :rules="rules4" label-position="left" label-width="140px" class="form">
             <el-form-item label="证件类型">
@@ -257,13 +308,9 @@
     },
     data() {
       return {
-        active: 4,
-        form1: {
-
-        },
-        rules1: {
-
-        },
+        active: 3,
+        form1: {},
+        rules1: {},
         form2:{},
         rules2:{},
         form3:{},
