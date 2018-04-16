@@ -5,7 +5,7 @@
   <div class="client-center">
     <client-page-top></client-page-top>
     <div class="nav">
-      <div class="clearfix">
+      <div class="commonWidth clearfix">
         <div class="fl">
           <ul>
             <nuxt-link tag="li" to="/client/center" class="cur">个人中心</nuxt-link>

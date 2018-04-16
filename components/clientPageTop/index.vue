@@ -4,6 +4,7 @@
 		padding: 0 20px 0 15px;
 		background: #0694ff;
 		color: #fff;
+    overflow: hidden;
 	}
 	.header .logo p{
 		cursor: pointer;
@@ -25,7 +26,7 @@
 	}
 </style>
 <template>
-	<div class="header">
+	<div class="header clearfix">
 		<div class="logo fl">
 			<router-link tag="p" to="/"></router-link>
 		</div>
