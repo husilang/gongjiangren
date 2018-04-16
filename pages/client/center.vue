@@ -8,9 +8,9 @@
       <div class="commonWidth clearfix">
         <div class="fl">
           <ul>
-            <nuxt-link tag="li" to="/client/center" class="cur">个人中心</nuxt-link>
-            <nuxt-link tag="li" to="/client/center">职位搜索</nuxt-link>
-            <nuxt-link tag="li" to="/client/center">企业库</nuxt-link>
+            <nuxt-link tag="li" to="/client/center/home" class="cur">个人中心</nuxt-link>
+            <nuxt-link tag="li" to="/client/job-search">职位搜索</nuxt-link>
+            <nuxt-link tag="li" to="/client/center/firmbase">企业库</nuxt-link>
           </ul>
         </div>
         <div class="fr">

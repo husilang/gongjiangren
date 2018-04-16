@@ -62,79 +62,79 @@
         }
 			}
 		}
-	    .content{
-		    padding-top: 10px;
-		    padding-bottom: 10px;
-		    background: #e7ebf3;
-		    .wrap {
-			    background: #fff;
-			    padding:32px 44px 30px 52px;
-			    border-radius: 6px;
-			    margin-bottom: 10px;
-		    }
-	        .search {
-	            .newjob{
-					      background: #f2f3f6;
-		            font-weight: bold;
-		            color: #407c9f;
-		            font-size: 16px;
-		            height: 64px;
-		            line-height: 64px;;
-		            padding-left: 16px;
-		            margin-top: 12px;
-		            border-radius: 6px;
-		            span {
-			            display: inline-block;
-			            width: 40px;
-			            height: 42px;
-			            text-align: center;
-			            color: #ffffff;
-			            font-weight:bolder;
-			            font-size: 30px;
-			            background: #71cbff;
-			            border: 1px solid #5cbbf2;
-			            line-height: 42px;;
-			            vertical-align: sub;
-			            margin-right: 2px;
-			            box-shadow: 0 2px 4px #b2b2b2;
-		            }
-	            }
-		        .find-condition{
-					.el-row{
-						padding-top: 10px;
-						padding-bottom: 9px;
-						border-bottom: 1px dashed #ccc;
-						font-size: 14px;
-						color: #424a50;
-						line-height: 28px;
+    .content{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background: #e7ebf3;
+      .wrap {
+        background: #fff;
+        padding:32px 44px 30px 52px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+        .search {
+            .newjob{
+              background: #f2f3f6;
+              font-weight: bold;
+              color: #407c9f;
+              font-size: 16px;
+              height: 64px;
+              line-height: 64px;;
+              padding-left: 16px;
+              margin-top: 12px;
+              border-radius: 6px;
+              span {
+                display: inline-block;
+                width: 40px;
+                height: 42px;
+                text-align: center;
+                color: #ffffff;
+                font-weight:bolder;
+                font-size: 30px;
+                background: #71cbff;
+                border: 1px solid #5cbbf2;
+                line-height: 42px;;
+                vertical-align: sub;
+                margin-right: 2px;
+                box-shadow: 0 2px 4px #b2b2b2;
+              }
+            }
+          .find-condition{
+        .el-row{
+          padding-top: 10px;
+          padding-bottom: 9px;
+          border-bottom: 1px dashed #ccc;
+          font-size: 14px;
+          color: #424a50;
+          line-height: 28px;
 
-						b{
-							display: inline-block;
-							width: 78px;
-							padding-left: 4px;
-							font-weight:normal;
-							margin-right: 16px;
-						}
-						span {
-							margin-right: 8px;
-							padding: 2px 8px;
-							border: 1px solid #fff;
-							border-radius: 4px;
-							cursor: pointer;
-							&:hover{
-								 border: 1px solid rgba(64, 158, 255, .6);
-								 color: #409EFF;
-							 }
-							&.checked{
-								 background: #409EFF;
-								 border-color : #409EFF;
-								 color: #fff;
-							 }
-						}
-					}
-				}
-	        }
-	    }
+          b{
+            display: inline-block;
+            width: 78px;
+            padding-left: 4px;
+            font-weight:normal;
+            margin-right: 16px;
+          }
+          span {
+            margin-right: 8px;
+            padding: 2px 8px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            &:hover{
+               border: 1px solid rgba(64, 158, 255, .6);
+               color: #409EFF;
+             }
+            &.checked{
+               background: #409EFF;
+               border-color : #409EFF;
+               color: #fff;
+             }
+          }
+        }
+      }
+        }
+    }
 	}
 </style>
 <template>
@@ -144,10 +144,10 @@
 			<div class="commonWidth clearfix">
 				<div class="fl">
 					<ul>
-						<nuxt-link tag="li" to="/client/center">个人中心</nuxt-link>
+						<nuxt-link tag="li" to="/client/center/home">个人中心</nuxt-link>
 						<nuxt-link tag="li" to="/client/center">个人简历</nuxt-link>
-						<nuxt-link tag="li" to="/client/center">职位搜索</nuxt-link>
-						<nuxt-link tag="li" to="/client/center">企业库</nuxt-link>
+						<nuxt-link tag="li" to="/client/job-search">职位搜索</nuxt-link>
+						<nuxt-link tag="li" to="/client/center/firmbase">企业库</nuxt-link>
 					</ul>
 				</div>
 				<div class="fr">

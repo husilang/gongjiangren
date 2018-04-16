@@ -15,7 +15,7 @@
       color: #679adf;
     }
     .recruit-pane-title{
-      background: #f4fbff;
+      background: #f4fbff url("~/assets/icon/count-icon.png") no-repeat 14px 17px;
       border: 1px solid #add3f7;
       height: 53px;
       line-height: 53px;
