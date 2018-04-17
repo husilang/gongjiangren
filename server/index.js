@@ -18,7 +18,12 @@ router.post('/api/login', (req, res) => {
 	if (req.body.token) {
 	  req.session.clientUser = null;
 	  req.session.proUser = null;
-		req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
+	  req.session.firmUser = null;
+		if(req.body.firm){
+      req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
+    } else if(req.body.client){
+		  req.session.clientUser =  { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
+    }
 		return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
 	}
 	res.status(401).json({message: '401 Bad credentials'})
@@ -29,8 +34,9 @@ router.post('/api/logout', (req, res) => {
 	res.json({ok: true})
 });
 
-
-router.post('/api/client/login', (req, res) => {
+/*
+router.post('/api/client', (req, res) => {
+  console.log(req.body);
   if (req.body.token) {
     req.session.firmUser = null;
     req.session.proUser = null;
@@ -38,10 +44,6 @@ router.post('/api/client/login', (req, res) => {
     return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
   }
   res.status(401).json({message: '401 Bad credentials'})
-});
-/*router.post('/api/clientLogout', (req, res) => {
-  req.session = null;
-  res.json({ok: true})
 });*/
 
 

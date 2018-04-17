@@ -35,7 +35,8 @@ export default {
 		},
 		async firmLogin({commit}, {authStatus, id, loginName, token}) {
 			try {
-				const {data} = await axios.post(consts.HOST_URL+'/api/login', {authStatus, id, loginName, token})
+				const {data} = await axios.post(consts.HOST_URL+'/api/login', {authStatus, id, loginName, token, firm: true})
+        commit('CLEAR_USER');
 				commit('SET_FIRMUSER', data)
 			} catch (error) {
 				if (error.response && error.response.status === 401) {
@@ -50,7 +51,8 @@ export default {
 		},
     async clientLogin({commit}, {authStatus, id, loginName, token}){
       try {
-        const {data} = await axios.post(consts.HOST_URL+'/api/client/login', {authStatus, id, loginName, token})
+        const {data} = await axios.post(consts.HOST_URL+'/api/login', {authStatus, id, loginName, token, client: true})
+        commit('CLEAR_USER');
         commit('SET_CLIENTUSER', data)
       } catch (error) {
         if (error.response && error.response.status === 401) {
