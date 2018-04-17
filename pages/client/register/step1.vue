@@ -129,7 +129,7 @@
         return new Promise((resolve, reject) => {
           this.$refs.form.validate((valid) => {
             if (valid) {
-              this.$fetch.postFirm('/companyUser/bindMobile', this.form).then((res) => {
+              this.$fetch.post('/user/bindMobile', this.form).then((res) => {
                 if (res.code == 0) {
                   resolve();
                 } else {
@@ -147,7 +147,7 @@
         this.btnLoading1 = true;
         this.telCheck().then(() => {
           this.btnLoading1 = false;
-          this.$router.push('/firm/center');
+          this.$router.push('/client/center/home');
         }).catch(() => {
           this.btnLoading1 = false;
         })
@@ -156,7 +156,7 @@
         this.btnLoading2 = true;
         this.telCheck().then(() => {
           this.btnLoading2 = false;
-          this.$router.push('/firm/register/step2');
+          this.$router.push('/client/register/step2');
         }).catch(() => {
           this.btnLoading2 = false;
         })

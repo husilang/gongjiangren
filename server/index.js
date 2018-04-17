@@ -16,8 +16,8 @@ app.use(session({
 // 发起post /api/login 请求完成企业用户登录，并添加该用户信息到req.session.firmUser
 router.post('/api/login', (req, res) => {
 	if (req.body.token) {
-	  delete req.session.clientUser;
-	  delete req.session.proUser;
+	  req.session.clientUser = null;
+	  req.session.proUser = null;
 		req.session.firmUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
 		return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
 	}
@@ -32,8 +32,8 @@ router.post('/api/logout', (req, res) => {
 
 router.post('/api/client/login', (req, res) => {
   if (req.body.token) {
-    delete req.session.firmUser;
-    delete req.session.proUser;
+    req.session.firmUser = null;
+    req.session.proUser = null;
     req.session.clientUser = { authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token}
     return res.json({ authStatus:req.body.authStatus, id: req.body.id, loginName: req.body.loginName, token: req.body.token})
   }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import consts from '~/utils/consts'
 export default {
 	state: {
 		firmUser: null,
@@ -34,7 +35,7 @@ export default {
 		},
 		async firmLogin({commit}, {authStatus, id, loginName, token}) {
 			try {
-				const {data} = await axios.post('/api/login', {authStatus, id, loginName, token})
+				const {data} = await axios.post(consts.HOST_URL+'/api/login', {authStatus, id, loginName, token})
 				commit('SET_FIRMUSER', data)
 			} catch (error) {
 				if (error.response && error.response.status === 401) {
@@ -44,12 +45,12 @@ export default {
 			}
 		},
 		async firmLogout({commit}) {
-			await axios.post('/api/logout')
+			await axios.post(consts.HOST_URL+'/api/logout')
 			commit('SET_FIRMUSER', null);
 		},
     async clientLogin({commit}, {authStatus, id, loginName, token}){
       try {
-        const {data} = await axios.post('/api/client/login', {authStatus, id, loginName, token})
+        const {data} = await axios.post(consts.HOST_URL+'/api/client/login', {authStatus, id, loginName, token})
         commit('SET_CLIENTUSER', data)
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -59,7 +60,7 @@ export default {
       }
     },
     async clientLogout({commit}) {
-		  await axios.post('/api/logout')
+		  await axios.post(consts.HOST_URL+'/api/logout')
       commit('SET_CLIENTUSER', null)
     }
 	}
