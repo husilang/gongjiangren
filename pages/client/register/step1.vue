@@ -89,7 +89,7 @@
             <el-form-item>
               <el-row>
                 <el-col :span="18">
-                  <el-button style="display: block;width: 100%;">完善企业信息</el-button>
+                  <el-button style="display: block;width: 100%;">完善个人信息</el-button>
                 </el-col>
               </el-row>
             </el-form-item>

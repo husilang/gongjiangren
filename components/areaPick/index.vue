@@ -172,6 +172,11 @@
 				selectName: ''
 			}
 		},
+    props:{
+		  toLevel: {
+		    default: 3
+      }
+    },
 		methods: {
 			close() {
 				this.hide = true;
@@ -187,19 +192,29 @@
 				let {data: cities} = await getDictArea(3,id);
 				this.cities = cities;
 			},
-			async getCountries(id) {
+      async getCountries(id) {
 				let {data: countries} = await getDictArea(4,id);
 				this.countries = countries;
 			},
-			checkedPro(item) {
-				this.level = 2;
-				this.provinceName = item.name;
-				this.getCities(item.id);
-			},
+      checkedPro(item) {
+        if (this.toLevel == '1'){
+          this.selectId = item.id;
+          this.selectName = item.name;
+        } else {
+          this.level = 2;
+          this.provinceName = item.name;
+          this.getCities(item.id);
+        }
+      },
 			checkedCity(item){
-				this.level = 3;
-				this.cityName = item.name;
-				this.getCountries(item.id);
+				if (this.toLevel == '2'){
+          this.selectId = item.id;
+          this.selectName = item.name;
+        } else {
+          this.level = 3;
+          this.cityName = item.name;
+          this.getCountries(item.id);
+        }
 			},
 			backAll() {
 				this.level = 1;

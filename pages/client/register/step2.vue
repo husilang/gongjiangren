@@ -26,14 +26,14 @@
             action="https://jsonplaceholder.typicode.com/posts/"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
+            >
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <img src="~/assets/upload_logo.png" alt="" v-else>
             <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
           </el-upload>
         </div>
       </div>
-      <el-form-item prop="name">
+      <!--<el-form-item prop="name">
         <el-input placeholder="输入名称" v-model="form.name">
           <template slot="prepend">
             <i class="icon icon5"></i>
@@ -53,7 +53,7 @@
             <i class="icon icon5"></i>
           </template>
         </el-input>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item prop="name">
         <el-input placeholder="姓名" v-model="form.name">
           <template slot="prepend">
@@ -61,12 +61,15 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="name">
-        <el-input placeholder="民族" v-model="form.name">
-          <template slot="prepend">
-            <i class="icon icon5"></i>
-          </template>
-        </el-input>
+      <el-form-item prop="nation" style="position: relative">
+        <span class="select-icon"><i class="icon icon6 slot"></i></span>
+        <el-select placeholder="选择民族" v-model="form.nation" style="display: inline-block;width: 100%;padding-left: 46px;">
+          <el-option v-for="item in nations"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item prop="name">
         <el-input placeholder="联系方式" v-model="form.name">
@@ -75,13 +78,13 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="areaId">
-        <el-input placeholder="选择常住地址" v-model="form.areaName" @click.native="showAreaPick">
+      <el-form-item prop="cityId">
+        <el-input placeholder="选择常住地址" v-model="form.cityName" @click.native="showAreaPick">
           <template slot="prepend">
             <i class="icon icon8"></i>
           </template>
         </el-input>
-        <area-pick ref="areaPick" @areaChecked="areaChecked"></area-pick>
+        <area-pick ref="areaPick" @areaChecked="areaChecked" toLevel="2"></area-pick>
       </el-form-item>
       <el-form-item prop="address">
         <el-input placeholder="输入详细地址" v-model="form.address">
@@ -93,12 +96,10 @@
       <el-form-item class="btn-mt">
         <el-row :gutter="16">
           <el-col :span="12">
-            <router-link tag="button" class="el-button block-btn el-button--default" to="/firm/register/step1">
-              <span>快速注册</span>
-            </router-link>
+            <el-button class="block-btn" type="default"  @click.native="submitRegist('quick')">快速注册</el-button>
           </el-col>
           <el-col :span="12">
-            <el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">下一步</el-button>
+            <el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist('next')">下一步</el-button>
           </el-col>
         </el-row>
       </el-form-item>
@@ -132,11 +133,9 @@
   import {getGlobalDict} from '~/API/dict';
   export default {
     async asyncData({params, error}) {
-      let {data: natures} = await getGlobalDict('company_nature');
-      let {data: scales} = await getGlobalDict('company_scale');
+      let {data: nations} = await getGlobalDict('nation');
       return {
-        companyNatures: natures,
-        companyScales: scales
+        nations
       }
     },
     mixins: [stepMixins],
@@ -148,57 +147,50 @@
     },
     data() {
       return {
-        companyNatures: [],
-        companyScales: [],
+        nations:[],
         btnLoading: false,
-        select: '',
         form: {
         },
         rules: {
           name: [
-            {required: true, message: '请输入企业名称', trigger: 'blur'}
+            {required: true, message: '请输入姓名', trigger: 'blur'}
           ],
-          nature: [
-            {required: true, message: '请选择企业性质', trigger: 'blur'}
+          nation: [
+            {required: true, message: '请输入民族', trigger: 'blur'}
           ],
-          scale: [
-            {required: true, message: '请选择企业规模', trigger: 'blur'}
-          ],
-          areaId: [
-            {required: true, message: '请选择企业地区', trigger: 'change'}
+          cityId: [
+            {required: true, message: '请选择地区', trigger: 'change'}
           ],
           address: [
-            {required: true, message: '请输入企业详细地址', trigger: 'blur'}
-          ],
-          contact: [
-            {required: true, message: '请输入企业号码', trigger: 'blur'}
-          ],
-          adminEmail: [
-            {required: true, message: '请输入电子邮箱', trigger: 'blur'}
-          ],
-          adminName: [
-            {required: true, message: '请输入管理员姓名', trigger: 'blur'}
+            {required: true, message: '请输入详细地址', trigger: 'blur'}
           ]
         }
       }
     },
     methods: {
+      handleAvatarSuccess(){
+
+      },
       showAreaPick() {
         this.$refs.areaPick.open();
       },
       areaChecked({id,name}) {
-        this.form.areaName = name;
-        this.form.areaId = id;
+        this.form.cityName = name;
+        this.form.cityId = id;
         this.$nextTick(() => {});
       },
-      submitRegist() {
+      submitRegist(str) {
         this.btnLoading = true;
         this.$refs.form.validate((valid) => {
           try {
             if (valid) {
-              this.$fetch.postFirm('/companyUser/addInfo', this.form).then(res => {
+              this.$fetch.postFirm('/user/addInfo', this.form).then(res => {
                 if (res.code == "0") {
-                  this.$router.push('/firm/register/step3');
+                  if (str == 'next'){
+                    this.$router.push('/client/register/step3');
+                  } else if(str == 'quick'){
+                    this.$router.push('/client/center/home');
+                  }
                 } else {
                   this.$message.error(res.msg);
                   this.btnLoading = false;
