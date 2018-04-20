@@ -290,10 +290,10 @@
             <el-col :span="1"><span class="line"></span></el-col>
             <el-col :span="2" class="choose text-center">
               <p class="btn-row">
-                <el-button type="primary" size="small">投递简历</el-button>
+                <el-button type="primary" size="small" @click="deliver(item.jobId)">投递简历</el-button>
               </p>
               <p>
-                <el-button type="default" size="small">收藏职位</el-button>
+                <el-button type="default" size="small" @click="star(item.jobId)">收藏职位</el-button>
               </p>
             </el-col>
           </el-row>
@@ -306,7 +306,7 @@
 <script>
   import clientPageTop from '~/components/clientPageTop'
   import clientPageFooter from '~/components/clientPageFooter'
-  import {searchJob} from "../../API/client";
+  import {searchJob, deliverJob} from "../../API/client";
 
   export default {
     middleware: 'clientauth',
@@ -327,6 +327,28 @@
     data() {
       return {
         list: []
+      }
+    },
+    methods: {
+      // 投递简历
+      deliver(jobId){
+        this.$fetch.post('/user/job/'+jobId+'/deliver').then(res => {
+          if (res.code == 0){
+            this.$message.success(res.msg);
+          } else {
+            this.$message.error(res.msg);
+          }
+        })
+      },
+      // 收藏简历
+      star(jobId){
+        this.$fetch.post('/userCollect/'+jobId+'/add').then(res => {
+          if (res.code == 0){
+            this.$message.success(res.msg);
+          } else {
+            this.$message.error(res.msg);
+          }
+        })
       }
     }
   }

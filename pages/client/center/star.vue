@@ -155,12 +155,12 @@
   <div class="star-page">
     <div class="recruit-pane">
       <div class="recruit-pane-title clearfix">
-        <p class="fl">我收藏的职位 <span class="font-orange">3</span> 个</p>
+        <p class="fl">我收藏的职位 <span class="font-orange">{{list.length}}</span> 个</p>
         <p class="fr">
           <el-select placeholder="全部状态" size="mini" style="width: 108px" v-model="status"></el-select>
         </p>
       </div>
-      <div class="recruit-info-item" v-for="item in list" :key="item.id">
+      <div class="recruit-info-item" v-for="item in list" :key="item.jobId">
         <el-row>
           <el-col :span="3" class="portrait">
             <img src="../../../assets/portrait.jpg" alt="">
@@ -190,7 +190,7 @@
               <el-button type="primary">招聘中&emsp;</el-button>
             </p>
             <p>
-              <el-button type="default">取消投递</el-button>
+              <el-button type="default" @click="cancelStar(item.jobId)">取消收藏</el-button>
             </p>
           </el-col>
         </el-row>
@@ -243,6 +243,29 @@
         status: '',
         list: [],
         recommendList: []
+      }
+    },
+    methods: {
+      async getList() {
+        let res = getCollectList({pageNo: 1, pageSize: 10});
+        this.list = res.list;
+      },
+      // 取消收藏
+      cancelStar(jobId){
+        this.$confirm('确定取消投递?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(()=>{
+          this.$fetch.post('/userCollect/'+jobId+'/remove').then((res) => {
+            if (res.code == 0) {
+              this.$message.success(res.msg);
+              this.getList();
+            } else {
+              this.$message.error(res.msg);
+            }
+          })
+        }).catch(()=>{})
       }
     }
   }
