@@ -364,7 +364,6 @@
                     <el-input type="textarea"></el-input>
                   </el-col>
                 </el-form-item>
-
             </el-row>
           </el-form>
         </div>
@@ -376,7 +375,7 @@
   export default {
     data() {
       return {
-        active: 5,
+        active: 1,
       }
     },
     methods: {

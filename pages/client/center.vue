@@ -54,8 +54,8 @@
               <div class="clearfix">
                 <strong class="fl">简历</strong>
                 <p class="fr">
-                  <a href="">预览</a>
-                  <a href="">编辑</a>
+                  <nuxt-link tag="a" to="/client/resume-preview">预览</nuxt-link>
+                  <nuxt-link tag="a" to="/client/center/resume">编辑</nuxt-link>
                   <a href="">下载</a>
                 </p>
               </div>
