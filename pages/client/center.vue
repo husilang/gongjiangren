@@ -40,14 +40,14 @@
             </div>
             <div class="menu clearfix">
               <ul>
-                <nuxt-link tag="li" to="/client/center/account">账号设置</nuxt-link>
-                <nuxt-link tag="li" to="/client/center/account">修改密码</nuxt-link>
+                <nuxt-link tag="li" :to="{path: '/client/center/account', query: {tab: 1}}">账号设置</nuxt-link>
+                <nuxt-link tag="li" :to="{path: '/client/center/account', query: {tab: 3}}">修改密码</nuxt-link>
                 <nuxt-link tag="li" to="/client/center/resume">编辑简历</nuxt-link>
                 <nuxt-link tag="li" to="/client/center/firmbase">企业库</nuxt-link>
-                <nuxt-link tag="li" to="/client/center/account">密码问题</nuxt-link>
+                <nuxt-link tag="li" :to="{path: '/client/center/account', query: {tab: 2}}">密码问题</nuxt-link>
                 <nuxt-link tag="li" to="/">发票中心</nuxt-link>
                 <nuxt-link tag="li" to="/">举报中心</nuxt-link>
-                <nuxt-link tag="li" to="/client/center/account">信息认证</nuxt-link>
+                <nuxt-link tag="li" :to="{path: '/client/center/account', query: {tab: 4}}">信息认证</nuxt-link>
               </ul>
             </div>
             <div class="resume">

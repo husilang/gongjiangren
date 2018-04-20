@@ -303,12 +303,22 @@
 <script type="text/ecmascript-6">
   import areaPick from '~/components/areaPick/index.vue';
   export default {
+    async asyncData({query, error}) {
+      try {
+        let active = query.tab || 1;
+        return {
+          active
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
     components: {
       areaPick
     },
     data() {
       return {
-        active: 3,
+        active: 1,
         form1: {},
         rules1: {},
         form2:{},
@@ -328,6 +338,11 @@
         this.form.areaId = id;
         this.$nextTick(() => {});
       },
+    },
+    watch: {
+      $route() {
+        this.active = this.$route.query.tab;
+      }
     }
   }
 </script>
