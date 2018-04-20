@@ -258,99 +258,29 @@
           </div>
         </div>
         <div class="search-info clearfix">
-          <p class="fl">共有 <span class="font-orange">3000+</span>职位</p>
+          <p class="fl">共有 <span class="font-orange">{{list.length}}</span> 职位</p>
           <p class="fr">
             <el-select size="mini" placeholder="智能排序"></el-select>
           </p>
         </div>
-        <div class="container job-list">
+        <div class="container job-list" v-for="item in list" :key="item.id">
           <el-row>
             <el-col :span="2" class="portrait">
               <img src="../../assets/portrait.jpg" alt="">
             </el-col>
             <el-col :span="9" class="left-info">
               <p class="r1">
-                高级电焊师 | 技工
+                {{item.jobName}} | {{item.jobTypeName}}
               </p>
               <p class="r2">
-                <el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;
-                地点：上海 | 工作年限：3年以上
+                <el-tag type="danger" size="mini">{{item.salary}}</el-tag>&ensp;
+                地点：{{item.areaName}} | 工作年限：{{item.workAge}}年以上
               </p>
-              <p class="r3">工作起止时间：2018/03/22 至 2018/03/22</p>
+              <p class="r3">工作起止时间：{{item.workDate}}</p>
             </el-col>
             <el-col :span="1"><span class="line"></span></el-col>
             <el-col :span="9" class="right-info">
-              <p class="r1">上海黄埔建工集团 | 民营企业 | 500人以上</p>
-              <p class="r2">
-                <span class="orange-tag">餐贴</span>
-                <span class="green-tag">高温补贴</span>
-                <span class="blue-tag">租房补贴</span>
-              </p>
-            </el-col>
-            <el-col :span="1"><span class="line"></span></el-col>
-            <el-col :span="2" class="choose text-center">
-              <p class="btn-row">
-                <el-button type="primary" size="small">投递简历</el-button>
-              </p>
-              <p>
-                <el-button type="default" size="small">收藏职位</el-button>
-              </p>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="container job-list">
-          <el-row>
-            <el-col :span="2" class="portrait">
-              <img src="../../assets/portrait.jpg" alt="">
-            </el-col>
-            <el-col :span="9" class="left-info">
-              <p class="r1">
-                高级电焊师 | 技工
-              </p>
-              <p class="r2">
-                <el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;
-                地点：上海 | 工作年限：3年以上
-              </p>
-              <p class="r3">工作起止时间：2018/03/22 至 2018/03/22</p>
-            </el-col>
-            <el-col :span="1"><span class="line"></span></el-col>
-            <el-col :span="9" class="right-info">
-              <p class="r1">上海黄埔建工集团 | 民营企业 | 500人以上</p>
-              <p class="r2">
-                <span class="orange-tag">餐贴</span>
-                <span class="green-tag">高温补贴</span>
-                <span class="blue-tag">租房补贴</span>
-              </p>
-            </el-col>
-            <el-col :span="1"><span class="line"></span></el-col>
-            <el-col :span="2" class="choose text-center">
-              <p class="btn-row">
-                <el-button type="primary" size="small">投递简历</el-button>
-              </p>
-              <p>
-                <el-button type="default" size="small">收藏职位</el-button>
-              </p>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="container job-list">
-          <el-row>
-            <el-col :span="2" class="portrait">
-              <img src="../../assets/portrait.jpg" alt="">
-            </el-col>
-            <el-col :span="9" class="left-info">
-              <p class="r1">
-                高级电焊师 | 技工
-              </p>
-              <p class="r2">
-                <el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;
-                地点：上海 | 工作年限：3年以上
-              </p>
-              <p class="r3">工作起止时间：2018/03/22 至 2018/03/22</p>
-            </el-col>
-            <el-col :span="1"><span class="line"></span></el-col>
-            <el-col :span="9" class="right-info">
-              <p class="r1">上海黄埔建工集团 | 民营企业 | 500人以上</p>
+              <p class="r1">{{item.companyName}} | 民营企业 | 500人以上</p>
               <p class="r2">
                 <span class="orange-tag">餐贴</span>
                 <span class="green-tag">高温补贴</span>
@@ -376,11 +306,28 @@
 <script>
   import clientPageTop from '~/components/clientPageTop'
   import clientPageFooter from '~/components/clientPageFooter'
+  import {searchJob} from "../../API/client";
+
   export default {
     middleware: 'clientauth',
     components: {
       clientPageTop,
       clientPageFooter
     },
+    async asyncData({params, error}) {
+      try {
+        let {data: list} = await searchJob({pageNo: 1, pageSize: 10});
+        return {
+          list
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
+    data() {
+      return {
+        list: []
+      }
+    }
   }
 </script>

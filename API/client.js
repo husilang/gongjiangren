@@ -24,3 +24,8 @@ export async function getCompanyList(params) {
   const data = await fetch.get('/user/company/list',params);
   return data;
 }
+// 职位搜索
+export async function searchJob(params) {
+  const data = await fetch.get('/user/job/search', params);
+  return data;
+}
