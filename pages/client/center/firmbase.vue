@@ -63,39 +63,20 @@
   <div class="firm-base">
     <div class="firm-base-pane">
       <div class="firm-base-info">
-        我工作过的企业 <span class="font-orange">3</span> 个
+        我工作过的企业 <span class="font-orange">{{list.length}}</span> 个
       </div>
-      <div class="firm-info-item">
+      <div class="firm-info-item" v-for="item in list" :key="item.id">
         <el-row>
           <el-col :span="3" class="portrait">
             <img src="../../../assets/portrait.jpg" alt="">
           </el-col>
           <el-col :span="18">
             <p class="r1">
-              <strong>上海黄浦建工集团</strong>&emsp;&emsp;
-              <span>民营企业 | 500人以上</span>
+              <strong>{{item.companyName}}</strong>&emsp;&emsp;
+              <span>{{item.companyNature}} | {{item.companyScale}}</span>
             </p>
             <p class="r2">
-              正在进行的招聘 <span class="font-orange">(5)</span>
-            </p>
-          </el-col>
-          <el-col :span="2" class="text-center">
-            <a href="" class="more-icon"><i class="fa fa-angle-right"></i></a>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="firm-info-item">
-        <el-row>
-          <el-col :span="3" class="portrait">
-            <img src="../../../assets/portrait.jpg" alt="">
-          </el-col>
-          <el-col :span="18">
-            <p class="r1">
-              <strong>上海黄浦建工集团</strong>&emsp;&emsp;
-              <span>民营企业 | 500人以上</span>
-            </p>
-            <p class="r2">
-              正在进行的招聘 <span class="font-orange">(5)</span>
+              正在进行的招聘 <span class="font-orange">({{item.numOfJobRecruiting}})</span>
             </p>
           </el-col>
           <el-col :span="2" class="text-center">
@@ -107,7 +88,23 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import {getCompanyList} from '~/API/client'
   export default {
-
+    async asyncData({params, error}) {
+      try {
+        let {data: list} = await getCompanyList({pageNo: 1, pageSize: 10});
+        return {
+          list
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
+    data() {
+      return {
+        status: '',
+        list: []
+      }
+    }
   }
 </script>

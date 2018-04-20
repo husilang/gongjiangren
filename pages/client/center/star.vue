@@ -5,6 +5,14 @@
     padding-top: 10px;
     padding-left: 11px;
     padding-right: 10px;
+    .no-info{
+      text-align: center;
+      padding-top: 150px;
+      padding-bottom: 200px;
+      font-size: 18px;
+      color: #c3c3c3;
+      line-height: 38px;
+    }
     .font-orange{
       color: #fa6a43;
     }
@@ -152,7 +160,7 @@
           <el-select placeholder="全部状态" size="mini" style="width: 108px" v-model="status"></el-select>
         </p>
       </div>
-      <div class="recruit-info-item">
+      <div class="recruit-info-item" v-for="item in list" :key="item.id">
         <el-row>
           <el-col :span="3" class="portrait">
             <img src="../../../assets/portrait.jpg" alt="">
@@ -187,75 +195,9 @@
           </el-col>
         </el-row>
       </div>
-      <div class="recruit-info-item">
-        <el-row>
-          <el-col :span="3" class="portrait">
-            <img src="../../../assets/portrait.jpg" alt="">
-          </el-col>
-          <el-col :span="18">
-            <p class="r1">
-              高级电焊师 | 技工
-            </p>
-            <p class="r2">
-              <el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;&emsp;
-              <span class="font-orange">餐贴</span>&emsp;
-              <span class="font-green">高温补贴</span>&emsp;
-              <span class="font-blue">租房补贴</span>
-            </p>
-            <p class="r3">
-              上海黄埔建工集团 | 民营企业 | 500人以上 | 地点：上海
-            </p>
-            <p class="r3">
-              工作年限：3年以上 | 工作起止时间：2018/03/22 至 2021/03/22
-            </p>
-            <p class="r3">
-              发布于：23分钟前 | 反馈时间：48小时内
-            </p>
-          </el-col>
-          <el-col :span="3" class="text-center">
-            <p class="btn-row">
-              <el-button type="primary">招聘中&emsp;</el-button>
-            </p>
-            <p>
-              <el-button type="default">取消投递</el-button>
-            </p>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="recruit-info-item">
-        <el-row>
-          <el-col :span="3" class="portrait">
-            <img src="../../../assets/portrait.jpg" alt="">
-          </el-col>
-          <el-col :span="18">
-            <p class="r1">
-              高级电焊师 | 技工
-            </p>
-            <p class="r2">
-              <el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;&emsp;
-              <span class="font-orange">餐贴</span>&emsp;
-              <span class="font-green">高温补贴</span>&emsp;
-              <span class="font-blue">租房补贴</span>
-            </p>
-            <p class="r3">
-              上海黄埔建工集团 | 民营企业 | 500人以上 | 地点：上海
-            </p>
-            <p class="r3">
-              工作年限：3年以上 | 工作起止时间：2018/03/22 至 2021/03/22
-            </p>
-            <p class="r3">
-              发布于：23分钟前 | 反馈时间：48小时内
-            </p>
-          </el-col>
-          <el-col :span="3" class="text-center">
-            <p class="btn-row">
-              <el-button type="primary">招聘中&emsp;</el-button>
-            </p>
-            <p>
-              <el-button type="default">取消投递</el-button>
-            </p>
-          </el-col>
-        </el-row>
+      <div class="no-info" v-if="list">
+        <img src="../../../assets/no-info.png" alt="">
+        <p>暂无收藏职位信息</p>
       </div>
     </div>
     <div class="job-recomend-pane">
@@ -263,30 +205,15 @@
         <p class="fl">最新职位推荐</p>
         <a href="" class="fr"><i class="exchange-icon"></i>换一换</a>
       </div>
-      <div class="job-recomend-item">
+      <div class="job-recomend-item" v-for="item in recommendList" :key="item.id">
         <el-row>
           <el-col :span="3" class="portrait">
             <img src="../../../assets/portrait.jpg" alt="" class="">
           </el-col>
           <el-col :span="18">
-            <p class="r1">高级电焊师 | 技工 | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
-            <p class="r2"><el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;地点：上海 | 工作年限：3年以上</p>
-            <p class="r3">工作起止时间：2018/03/22 至 2021/03/22</p>
-          </el-col>
-          <el-col :span="2" class="text-center">
-            <a href="" class="more-icon"><i class="fa fa-angle-right"></i></a>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="job-recomend-item">
-        <el-row>
-          <el-col :span="3" class="portrait">
-            <img src="../../../assets/portrait.jpg" alt="" class="">
-          </el-col>
-          <el-col :span="18">
-            <p class="r1">高级电焊师 | 技工 | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
-            <p class="r2"><el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;地点：上海 | 工作年限：3年以上</p>
-            <p class="r3">工作起止时间：2018/03/22 至 2021/03/22</p>
+            <p class="r1">{{item.jobName}} | {{item.jobTypeName}} | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
+            <p class="r2"><el-tag type="danger" size="mini">{{item.salary}}</el-tag>&ensp;地点：{{item.areaName}} | 工作年限：{{item.workAge}}年以上</p>
+            <p class="r3">工作起止时间：{{item.workDate}}</p>
           </el-col>
           <el-col :span="2" class="text-center">
             <a href="" class="more-icon"><i class="fa fa-angle-right"></i></a>
@@ -296,3 +223,27 @@
     </div>
   </div>
 </template>
+<script type="text/ecmascript-6">
+  import {getCollectList, getRecommendList} from '~/API/client'
+  export default {
+    async asyncData({params, error}) {
+      try {
+        let {data: list} = await getCollectList({pageNo: 1, pageSize: 10});
+        let {data: recommendList} = await getRecommendList({pageNo: 1, pageSize: 10});
+        return {
+          list,
+          recommendList
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
+    data() {
+      return {
+        status: '',
+        list: [],
+        recommendList: []
+      }
+    }
+  }
+</script>

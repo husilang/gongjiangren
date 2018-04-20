@@ -152,30 +152,15 @@
         <p class="fl">最新职位推荐</p>
         <a href="" class="fr"><i class="exchange-icon"></i>换一换</a>
       </div>
-      <div class="job-recomend-item">
+      <div class="job-recomend-item" v-for="item in recommendList" :key="item.id">
         <el-row>
           <el-col :span="3" class="portrait">
             <img src="../../../assets/portrait.jpg" alt="" class="">
           </el-col>
           <el-col :span="18">
-            <p class="r1">高级电焊师 | 技工 | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
-            <p class="r2"><el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;地点：上海 | 工作年限：3年以上</p>
-            <p class="r3">工作起止时间：2018/03/22 至 2021/03/22</p>
-          </el-col>
-          <el-col :span="2" class="text-center">
-            <a href="" class="more-icon"><i class="fa fa-angle-right"></i></a>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="job-recomend-item">
-        <el-row>
-          <el-col :span="3" class="portrait">
-            <img src="../../../assets/portrait.jpg" alt="" class="">
-          </el-col>
-          <el-col :span="18">
-            <p class="r1">高级电焊师 | 技工 | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
-            <p class="r2"><el-tag type="danger" size="mini">7k-1.5w</el-tag>&ensp;地点：上海 | 工作年限：3年以上</p>
-            <p class="r3">工作起止时间：2018/03/22 至 2021/03/22</p>
+            <p class="r1">{{item.jobName}} | {{item.jobTypeName}} | 上海黄埔建工集团 | 民营企业 | 500人以上</p>
+            <p class="r2"><el-tag type="danger" size="mini">{{item.salary}}</el-tag>&ensp;地点：{{item.areaName}} | 工作年限：{{item.workAge}}年以上</p>
+            <p class="r3">工作起止时间：{{item.workDate}}</p>
           </el-col>
           <el-col :span="2" class="text-center">
             <a href="" class="more-icon"><i class="fa fa-angle-right"></i></a>
@@ -186,7 +171,22 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import {getRecommendList} from '~/API/client'
   export default {
-
+    async asyncData({params, error}) {
+      try {
+        let {data: recommendList} = await getRecommendList({pageNo: 1, pageSize: 10});
+        return {
+          recommendList
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
+    data() {
+      return {
+        recommendList: []
+      }
+    }
   }
 </script>
