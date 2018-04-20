@@ -1,4 +1,9 @@
 import {fetch} from '~/plugins/fetch'
+// 用户中心
+export async function getCenter() {
+  const data = await fetch.get('/user/center');
+  return data;
+}
 // 职位推荐
 export async function getRecommendList(params) {
   const data = await fetch.get('/user/job/recommendList',params);

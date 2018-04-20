@@ -36,7 +36,7 @@
                 </div>
               </div>
               <p class="job-info">上海 | 建筑工程 | 工作大于3年</p>
-              <p class="oth-info"><i class="hg-icon"></i>12家企业人才库成员</p>
+              <p class="oth-info"><i class="hg-icon"></i>{{info.numOfTalentPool}}家企业人才库成员</p>
             </div>
             <div class="menu clearfix">
               <ul>
@@ -100,11 +100,28 @@
 <script>
   import clientPageTop from '~/components/clientPageTop'
   import clientPageFooter from '~/components/clientPageFooter'
+  import {getCenter} from "../../API/client";
+
   export default {
+    async asyncData({params, error}) {
+      try {
+        let {data: info} = await getCenter();
+        return {
+          info
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
+    },
     middleware: 'clientauth',
     components: {
       clientPageTop,
       clientPageFooter
     },
+    data() {
+      return {
+        info: {}
+      }
+    }
   }
 </script>

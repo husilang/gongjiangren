@@ -33,27 +33,6 @@
           </el-upload>
         </div>
       </div>
-      <!--<el-form-item prop="name">
-        <el-input placeholder="输入名称" v-model="form.name">
-          <template slot="prepend">
-            <i class="icon icon5"></i>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="name">
-        <el-input placeholder="输入登录密码" v-model="form.name">
-          <template slot="prepend">
-            <i class="icon icon5"></i>
-          </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="name">
-        <el-input placeholder="再次确认密码" v-model="form.name">
-          <template slot="prepend">
-            <i class="icon icon5"></i>
-          </template>
-        </el-input>
-      </el-form-item>-->
       <el-form-item prop="name">
         <el-input placeholder="姓名" v-model="form.name">
           <template slot="prepend">
@@ -71,8 +50,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="name">
-        <el-input placeholder="联系方式" v-model="form.name">
+      <el-form-item>
+        <el-input placeholder="联系方式">
           <template slot="prepend">
             <i class="icon icon5"></i>
           </template>
@@ -149,6 +128,7 @@
       return {
         nations:[],
         btnLoading: false,
+        imageUrl: '',
         form: {
         },
         rules: {
@@ -184,7 +164,7 @@
         this.$refs.form.validate((valid) => {
           try {
             if (valid) {
-              this.$fetch.postFirm('/user/addInfo', this.form).then(res => {
+              this.$fetch.post('/user/addInfo', this.form).then(res => {
                 if (res.code == "0") {
                   if (str == 'next'){
                     this.$router.push('/client/register/step3');

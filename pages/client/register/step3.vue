@@ -3,15 +3,15 @@
     <steps :active="2" :stepsArr="stepsArr"></steps>
     <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="140px" class="form form2">
       <el-form-item label="证件类型">
-        <el-select style="display: block;width: 100%;">
+        <el-select style="display: block;width: 100%;" v-model="form.cardType">
 
         </el-select>
       </el-form-item>
-      <el-form-item prop="uscc" label="证件号">
-        <el-input placeholder="证件号" v-model="form.uscc">
+      <el-form-item prop="idcard" label="证件号">
+        <el-input placeholder="证件号" v-model="form.idcard">
         </el-input>
       </el-form-item>
-      <el-form-item prop="uscc" label="身份证照片">
+      <el-form-item prop="idcardImgs" label="身份证照片">
         <el-upload
           :action="uploadUrl"
           list-type="picture-card"
@@ -35,7 +35,7 @@
         </el-row>
       </el-form-item>
       <el-form-item label-width="0">
-        <router-link tag="button" class="el-button block-btn el-button--default" to="/firm/center">
+        <router-link tag="button" class="el-button block-btn el-button--default" to="/client/center/home">
           <span>抢先体验，跳过</span>
         </router-link>
       </el-form-item>
@@ -94,21 +94,14 @@
       return {
         btnLoading: false,
         form: {
-          licenceImg: '',
-          certImgs: '',
-          adminIdcardImgs: ''
+          idcardImgs: ''
         },
         rules: {
-          uscc: [
-            {required: true, message: '请输入企业统一信用代码', trigger: 'blur'}
-          ],
-          adminIdcard: [
+          idcard: [
             {required: true, message: '请输入身份证号', trigger: 'blur'}
-          ]
-        },
+          ],
 
-        dialogVisible: false,
-        dialogImageUrl:'',
+        },
         idDialogVisible: false,
         idDialogImageUrl: ''
       }
@@ -119,9 +112,9 @@
         this.$refs.form.validate((valid) => {
           try {
             if (valid) {
-              this.$fetch.postFirm('/companyUser/addRealNameAuth', this.form).then(res => {
+              this.$fetch.post('/user/addRealNameAuth', this.form).then(res => {
                 if (res.code == "0") {
-                  this.$router.push('/firm/register/step4');
+                  this.$router.push('/client/register/step4');
                 } else {
                   this.$message.error(res.msg);
                   this.btnLoading = false;
@@ -136,24 +129,14 @@
         });
 
       },
-      licenceSuccess(res, file) {
-        this.form.licenceImg = res.data;
-      },
-      certImgSuccess(res, file) {
-        if (this.form.certImgs === '') {
-          this.form.certImgs = res.data;
-        } else {
-          this.form.certImgs = this.form.certImgs+','+res.data;
-        }
-      },
       idCardSuccess(res, file) {
-        if (this.form.adminIdcardImgs === '') {
-          this.form.adminIdcardImgs = res.data;
+        if (this.form.idcardImgs === '') {
+          this.form.idcardImgs = res.data;
         } else {
-          this.form.adminIdcardImgs = this.form.adminIdcardImgs+','+res.data;
+          this.form.idcardImgs = this.form.idcardImgs+','+res.data;
         }
       },
-      beforeAvatarUpload(file) {
+      /*beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -164,13 +147,9 @@
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
-      },
+      },*/
       handleRemove(file, fileList) {
         console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
       },
       handleIDCardPreview(file) {
         this.idDialogImageUrl = file.url;
