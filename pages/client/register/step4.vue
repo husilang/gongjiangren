@@ -1,9 +1,9 @@
 <template>
   <div class="regBox">
     <steps :active="3" :stepsArr="stepsArr"></steps>
-    <div class="form">
+    <div class="form" style="width: 724px;">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
+        <div slot="header" class="clearfix header">
           <p class="fl">
             <strong>高级电焊技师</strong>
             <span>6年工作经验</span>
@@ -13,21 +13,36 @@
           <el-button type="text" style="float: right">编辑专业信息</el-button>
         </div>
         <div class="box-content">
-          <div class="item">
+          <div class="item clearfix">
             <span>从业证书</span>
             <div class="img">
-              <img src="" alt="">
+              <img src="../../../assets/portrait.jpg" alt="">
             </div>
             <div class="img">
-              <img src="" alt="">
+              <img src="../../../assets/portrait.jpg" alt="">
             </div>
             <div class="img">
-              <img src="" alt="">
+              <img src="../../../assets/portrait.jpg" alt="">
+            </div>
+          </div>
+          <div class="item clearfix">
+            <span>荣誉证书</span>
+            <div class="img">
+              <img src="../../../assets/portrait.jpg" alt="">
+            </div>
+            <div class="img">
+              <img src="../../../assets/portrait.jpg" alt="">
+            </div>
+            <div class="img">
+              <img src="../../../assets/portrait.jpg" alt="">
             </div>
           </div>
         </div>
       </el-card>
-      <el-button style="display: block;width: 100%;">添加专业信息</el-button>
+      <nuxt-link tag="button" class="el-button el-button--primary is-plain" style="display: block;width: 100%;margin-top: 32px;" to="/client/register/add-major">
+        <i class="el-icon-plus"></i>
+        <span>添加专业信息</span>
+      </nuxt-link>
     </div>
     <div class="btn-mt" style="width: 524px;margin: 0 auto;margin-top: 20px;margin-bottom: 10px;">
       <el-row :gutter="16">
@@ -46,13 +61,49 @@
     </div>
   </div>
 </template>
-<style>
-
+<style lang="less" scoped>
+  .box-card .header{
+    line-height: 40px;
+    strong{
+      margin-right: 42px;
+      font-size: 16px;
+    }
+    span{
+      font-size: 16px;
+      color: #777d8e;
+      margin-right: 14px;
+    }
+  }
+  .box-content {
+    .item{
+      margin-bottom: 24px;
+    }
+    span{
+      float: left;
+      font-size: 16px;
+      color: #000000;
+      width: 140px;
+      display: block;
+      line-height: 76px;
+    }
+    .img{
+      width: 106px;
+      height: 76px;
+      float: left;
+      border: 1px solid #ececec;
+      border-radius: 2px;
+      overflow: hidden;
+      text-align: center;
+      margin-right: 12px;
+      img{
+        width: 100%;
+      }
+    }
+  }
 </style>
 <style lang="less">
   @import "register.less";
   .regBox .form {
-    width: 724px;
     margin: 0 auto;
     margin-top: 38px;
   }
