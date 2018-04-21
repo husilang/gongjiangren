@@ -2,7 +2,6 @@
   <div class="regBox">
     <steps :active="3" :stepsArr="stepsArr"></steps>
     <div class="form" style="width: 724px;">
-      {{info}}
       <el-card class="box-card">
         <div slot="header" class="clearfix header">
           <p class="fl">

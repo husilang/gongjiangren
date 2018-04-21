@@ -9,7 +9,17 @@
         <div class="fl">
           <ul>
             <nuxt-link tag="li" to="/client/center/home" class="cur">个人中心</nuxt-link>
-            <nuxt-link tag="li" to="/client/job-search">职位搜索</nuxt-link>
+            <li @mouseover="navShow = true" @mouseleave="navShow = false">
+              职位搜索
+              <div class="nav2" v-show="navShow">
+                <ul>
+                  <nuxt-link tag="li" to="/client/job-search">职位搜索</nuxt-link>
+                  <nuxt-link tag="li" to="/client/center/mailling">我投递的职位</nuxt-link>
+                  <nuxt-link tag="li" to="/client/center/star">我收藏的职位</nuxt-link>
+                  <nuxt-link tag="li" to="/client/center/offer">我收到的招聘邀请</nuxt-link>
+                </ul>
+              </div>
+            </li>
             <nuxt-link tag="li" to="/client/center/firmbase">企业库</nuxt-link>
           </ul>
         </div>
@@ -120,7 +130,13 @@
     },
     data() {
       return {
-        info: {}
+        info: {},
+        navShow: false,
+      }
+    },
+    methods: {
+      mouseenter(){
+        this.navShow = true;
       }
     }
   }
