@@ -201,7 +201,7 @@
           <div class="find-condition">
             <el-row class="clearfix">
               <b>工种：</b>
-              <span v-for="item in jobTypeList">{{item.name}}</span>
+              <span v-for="item in jobTypes">{{item.name}}</span>
               <el-button class="fr" plain type="primary" size="mini">更多...</el-button>
             </el-row>
             <el-row class="clearfix">
@@ -213,13 +213,6 @@
               <span>广州</span>
               <el-button class="fr" plain type="primary" size="mini">更多...</el-button>
             </el-row>
-            <!--<el-row class="clearfix">
-              <b>证书：</b>
-              <span>职业技能等级证书</span>
-              <span>岗位证书</span>
-              <span>毕业证书</span>
-              <el-button class="fr" plain type="primary" size="mini">更多...</el-button>
-            </el-row>-->
             <el-row class="clearfix">
               <b>项目类型：</b>
               <span>公路</span>
@@ -243,24 +236,28 @@
             </el-row>
             <el-row class="clearfix">
               <b style="width: 134px;">工作最早起始时间：</b>
-              <el-input size="mini" style="width: 128px"></el-input>
-              &ensp;-&ensp;
-              <el-input size="mini" style="width: 128px"></el-input>
+              <el-date-picker type="daterange" size="mini"></el-date-picker>
             </el-row>
             <el-row class="clearfix">
               <b>其他：</b>
-              <el-select size="mini"  style="width: 154px" placeholder="工作年限(不限)"></el-select>&ensp;
-              <el-select size="mini"  style="width: 154px" placeholder="年龄(不限)"></el-select>&ensp;
-              <el-select size="mini"  style="width: 154px" placeholder="性别(不限)"></el-select>&ensp;
-              <el-select size="mini"  style="width: 154px" placeholder="更新时间(不限)"></el-select>&ensp;
-              <el-select size="mini"  style="width: 154px" placeholder="求职状态(不限)"></el-select>
+              <el-select size="mini"  style="width: 154px" placeholder="企业性质(不限)" v-model="form.companyNature" @change="getList">
+                <el-option v-for="item in companyNatures" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              </el-select>&ensp;
+              <el-select size="mini"  style="width: 154px" placeholder="工作时长(不限)" v-model="form.workAge">
+                <el-option v-for="item in companyNatures" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              </el-select>&ensp;
+              <el-select size="mini"  style="width: 154px" placeholder="发布时间(不限)" v-model="form.publishDate" @change="getList">
+                <el-option v-for="item in jobPeriods" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              </el-select>
             </el-row>
           </div>
         </div>
         <div class="search-info clearfix">
-          <p class="fl">共有 <span class="font-orange">{{list.length}}</span> 职位</p>
+          <p class="fl">共有 <span class="font-orange">{{list?list.length:0}}</span> 职位</p>
           <p class="fr">
-            <el-select size="mini" placeholder="智能排序"></el-select>
+            <el-select size="mini" placeholder="智能排序" v-model="form.sortBy" @change="getList">
+              <el-option v-for="item in sortTypes" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
           </p>
         </div>
         <div class="container job-list" v-for="item in list" :key="item.id">
@@ -307,6 +304,7 @@
   import clientPageTop from '~/components/clientPageTop'
   import clientPageFooter from '~/components/clientPageFooter'
   import {searchJob, deliverJob} from "../../API/client";
+  import {getGlobalDict, getJobType} from "../../API/dict";
 
   export default {
     middleware: 'clientauth',
@@ -317,7 +315,15 @@
     async asyncData({params, error}) {
       try {
         let {data: list} = await searchJob({pageNo: 1, pageSize: 10});
+        let {data: jobTypes} = await getJobType({pageNo: 1, pageSize: 10});
+        let {data: companyNatures} = await getGlobalDict('company_nature');
+        let {data: jobPeriods} = await getGlobalDict('job_period');
+        let {data: sortTypes} = await getGlobalDict('recruit_record_sort_by');
         return {
+          jobTypes,
+          companyNatures,
+          jobPeriods,
+          sortTypes,
           list
         }
       } catch (error) {
@@ -326,10 +332,22 @@
     },
     data() {
       return {
-        list: []
+        jobTypes: [],
+        companyNatures: [],
+        jobPeriods: [],
+        sortTypes: [],
+        list: [],
+        form: {
+          pageNo: 1,
+          pageSize: 10
+        }
       }
     },
     methods: {
+      async getList() {
+        let res = await searchJob(this.form);
+        this.list = res.data;
+      },
       // 投递简历
       deliver(jobId){
         this.$fetch.post('/user/job/'+jobId+'/deliver').then(res => {
