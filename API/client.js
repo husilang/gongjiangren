@@ -29,3 +29,13 @@ export async function searchJob(params) {
   const data = await fetch.get('/user/job/search', params);
   return data;
 }
+// 专业信息查看
+export async function getMajorInfo() {
+  const data = await fetch.get('/userSkill/view');
+  return data;
+}
+// 业绩查看
+export async function getAchieve(params) {
+  const data = await fetch.get('/userWorkexperience/list', params);
+  return data;
+}

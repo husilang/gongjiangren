@@ -2,7 +2,7 @@
   <div class="regBox">
     <steps :active="4" :stepsArr="stepsArr"></steps>
     <div class="form" style="width: 724px;">
-      <el-card class="box-card">
+      <el-card class="box-card" v-for="item in list" :key="item.id">
         <div slot="header" class="clearfix header">
           <div class="fl">
             <strong class="jobName">高级电焊技师</strong>
@@ -100,7 +100,8 @@
 <script type="text/ecmascript-6">
   import Steps from '~/components/steps/step.vue';
   import stepMixins from './step.mixin.js';
-  import consts from '~/utils/consts';
+  import {getAchieve} from "../../../API/client";
+
   export default {
     middleware: 'clientauth',
     mixins: [stepMixins],
@@ -108,32 +109,20 @@
     components: {
       Steps
     },
-    computed: {
-      uploadUrl() {
-        return consts.API_URL+'/common/file/upload'
+    async asyncData({params, error}) {
+      try {
+        let {data: list} = await getAchieve({pageNo: 1, pageSize: 10});
+        return {
+          list
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
       }
     },
     data() {
       return {
         btnLoading: false,
-        form: {
-          licenceImg: '',
-          certImgs: '',
-          adminIdcardImgs: ''
-        },
-        rules: {
-          uscc: [
-            {required: true, message: '请输入企业统一信用代码', trigger: 'blur'}
-          ],
-          adminIdcard: [
-            {required: true, message: '请输入身份证号', trigger: 'blur'}
-          ]
-        },
-
-        dialogVisible: false,
-        dialogImageUrl:'',
-        idDialogVisible: false,
-        idDialogImageUrl: ''
+        list: [],
       }
     },
     methods: {
@@ -157,47 +146,6 @@
             this.btnLoading = false;
           }
         });
-
-      },
-      licenceSuccess(res, file) {
-        this.form.licenceImg = res.data;
-      },
-      certImgSuccess(res, file) {
-        if (this.form.certImgs === '') {
-          this.form.certImgs = res.data;
-        } else {
-          this.form.certImgs = this.form.certImgs+','+res.data;
-        }
-      },
-      idCardSuccess(res, file) {
-        if (this.form.adminIdcardImgs === '') {
-          this.form.adminIdcardImgs = res.data;
-        } else {
-          this.form.adminIdcardImgs = this.form.adminIdcardImgs+','+res.data;
-        }
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-      handleIDCardPreview(file) {
-        this.idDialogImageUrl = file.url;
-        this.idDialogVisible = true;
       }
     }
   }

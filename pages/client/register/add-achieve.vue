@@ -3,73 +3,65 @@
     <div class="title">
       添加业绩
     </div>
-    <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="140px" class="form form2">
+    <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="140px" class="box">
+      <el-form-item label="公司名称">
+        <el-row>
+          <el-col :span="8">
+            <el-input v-model="form.companyName"></el-input>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <el-form-item prop="workAge" label="工作年限">
+        <el-row>
+          <el-col :span="8">
+            <el-input placeholder="工作年限" v-model="form.workAge">
+              <template slot="append">年及以上</template>
+            </el-input>
+          </el-col>
+        </el-row>
+      </el-form-item>
       <el-form-item label="工种">
-        <el-select style="display: block;width: 100%;" v-model="form.cardType">
-
-        </el-select>
+        <el-row>
+          <el-col :span="8">
+            <el-select style="display: block;width: 100%;" v-model="form.jobTypeId">
+              <el-option v-for="item in jobTypes" :key="item.id" :label="item.name" :value="item.id">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
       </el-form-item>
-      <el-form-item prop="idcard" label="工作年限">
-        <el-input placeholder="证件号" v-model="form.idcard">
+      <el-row :gutter="30">
+        <el-col :span="11">
+          <el-form-item label="工作地点">
+            <el-input v-model="form.areaName"  @click.native="showAreaPick"></el-input>
+            <area-pick ref="areaPick" @areaChecked="areaChecked" toLevel="2"></area-pick>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item label="下属人数">
+            <el-input v-model="form.subordinateAmount"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="任职时间">
+        <el-row>
+          <el-col :span="8">
+            <el-date-picker type="daterange" v-model="dateRange"></el-date-picker>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <el-form-item label="项目业界">
+        <el-input type="textarea" v-model="form.workDescription">
         </el-input>
-      </el-form-item>
-      <el-form-item label="熟练程度">
-        <el-select style="display: block;width: 100%;" v-model="form.cardType">
-
-        </el-select>
-      </el-form-item>
-      <el-form-item label="是否有证书">
-        <el-select style="display: block;width: 100%;" v-model="form.cardType">
-
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="idcardImgs" label="从业证书">
-        <el-upload
-          :action="uploadUrl"
-          list-type="picture-card"
-          :on-success="idCardSuccess"
-          :on-preview="handleIDCardPreview"
-          :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="idDialogVisible">
-          <img width="100%" :src="idDialogImageUrl" alt="">
-        </el-dialog>
-      </el-form-item>
-      <el-form-item prop="idcardImgs" label="荣誉证书">
-        <el-upload
-          :action="uploadUrl"
-          list-type="picture-card"
-          :on-success="idCardSuccess"
-          :on-preview="handleIDCardPreview"
-          :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="idDialogVisible">
-          <img width="100%" :src="idDialogImageUrl" alt="">
-        </el-dialog>
-      </el-form-item>
-      <el-form-item prop="idcardImgs" label="职业资格证">
-        <el-upload
-          :action="uploadUrl"
-          list-type="picture-card"
-          :on-success="idCardSuccess"
-          :on-preview="handleIDCardPreview"
-          :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="idDialogVisible">
-          <img width="100%" :src="idDialogImageUrl" alt="">
-        </el-dialog>
       </el-form-item>
       <el-form-item class="btn-mt" label-width="0">
         <el-row :gutter="16">
-          <el-col :span="12">
-            <nuxt-link class="el-button block-btn el-button--default" to="/client/register/step4">
+          <el-col :span="8" :offset="4">
+            <nuxt-link class="el-button block-btn el-button--default" to="/client/register/step5">
               <span>取消</span>
             </nuxt-link>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-button class="block-btn" :loading="btnLoading" type="primary" @click.native="submitRegist">保存</el-button>
           </el-col>
         </el-row>
@@ -77,37 +69,11 @@
     </el-form>
   </div>
 </template>
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-  .el-input-group__append, .el-input-group__prepend {
-    padding: 0 12px;
-    background-color: #fff;
-  }
-</style>
 <style lang="less">
   @import "register.less";
+  .box{
+    margin-top: 30px;
+  }
   .title{
     font-size: 20px;
     text-align: center;
@@ -126,12 +92,29 @@
   import Steps from '~/components/steps/step.vue';
   import stepMixins from './step.mixin.js';
   import consts from '~/utils/consts';
+  import {getGlobalDict, getJobType} from "../../../API/dict";
+  import areaPick from '~/components/areaPick/index.vue';
   export default {
     middleware: 'clientauth',
     mixins: [stepMixins],
     layout: 'clientregister',
     components: {
-      Steps
+      Steps,
+      areaPick
+    },
+    async asyncData({params, error}){
+      try {
+        let {data: jobTypes} = await getJobType({pageNo: 1, pageSize: 10});
+        let {data: skillLevels} = await getGlobalDict('skill_level');
+        let {data: yesOrNo} = await getGlobalDict('yes_no');
+        return {
+          jobTypes,
+          skillLevels,
+          yesOrNo
+        }
+      } catch (error) {
+        error({statusCode: 404, message: 'Post not found'})
+      }
     },
     computed: {
       uploadUrl() {
@@ -140,29 +123,42 @@
     },
     data() {
       return {
+        dateRange: [],
+        jobTypes: [],
+        skillLevels: [],
+        yesOrNo: [],
         btnLoading: false,
         form: {
-          idcardImgs: ''
+
         },
         rules: {
           idcard: [
             {required: true, message: '请输入身份证号', trigger: 'blur'}
           ],
-
         },
         idDialogVisible: false,
         idDialogImageUrl: ''
       }
     },
     methods: {
+      showAreaPick() {
+        this.$refs.areaPick.open();
+      },
+      areaChecked({id,name}) {
+        this.form.areaName = name;
+        this.form.areaId = id;
+        this.$nextTick(() => {});
+      },
       submitRegist() {
         this.btnLoading = true;
         this.$refs.form.validate((valid) => {
           try {
             if (valid) {
-              this.$fetch.post('/user/addRealNameAuth', this.form).then(res => {
+              this.form.beginDate = this.dateRange?this.dateRange[0]:'';
+              this.form.endDate = this.dateRange?this.dateRange[1]:'';
+              this.$fetch.post('/userWorkexperience/', this.form).then(res => {
                 if (res.code == "0") {
-                  this.$router.push('/client/register/step4');
+                  this.$router.push('/client/register/step5');
                 } else {
                   this.$message.error(res.msg);
                   this.btnLoading = false;
@@ -176,32 +172,6 @@
           }
         });
 
-      },
-      idCardSuccess(res, file) {
-        if (this.form.idcardImgs === '') {
-          this.form.idcardImgs = res.data;
-        } else {
-          this.form.idcardImgs = this.form.idcardImgs+','+res.data;
-        }
-      },
-      /*beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },*/
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handleIDCardPreview(file) {
-        this.idDialogImageUrl = file.url;
-        this.idDialogVisible = true;
       }
     }
   }
